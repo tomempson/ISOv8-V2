@@ -1,0 +1,96 @@
+#showcase {
+  padding: 50px 25px;
+}
+
+.showcase-heading {
+  font-size: 40px;
+  font-weight: 700;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  color: rgb(7, 35, 44);
+}
+
+.showcase-grid {
+  display: grid;
+
+  place-items: center;
+
+  grid-template-columns: 1fr 1fr;
+
+  row-gap: 50px;
+}
+
+.showcase-container {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: end;
+  align-items: end;
+
+  width: 45vw;
+  height: calc((0.5) * 45vw);
+
+  clip-path: url(#customClip);
+
+  background-position: center;
+  background-size: 100%;
+
+  transition: background-size 0.5s;
+}
+
+.showcase-container:hover {
+  background-size: 105%;
+
+  cursor: pointer;
+}
+
+.showcase-subheading {
+  font-size: 32px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  color: white;
+
+  margin: 0 12% 10px 0;
+}
+
+.workshops {
+  background-image: url(/images/workshop.png);
+}
+
+.offices {
+  background-image: url(/images/office.png);
+}
+
+.canteens {
+  background-image: url(/images/canteen.png);
+}
+
+.bars {
+  background-image: url(/images/bar.png);
+}
+
+.retail-popup-shops {
+  background-image: url(/images/garden-room.png);
+}
+
+.garden-rooms {
+  background-image: url(/images/garden-room.png);
+}
+
+/* Media Queries */
+
+@media (max-width: 850px) {
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-container {
+    width: 85vw;
+    height: calc((0.5) * 85vw);
+  }
+}

@@ -1,0 +1,16 @@
+:root {
+  --header-height: 0px;
+}
+
+* {
+  font-family: barlow-semi-condensed, sans-serif;
+}
+
+body {
+  /* DELETE FOR PRODUCTION */
+  height: 2000px;
+
+  margin: 0;
+
+  overflow-x: hidden;
+}
