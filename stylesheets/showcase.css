@@ -59,27 +59,27 @@
 }
 
 .workshops {
-  background-image: url(/images/workshop.png);
+  background-image: url(images/workshop.png);
 }
 
 .offices {
-  background-image: url(/images/office.png);
+  background-image: url(images/office.png);
 }
 
 .canteens {
-  background-image: url(/images/canteen.png);
+  background-image: url(images/canteen.png);
 }
 
 .bars {
-  background-image: url(/images/bar.png);
+  background-image: url(images/bar.png);
 }
 
 .retail-popup-shops {
-  background-image: url(/images/garden-room.png);
+  background-image: url(images/garden-room.png);
 }
 
 .garden-rooms {
-  background-image: url(/images/garden-room.png);
+  background-image: url(images/garden-room.png);
 }
 
 /* Media Queries */
