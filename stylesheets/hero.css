@@ -1,3 +1,7 @@
+#hero {
+  height: 100vh;
+}
+
 .hero-flexbox {
   display: flex;
 
@@ -14,11 +18,11 @@
   left: 0;
   right: 0;
 
-  padding: 0 5% 100px 5%;
+  padding: 0 5% 5% 5%;
 }
 
 .hero-heading {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 800;
 
   letter-spacing: 1px;
@@ -60,4 +64,12 @@
 
   object-fit: cover;
   object-position: center;
+}
+
+/* Media Queries */
+
+@media (max-width: 1085px) {
+  .hero-flexbox {
+    padding: 0 5% 50px 5%;
+  }
 }

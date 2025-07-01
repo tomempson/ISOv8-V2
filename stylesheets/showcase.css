@@ -1,15 +1,19 @@
 #showcase {
+  background-color: rgb(18, 18, 86);
+
   padding: 50px 25px;
 }
 
 .showcase-heading {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
 
   text-align: center;
   text-transform: uppercase;
 
-  color: rgb(7, 35, 44);
+  color: white;
+
+  margin: 0 0 50px 0;
 }
 
 .showcase-grid {

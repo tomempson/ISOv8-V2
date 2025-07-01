@@ -97,11 +97,19 @@ header {
 
 .header-cta {
   font-weight: 700;
+
+  color: white;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border: 3px solid white;
+
+  padding: 10px 45px;
 }
 
 /* Media Queries */
 
-@media (max-width: 975px) {
+@media (max-width: 1085px) {
   .header-flexbox {
     display: none;
   }
