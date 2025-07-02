@@ -37,8 +37,12 @@ header {
   justify-content: space-between;
   align-items: center;
 
-  width: 50px;
+  width: 65px;
   height: 50px;
+}
+
+.hamburger-menu:hover {
+  cursor: pointer;
 }
 
 .hamburger-menu div {
@@ -105,6 +109,14 @@ header {
   border: 3px solid white;
 
   padding: 10px 45px;
+
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.header-cta:hover {
+  color: rgb(28, 28, 28);
+
+  background-color: white;
 }
 
 /* Media Queries */

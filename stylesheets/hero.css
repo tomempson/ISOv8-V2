@@ -10,7 +10,7 @@
   justify-content: end;
   align-items: center;
 
-  row-gap: 50px;
+  row-gap: 5%;
 
   position: absolute;
   top: var(--header-height);
@@ -69,6 +69,12 @@
 /* Media Queries */
 
 @media (max-width: 1085px) {
+  .hero-flexbox {
+    padding: 0 5% 5% 5%;
+  }
+}
+
+@media (max-width: 1024px) {
   .hero-flexbox {
     padding: 0 5% 50px 5%;
   }

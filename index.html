@@ -11,13 +11,65 @@
 
     <link rel="stylesheet" href="stylesheets/general.css">
     <link rel="stylesheet" href="stylesheets/header.css">
+    <link rel="stylesheet" href="stylesheets/sidebar.css">
     <link rel="stylesheet" href="stylesheets/hero.css">
     <link rel="stylesheet" href="stylesheets/showcase.css">
   </head>
   <body>
     <header>
+      <section id="sidebar">
+        <div class="sidebar-flexbox">
+          <img class="sidebar-logo" src="graphics/isov8-logo.svg" alt="ISOv8 logo">
+
+          <button class="sidebar-close-button">
+            <div class="sidebar-close"></div>
+          </button>
+        </div>
+
+        <nav>
+          <ul>
+            <li>
+              <a href="#">About Us</a>
+            </li>
+            <li>
+              <a href="#">General Information ></a>
+            </li>
+            <li>
+              <a href="#">How-To ></a>
+            </li>
+            <li>
+              <a href="#">Understanding ></a>
+            </li>
+            <li>
+              <a href="#">Container Conversion Examples ></a>
+            </li>
+            <li>
+              <a href="#">Case Studies & Customer Stories ></a>
+            </li>
+            <li>
+              <a href="#">Planning & Design ></a>
+            </li>
+            <li>
+              <a href="#">Regulations & Complience ></a>
+            </li>
+            <li>
+              <a href="#">Finance & Ownership ></a>
+            </li>
+            <li>
+              <a href="#">Maintenance & Lifespan ></a>
+            </li>
+            <li>
+              <a href="#">FAQ & Troubleshooting</a>
+            </li>
+            <li>
+              <a href="#">News & Innovations</a>
+            </li>
+          </ul>
+        </nav>
+      </section>
+
       <div class="header-flexbox-responsive">
-        <img class="header-logo" src="graphics/logo-mark.svg" alt="ISOv8 logo mark">
+        <img class="header-logo" src="graphics/isov8-logo-mark.svg" alt="ISOv8 logo mark">
 
         <div class="header-cta-flexbox-responsive">
           <a class="header-links header-cta" href="#">Engage</a>
@@ -32,7 +84,7 @@
 
       <div class="header-flexbox">
         <div class="header-links-flexbox">
-          <img class="header-logo" src="graphics/logo-mark.svg" alt="ISOv8 logo mark">
+          <img class="header-logo" src="graphics/isov8-logo-mark.svg" alt="ISOv8 logo mark">
 
           <nav>
             <ul class="header-navigation">
@@ -71,39 +123,122 @@
       </section>
       <section id="showcase">
 
-        <!-- For Clipping Mask -->
+        <div class="showcase-heading-flexbox-container">
+          <div class="showcase-heading-flexbox">
+            <img class="showcase-heading-logo" src="/graphics/isov8-logo.svg" alt="ISOv8 logo">
 
-        <svg width="0" height="0" style="position:absolute;">
-          <clipPath id="customClip" clipPathUnits="objectBoundingBox">
-            <path d="M0.896,1 L1,0.09 C1,0,0.936,0,0.936,0 H0.5 H0.1 L0,0.865 C-0.008,0.929,0.044,1,0.044,1" />
-          </clipPath>
-        </svg>
+            <p>by</p>
 
-        <h2 class="showcase-heading">ISOv8&reg; by ContainerKing&reg; - The UK's No. 1 Shipping Container Conversion Specialists</h2>
+            <img class="showcase-heading-logo" src="/graphics/containerking-logo.svg" alt="ContainerKing logo">
+          </div>
+
+          <h2 class="showcase-heading">The UK's No. 1 Shipping Container Conversion Specialists</h2>
+        </div>
 
         <div class="showcase-grid">
-          <div class="showcase-container workshops">
-            <h3 class="showcase-subheading">Workshops</h3>
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Workshops</h3>
+            </div>
+
+            <img class="showcase-image" src="/images/workshop.png">
           </div>
-          <div class="showcase-container offices">
-            <h3 class="showcase-subheading">Offices</h3>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Offices</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/office.png">
           </div>
-          <div class="showcase-container canteens">
-            <h3 class="showcase-subheading">Canteens</h3>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Canteens</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/canteen.png">
           </div>
-          <div class="showcase-container bars">
-            <h3 class="showcase-subheading">Bars</h3>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Bars</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/bar.png">
           </div>
-          <div class="showcase-container retail-popup-shops">
-            <h3 class="showcase-subheading">Retail Popup Shops</h3>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Retail Popup Shops</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/placeholder.png">
           </div>
-          <div class="showcase-container garden-rooms">
-            <h3 class="showcase-subheading">Garden Rooms</h3>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Garden Rooms</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/placeholder.png">
+          </div>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Homes</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/home.png">
+          </div>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Modular Offices</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/modular-office.png">
+          </div>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Pools</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/pool.png">
+          </div>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Gyms</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/gym.png">
+          </div>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Toliet Facilities</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/toliet-facilities.png">
+          </div>
+
+          <div class="showcase-image-container">
+            <div class="showcase-image-flexbox">
+              <h3 class="showcase-subheading">Micro Brewaries</h3>
+            </div>
+            
+            <img class="showcase-image" src="/images/micro-brewary.png">
           </div>
         </div>
       </section>
     </main>
+    <footer>
+    </footer>
 
     <script src="scripts/get-header-height.js"></script>
+    <script src="scripts/toggle-sidebar.js"></script>
+    <script src="scripts/responsive-sidebar-logo.js"></script>
   </body>
 </html>

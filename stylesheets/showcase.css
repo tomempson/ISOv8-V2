@@ -1,11 +1,56 @@
 #showcase {
-  background-color: rgb(18, 18, 86);
+  background-image: url(/images/showcase-background-v2.png);
+
+  box-sizing: border-box;
+  width: 100dvw;
+  height: 100%;
 
   padding: 50px 25px;
 }
 
+.showcase-heading-flexbox-container {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+.showcase-heading-flexbox {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+  
+  box-sizing: border-box;
+  max-width: 1050px;
+  width: 100%;
+
+  margin-bottom: 50px;
+  padding: 0 25px;
+}
+
+.showcase-heading-flexbox p {
+  font-size: 50px;
+  font-weight: 700;
+
+  color: white;
+
+  margin: 0 0 10px 0;
+}
+
+.showcase-heading-logo {
+  width: 40%;
+  max-width: 400px;
+}
+
 .showcase-heading {
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 700;
 
   text-align: center;
@@ -23,32 +68,32 @@
 
   grid-template-columns: 1fr 1fr;
 
-  row-gap: 50px;
+  gap: 50px;
 }
 
-.showcase-container {
+.showcase-image-container {
+  position: relative;
+
+  width: 95%;
+}
+
+.showcase-image-flexbox {
   display: flex;
 
   flex-direction: column;
 
-  justify-content: end;
-  align-items: end;
+  justify-content: flex-end;
+  align-items: flex-end;
 
-  width: 45vw;
-  height: calc((0.5) * 45vw);
-
-  clip-path: url(#customClip);
-
-  background-position: center;
-  background-size: 100%;
-
-  transition: background-size 0.5s;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.showcase-container:hover {
-  background-size: 105%;
-
-  cursor: pointer;
+.showcase-image {
+  width: 100%;
 }
 
 .showcase-subheading {
@@ -62,30 +107,6 @@
   margin: 0 12% 10px 0;
 }
 
-.workshops {
-  background-image: url(https://tomempson.github.io/ISOv8-V2/images/workshop.png);
-}
-
-.offices {
-  background-image: url(https://tomempson.github.io/ISOv8-V2/images/office.png);
-}
-
-.canteens {
-  background-image: url(https://tomempson.github.io/ISOv8-V2/images/canteen.png);
-}
-
-.bars {
-  background-image: url(https://tomempson.github.io/ISOv8-V2/images/bar.png);
-}
-
-.retail-popup-shops {
-  background-image: url(https://tomempson.github.io/ISOv8-V2/images/garden-room.png);
-}
-
-.garden-rooms {
-  background-image: url(https://tomempson.github.io/ISOv8-V2/images/garden-room.png);
-}
-
 /* Media Queries */
 
 @media (max-width: 850px) {
@@ -96,5 +117,16 @@
   .showcase-container {
     width: 85vw;
     height: calc((0.5) * 85vw);
+  }
+}
+
+@media (max-width: 650px) {
+  .showcase-heading-flexbox {
+    flex-direction: column;
+  }
+
+  .showcase-heading-logo {
+    min-width: 300px;
+    width: 80%;
   }
 }

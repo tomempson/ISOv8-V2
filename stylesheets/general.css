@@ -7,9 +7,6 @@
 }
 
 body {
-  /* DELETE FOR PRODUCTION */
-  height: 2000px;
-
   margin: 0;
 
   overflow-x: hidden;
