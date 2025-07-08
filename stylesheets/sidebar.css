@@ -5,7 +5,7 @@
 
   box-sizing: border-box;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
 
   position: fixed;
   top: 0;
@@ -13,13 +13,15 @@
   right: 0;
   left: 0;
 
-  background-color: rgb(25, 25, 112);
+  background-color: ghostwhite;
 
-  padding: 25px 40px;
+  padding: 4% 8%;
 
   opacity: 0;
 
   z-index: 1;
+
+  overflow-y: auto;
 
   transition: opacity 0.3s ease;
 }
@@ -39,28 +41,80 @@
   align-items: center;
 
   height: 65px;
-
-  margin-bottom: 50px;
 }
 
 .sidebar-logo {
   height: 100%;
 }
 
-#sidebar nav {
+.navigation-all {
   display: flex;
 
   flex-direction: column;
+
+  position: absolute;
+  top: var(--header-height);
+  bottom: 0;
+  left: 8%;
+  right: 8%;
+
+  transform: translateX(0); /* Ensure starting transform is defined */
+  transition: transform 0.5s ease-in-out;
 }
 
-#sidebar nav a {
-  font-size: 35px;
-  font-weight: 700;
+.sidebar-back-link {
+  display: inline-block;
 
-  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: 600;
+
+  text-decoration: underline;
+
+  color: rgb(8, 140, 188);
+}
+
+/* Sub Catagory Navigation Menus */
+
+.navigation-sub-catagory {
+  display: none;
+
+  flex-direction: column;
+
+  width: 80vw;
+
+  position: absolute;
+  top: var(--header-height);
+
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.sidebar-catagory-flexbox {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-catagory-icon {
+  justify-self: flex-end;
+}
+
+.sidebar-navigation-links {
+  font-size: 25px;
+  font-weight: 600;
+
   text-decoration: none;
 
-  color: white;
+  color: black;
+}
+
+.sidebar-navigation-links:hover {
+  text-decoration: underline;
+
+  color: rgb(8, 140, 188);
 }
 
 #sidebar ul {
@@ -71,7 +125,7 @@
 }
 
 #sidebar ul li {
-  margin: 10px 0 10px 0;
+  margin: 15px 0 15px 0;
 }
 
 .sidebar-close-button {
@@ -108,7 +162,7 @@
   width: 100%;
   height: 5px;
 
-  background-color: white;
+  background-color: rgb(8, 140, 188);
 
   transform-origin: center;
 }
@@ -120,6 +174,8 @@
 .sidebar-close::after {
   transform: rotate(-45deg);
 }
+
+/* Media Queries */
 
 @media (max-width: 550px) {
   .sidebar-logo {

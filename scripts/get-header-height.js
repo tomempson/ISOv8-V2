@@ -1,2 +1,2 @@
-const h = document.querySelector('header').offsetHeight;
-document.documentElement.style.setProperty('--header-height', `${h}px`);
+const headerHeight = document.querySelector('header').offsetHeight;
+document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);

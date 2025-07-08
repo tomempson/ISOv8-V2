@@ -45,13 +45,125 @@
   column-gap: 10px;
 }
 
+/* 
+
+Original CTA Button
+
 .hero-cta {
-  font-size: 25px;
-  font-weight: 500;
-  
+  font-size: 24px;
+  font-weight: 700;
+
+  text-transform: uppercase;
   text-decoration: none;
 
   color: white;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border: 3px solid white;
+
+  padding: 10px 45px;
+
+  transition: color 0.3s, background-color 0.3s;
+}
+
+*/
+
+.hero-cta-circle-outer {
+  width: 100px;
+  height: 100px;
+
+  position: relative;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border: 3px solid white;
+
+  border-radius: 50%;
+}
+
+.hero-cta-circle-inner {
+  width: 90px;
+  height: 90px;
+
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+
+  background-color: white;
+
+  border-radius: 50%;
+
+  transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, bottom 0.3s ease, left 0.3s ease, right 0.3s ease;
+}
+
+.hero-cta-circle-flexbox {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 90%;
+  height: 90%;
+
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+
+  padding: 30% 0 30% 0;
+}
+
+.line {
+  width: 75%;
+  height: 2px;
+
+  background-color: rgb(233, 0, 0);
+
+  border-radius: 25px;
+}
+
+.hero-cta-circle-flexbox p {
+  font-size: 18px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  margin: 0;
+
+  transition: color 0.3s ease;
+}
+
+.hero-cta-circle-link {
+  text-decoration: none;
+
+  color: black;
+}
+
+.hero-cta-circle-link:hover .hero-cta-circle-inner {
+  width: 96px;
+  height: 96px;
+
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+}
+
+.hero-cta-circle-link:hover .hero-cta-circle-flexbox p {
+  color: rgb(233, 0, 0);
+}
+
+.hero-cta:hover {
+  color: rgb(28, 28, 28);
+
+  background-color: white;
 }
 
 .hero-cta-arrow {

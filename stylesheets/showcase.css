@@ -1,22 +1,12 @@
 #showcase {
-  background-image: url(https://tomempson.github.io/ISOv8-V2/images/showcase-background.png);
+  background-image: url(/images/showcase-background-v2.png);
+  /* Use actual Github link to image on repository! */
 
   box-sizing: border-box;
-  width: 100dvw;
+  width: 100vw;
   height: 100%;
 
-  padding: 50px 25px;
-}
-
-.showcase-heading-flexbox-container {
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
+  padding: 50px 25px 100px 25px;
 }
 
 .showcase-heading-flexbox {
@@ -24,41 +14,26 @@
 
   flex-direction: row;
 
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   
   box-sizing: border-box;
-  max-width: 1050px;
   width: 100%;
 
   margin-bottom: 50px;
   padding: 0 25px;
 }
 
-.showcase-heading-flexbox p {
-  font-size: 50px;
-  font-weight: 700;
-
-  color: white;
-
-  margin: 0 0 10px 0;
-}
-
-.showcase-heading-logo {
-  width: 40%;
-  max-width: 400px;
-}
-
 .showcase-heading {
-  font-size: 35px;
+  font-size: 45px;
   font-weight: 700;
 
   text-align: center;
   text-transform: uppercase;
 
-  color: white;
+  color: black;
 
-  margin: 0 0 50px 0;
+  margin: 0;
 }
 
 .showcase-grid {
@@ -68,7 +43,15 @@
 
   grid-template-columns: 1fr 1fr;
 
-  gap: 50px;
+  gap: 10px;
+}
+
+.left {
+  margin-left: 12%;
+}
+
+.right {
+  margin-right: 12%;
 }
 
 .showcase-image-container {
@@ -114,19 +97,13 @@
     grid-template-columns: 1fr;
   }
 
+  .left, .right {
+    margin-left: 12%;
+    margin-right: 12%;
+  }
+
   .showcase-container {
     width: 85vw;
     height: calc((0.5) * 85vw);
-  }
-}
-
-@media (max-width: 650px) {
-  .showcase-heading-flexbox {
-    flex-direction: column;
-  }
-
-  .showcase-heading-logo {
-    min-width: 300px;
-    width: 80%;
   }
 }

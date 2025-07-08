@@ -7,101 +7,169 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+    <link rel="shortcut icon" href="/favicons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+    <link rel="manifest" href="/favicons/site.webmanifest" />
+
     <link rel="stylesheet" href="https://use.typekit.net/lpp1fgl.css">
 
     <link rel="stylesheet" href="stylesheets/general.css">
+
     <link rel="stylesheet" href="stylesheets/header.css">
     <link rel="stylesheet" href="stylesheets/sidebar.css">
+
     <link rel="stylesheet" href="stylesheets/hero.css">
     <link rel="stylesheet" href="stylesheets/showcase.css">
+
+    <link rel="stylesheet" href="stylesheets/footer.css">
   </head>
   <body>
     <header>
       <section id="sidebar">
         <div class="sidebar-flexbox">
-          <img class="sidebar-logo" src="graphics/isov8-logo.svg" alt="ISOv8 logo">
+          <img class="sidebar-logo" src="graphics/isov8-logo-colour.svg" alt="ISOv8 logo">
 
           <button class="sidebar-close-button">
             <div class="sidebar-close"></div>
           </button>
         </div>
 
-        <nav>
+        <nav class="navigation-all">
           <ul>
             <li>
-              <a href="#">About Us</a>
+              <a class="sidebar-navigation-links" href="#">About Us</a>
             </li>
             <li>
-              <a href="#">General Information ></a>
+              <a class="sidebar-navigation-links" href="#">Locations</a>
             </li>
             <li>
-              <a href="#">How-To ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">General Information</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">Understanding ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">How-To</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">Container Conversion Examples ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">Understanding</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">Case Studies & Customer Stories ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">Container Conversion Examples</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">Planning & Design ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">Case Studies & Customer Stories</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">Regulations & Complience ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">Planning & Design</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">Finance & Ownership ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">Regulations & Complience</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">Maintenance & Lifespan ></a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">Finance & Ownership</a>
+
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">FAQ & Troubleshooting</a>
+              <div class="sidebar-catagory-flexbox">
+                <a onclick="slideNavigationMenu(this);" class="sidebar-navigation-links" href="#">Maintainence & Lifespan</a>
+                
+                <svg class="sidebar-catagory-icon" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="rgb(8, 140, 188)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M0 0 L6 -6 L0 -12" transform="translate(9, 24)" />
+                </svg>
+              </div>
             </li>
             <li>
-              <a href="#">News & Innovations</a>
+              <a class="sidebar-navigation-links" href="#">FAQ & Troubleshooting</a>
+            </li>
+            <li>
+              <a class="sidebar-navigation-links" href="#">News & Innovations</a>
+            </li>
+          </ul>
+        </nav>
+
+        <nav class="navigation-sub-catagory">
+          <div>
+            <a onclick="slideBackToMainNavigation();" class="sidebar-back-link" href="#">Back</a>
+          </div>
+
+          <ul>
+            <li>
+              <a class="sidebar-navigation-links" href="#">Sub Catagory</a>
             </li>
           </ul>
         </nav>
       </section>
 
-      <div class="header-flexbox-responsive">
-        <img class="header-logo" src="graphics/isov8-logo-mark.svg" alt="ISOv8 logo mark">
-
-        <div class="header-cta-flexbox-responsive">
-          <a class="header-links header-cta" href="#">Engage</a>
-
-          <div class="hamburger-menu">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      </div>
-
       <div class="header-flexbox">
-        <div class="header-links-flexbox">
-          <img class="header-logo" src="graphics/isov8-logo-mark.svg" alt="ISOv8 logo mark">
+        <img class="header-logo" src="graphics/isov8-logo.svg" alt="ISOv8 logo">
 
+        <div class="header-links-flexbox">
           <nav>
             <ul class="header-navigation">
               <li>
-                <a class="header-links" href="#">Conversion Examples</a>
+                <a class="header-links" href="#">About Us</a>
               </li>
               <li>
-                <a class="header-links" href="#">Case Studies</a>
+                <a class="header-links" href="#">Locations</a>
               </li>
               <li>
                 <a class="header-links" href="#">News & Innovations</a>
               </li>
             </ul>
           </nav>
-        </div>
-        <div class="header-cta-flexbox">
-          <a class="header-links header-cta" href="#">Engage</a>
+
+          <div class="hamburger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
       </div>
     </header>
@@ -112,31 +180,30 @@
           <div class="hero-flexbox">
             <h1 class="hero-heading">Bespoke Shipping Container Conversions</h1>
 
-            <div class="hero-cta-flexbox">
-              <a class="hero-cta" href="#">Learn More</a>
+            <!-- Original CTA Button - <a class="hero-cta" href="#">Engage</a>-->
 
-              <svg class="hero-cta-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </div>
+            <a class="hero-cta-circle-link" href="#">
+              <div class="hero-cta-circle-outer">
+                <div class="hero-cta-circle-inner"></div>
+                <div class="hero-cta-circle-flexbox">
+                  <div class="line"></div>
+
+                  <p>Engage</p>
+
+                  <div class="line"></div>
+                </div>
+              </div>
+            </a>
           </div>
       </section>
       <section id="showcase">
 
-        <div class="showcase-heading-flexbox-container">
-          <div class="showcase-heading-flexbox">
-            <img class="showcase-heading-logo" src="graphics/isov8-logo.svg" alt="ISOv8 logo">
-
-            <p>by</p>
-
-            <img class="showcase-heading-logo" src="graphics/containerking-logo.svg" alt="ContainerKing logo">
-          </div>
-
+        <div class="showcase-heading-flexbox">
           <h2 class="showcase-heading">The UK's No. 1 Shipping Container Conversion Specialists</h2>
         </div>
 
         <div class="showcase-grid">
-          <div class="showcase-image-container">
+          <div class="showcase-image-container left">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Workshops</h3>
             </div>
@@ -144,7 +211,7 @@
             <img class="showcase-image" src="images/workshop.png" alt="ISOv8 workshop container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container right">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Offices</h3>
             </div>
@@ -152,7 +219,7 @@
             <img class="showcase-image" src="images/office.png" alt="ISOv8 office container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container left">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Canteens</h3>
             </div>
@@ -160,7 +227,7 @@
             <img class="showcase-image" src="images/canteen.png" alt="ISOv8 canteen container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container right">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Bars</h3>
             </div>
@@ -168,7 +235,7 @@
             <img class="showcase-image" src="images/bar.png" alt="ISOv8 bar container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container left">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Retail Popup Shops</h3>
             </div>
@@ -176,7 +243,7 @@
             <img class="showcase-image" src="images/placeholder.png" alt="ISOv8 retail popup shop container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container right">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Garden Rooms</h3>
             </div>
@@ -184,7 +251,7 @@
             <img class="showcase-image" src="images/placeholder.png" alt="ISOv8 garden room container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container left">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Homes</h3>
             </div>
@@ -192,7 +259,7 @@
             <img class="showcase-image" src="images/home.png" alt="ISOv8 home container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container right">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Modular Offices</h3>
             </div>
@@ -200,7 +267,7 @@
             <img class="showcase-image" src="images/modular-office.png" alt="ISOv8 modular office container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container left">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Pools</h3>
             </div>
@@ -208,7 +275,7 @@
             <img class="showcase-image" src="images/pool.png" alt="ISOv8 pool container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container right">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Gyms</h3>
             </div>
@@ -216,7 +283,7 @@
             <img class="showcase-image" src="images/gym.png" alt="ISOv8 gym container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container left">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Toliet Facilities</h3>
             </div>
@@ -224,7 +291,7 @@
             <img class="showcase-image" src="images/toliet-facilities.png" alt="ISOv8 toliet facility container conversion">
           </div>
 
-          <div class="showcase-image-container">
+          <div class="showcase-image-container right">
             <div class="showcase-image-flexbox">
               <h3 class="showcase-subheading">Micro Brewaries</h3>
             </div>
@@ -235,10 +302,34 @@
       </section>
     </main>
     <footer>
+      <div class="footer-flexbox">
+        <div class="footer-heading-flexbox">
+          <img class="footer-logo" src="graphics/isov8-logo-colour.svg" alt="ISOv8 logo">
+
+          <h4 class="footer-slogan">without doubt&reg;</h4>
+        </div>
+        <hr>
+
+        <!--  Footer Links Go Here... -->
+
+        <hr>
+
+        <div class="footer-legal-flexbox">
+          <p class="footer-legal-copyright-disclaimer">&copy; 2025 ContainerKing&reg;. All rights reserved.</p>
+
+          <div>
+            <a class="footer-legal-links" href="#">Cookie Policy</a>
+            <a class="footer-legal-links" href="#">Privacy Policy</a>
+          </div>
+        </div>          
+      </div>
     </footer>
 
     <script src="scripts/get-header-height.js"></script>
     <script src="scripts/toggle-sidebar.js"></script>
+    <script src="scripts/slide-nav-menu.js"></script>
+    <script src="scripts/slide-back-main-nav-menu.js"></script>
     <script src="scripts/responsive-sidebar-logo.js"></script>
+    <script src="scripts/responsive-header-logo.js"></script>
   </body>
 </html>

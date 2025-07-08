@@ -5,23 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (hamburgerMenu && sidebar) {
     hamburgerMenu.addEventListener('click', () => {
-      sidebar.style.display = 'flex'; // Set before opacity transition
+      sidebar.style.display = 'flex';
       requestAnimationFrame(() => {
-        sidebar.classList.add('visible'); // Triggers fade-in
+        sidebar.classList.add('visible');
       });
-      document.body.style.overflow = 'hidden'; // Disable scroll
+
+      setTimeout(() => {
+        document.querySelector('main').style.display = 'none';
+        document.querySelector('footer').style.display = 'none';
+      }, 300); 
+
+      document.body.style.overflow = 'hidden';
     });
   }
 
   if (closeButton && sidebar) {
     closeButton.addEventListener('click', () => {
-      sidebar.classList.remove('visible'); // Triggers fade-out
-
-      // After transition, hide the sidebar completely
+      sidebar.classList.remove('visible');
+      document.querySelector('main').style.display = 'block';
+      document.querySelector('footer').style.display = 'block';
+    
       setTimeout(() => {
         sidebar.style.display = 'none';
-        document.body.style.overflow = ''; // Re-enable scroll
-      }, 300); // Match transition duration
+        document.body.style.overflow = '';
+      }, 300);
     });
   }
 });
