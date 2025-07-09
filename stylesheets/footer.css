@@ -51,7 +51,7 @@ footer hr {
 
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
- gap: 80px;
+  gap: 80px;
 
   padding: 40px 80px;
 }
