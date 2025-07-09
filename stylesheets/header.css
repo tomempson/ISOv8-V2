@@ -1,10 +1,10 @@
 header {
   box-sizing: border-box;
-  width: 100%;
+  width: 100dvw;
 
   position: absolute;
 
-  padding: 4% 8%;
+  padding: 20px 40px;
 }
 
 .hamburger-menu {
@@ -46,7 +46,7 @@ header {
 
   align-items: center;
 
-  column-gap: 80px;
+  column-gap: 40px;
 }
 
 .header-logo {
@@ -76,7 +76,7 @@ header {
 
 /* Media Queries */
 
-@media (max-width: 1075px) {
+@media (max-width: 1024px) {
   header nav {
     display: none;
   }

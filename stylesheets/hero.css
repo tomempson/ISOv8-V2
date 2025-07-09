@@ -1,4 +1,5 @@
 #hero {
+  width: 100dvw;
   height: 100vh;
 }
 
@@ -9,6 +10,9 @@
 
   justify-content: end;
   align-items: center;
+
+  box-sizing: border-box;
+  width: 100dvw;
 
   row-gap: 5%;
 
@@ -44,30 +48,6 @@
 
   column-gap: 10px;
 }
-
-/* 
-
-Original CTA Button
-
-.hero-cta {
-  font-size: 24px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-  text-decoration: none;
-
-  color: white;
-
-  background-color: rgba(0, 0, 0, 0);
-
-  border: 3px solid white;
-
-  padding: 10px 45px;
-
-  transition: color 0.3s, background-color 0.3s;
-}
-
-*/
 
 .hero-cta-circle-outer {
   width: 100px;
@@ -188,6 +168,6 @@ Original CTA Button
 
 @media (max-width: 1024px) {
   .hero-flexbox {
-    padding: 0 5% 50px 5%;
+    padding: 0 5% 25px 5%;
   }
 }

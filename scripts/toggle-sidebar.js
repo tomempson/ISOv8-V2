@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         document.querySelector('main').style.display = 'none';
         document.querySelector('footer').style.display = 'none';
+        document.querySelector('.header-flexbox').style.display = 'none';
       }, 300); 
 
       document.body.style.overflow = 'hidden';
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebar.classList.remove('visible');
       document.querySelector('main').style.display = 'block';
       document.querySelector('footer').style.display = 'block';
+      document.querySelector('.header-flexbox').style.display = 'flex';
     
       setTimeout(() => {
         sidebar.style.display = 'none';
