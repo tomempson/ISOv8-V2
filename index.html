@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="stylesheets/general.css">
 
+    <link rel="stylesheet" href="stylesheets/cookie-consent.css">
+
     <link rel="stylesheet" href="stylesheets/header.css">
     <link rel="stylesheet" href="stylesheets/sidebar.css">
 
@@ -26,6 +28,34 @@
     <link rel="stylesheet" href="stylesheets/footer.css">
   </head>
   <body>
+    <!--  Not Functional Yet -->
+
+    <section id="cookie-consent">
+      <div class="cookie-consent-flexbox">
+        <div class="cookie-consent-heading-flexbox">
+          <div class="cookie-consent-heading-container">
+            
+          </div>
+
+          <p class="cookie-consent-heading cookie-consent-heading-container">Manage Consent</p>
+
+          <div class="cookie-consent-heading-container cookie-consent-close-flexbox">
+            <button onclick="handleCookieConsent('close');" class="cookie-consent-close-button">
+              <div class="cookie-consent-close"></div>
+            </button>
+          </div>
+        </div>
+        
+        <p class="cookie-consent-info">To provide the best experiences, we use technologies like cookies to store and/or access device information. Consenting to these technologies will allow us to process data such as browsing behaviour or unique IDs on this site. Not consenting or withdrawing consent, may adversely affect certain features and functions.</p>
+
+        <div class="cookie-consent-choice-flexbox">
+          <button onclick="handleCookieConsent('close');" class="cookie-consent-button accept">Accept</button>
+          <button onclick="handleCookieConsent('close');" class="cookie-consent-button deny">Deny</button>
+          <button class="cookie-consent-button view-preferences">View Preferences</button>
+        </div>
+      </div>
+    </section>
+
     <header>
       <section id="sidebar">
         <div class="sidebar-flexbox">
@@ -433,6 +463,7 @@
     </footer>
 
     <script src="scripts/get-header-height.js"></script>
+    <script src="scripts/toggle-cookie-consent.js"></script>
     <script src="scripts/toggle-sidebar.js"></script>
     <script src="scripts/slide-nav-menu.js"></script>
     <script src="scripts/slide-back-main-nav-menu.js"></script>
