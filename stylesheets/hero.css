@@ -50,31 +50,70 @@
 }
 
 .hero-cta-circle-outer {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 
   position: relative;
+  overflow: hidden;
 
   background-color: rgba(0, 0, 0, 0);
 
-  border: 3px solid white;
-
   border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.hero-cta-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  transform: rotate(-90deg);
+
+  pointer-events: none;
+}
+
+.hero-cta-base-circle {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.hero-cta-ring-circle {
+  fill: none;
+
+  stroke: rgb(8, 140, 188);
+  stroke-width: 3;
+  stroke-linecap: round;
+
+  stroke-dasharray: 301.6;
+  stroke-dashoffset: 301.6;
+
+  transition: stroke-dashoffset 1s linear;
+}
+
+.hero-cta-circle-link:hover .hero-cta-ring-circle {
+  stroke-dashoffset: 0;
 }
 
 .hero-cta-circle-inner {
-  width: 90px;
-  height: 90px;
+  width: 130px;
+  height: 130px;
 
   position: absolute;
-  top: 5px;
-  bottom: 5px;
-  left: 5px;
-  right: 5px;
+  top: 10px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
 
   background-color: white;
 
   border-radius: 50%;
+
+  z-index: 1;
 
   transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, bottom 0.3s ease, left 0.3s ease, right 0.3s ease;
 }
@@ -88,36 +127,35 @@
   align-items: center;
 
   box-sizing: border-box;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
 
   position: absolute;
-  top: 5px;
-  bottom: 5px;
-  left: 5px;
-  right: 5px;
 
-  padding: 30% 0 30% 0;
+
+  padding: 35% 0 35% 0;
+
+  z-index: 1;
 }
 
 .line {
   width: 75%;
-  height: 2px;
+  height: 4px;
 
-  background-color: rgb(233, 0, 0);
+  background-color: rgb(8, 140, 188);
 
   border-radius: 25px;
 }
 
 .hero-cta-circle-flexbox p {
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 600;
 
   text-transform: uppercase;
 
   margin: 0;
 
-  transition: color 0.3s ease;
+  transition: color 1s ease;
 }
 
 .hero-cta-circle-link {
@@ -126,28 +164,8 @@
   color: black;
 }
 
-.hero-cta-circle-link:hover .hero-cta-circle-inner {
-  width: 96px;
-  height: 96px;
-
-  top: 2px;
-  bottom: 2px;
-  left: 2px;
-  right: 2px;
-}
-
-.hero-cta-circle-link:hover .hero-cta-circle-flexbox p {
-  color: rgb(233, 0, 0);
-}
-
-.hero-cta:hover {
-  color: rgb(28, 28, 28);
-
-  background-color: white;
-}
-
-.hero-cta-arrow {
-  margin-bottom: 2px;
+.hero-cta-circle-link:hover {
+  color: rgb(8, 140, 188);
 }
 
 .hero-video {
@@ -156,6 +174,23 @@
 
   object-fit: cover;
   object-position: center;
+}
+
+/* Key Frames */
+
+@keyframes radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ring-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* Media Queries */

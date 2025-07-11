@@ -16,7 +16,7 @@
 
   opacity: 0;
 
-  z-index: 1;
+  z-index: 2;
 
   overflow-y: auto;
 
@@ -105,6 +105,8 @@
 }
 
 .sidebar-navigation-links {
+  display: inline-block;
+
   font-size: 25px;
   font-weight: 500;
 
@@ -175,6 +177,19 @@
 
 .sidebar-close::after {
   transform: rotate(-45deg);
+}
+
+.navigation-sub-catagory > div {
+  display: none;
+}
+
+.navigation-sub-catagory > .active {
+  display: block;
+}
+
+.navigation-sub-catagory > .sidebar-back-link-container {
+  display: block;
+  margin: 15px 0;
 }
 
 /* Media Queries */

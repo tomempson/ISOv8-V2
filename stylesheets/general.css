@@ -8,6 +8,10 @@
   font-family: barlow-semi-condensed, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 100dvw;
 

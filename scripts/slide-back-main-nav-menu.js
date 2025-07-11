@@ -6,11 +6,11 @@ function slideBackToMainNavigation() {
   navAll.style.transform = 'translateX(100vw)';
 
   requestAnimationFrame(() => {
-    navAll.style.transition = 'transform 0.5s ease-in-out';
+    navAll.style.transition = 'transform 0.25s ease-in-out';
     navAll.style.transform = 'translateX(0)';
   });
 
-  navSubCatagory.style.transition = 'transform 0.5s ease-in-out';
+  navSubCatagory.style.transition = 'transform 0.25s ease-in-out';
   navSubCatagory.style.transform = 'translateX(-100vw)';
 
   navSubCatagory.addEventListener('transitionend', function handleBackTransition() {

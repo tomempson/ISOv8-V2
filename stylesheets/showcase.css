@@ -8,21 +8,6 @@
   padding: 50px 25px 100px 25px;
 }
 
-.showcase-heading-flexbox {
-  display: flex;
-
-  flex-direction: row;
-
-  justify-content: center;
-  align-items: center;
-  
-  box-sizing: border-box;
-  width: 100%;
-
-  margin-bottom: 50px;
-  padding: 0 25px;
-}
-
 .showcase-heading {
   font-size: 45px;
   font-weight: 700;
@@ -32,7 +17,7 @@
 
   color: black;
 
-  margin: 0;
+  margin: 0 0 50px 0;
 }
 
 .showcase-grid {
@@ -42,15 +27,15 @@
 
   grid-template-columns: 1fr 1fr;
 
-  gap: 10px;
+  row-gap: 25px;
 }
 
 .left {
-  margin-left: 12%;
+  margin-left: 8%;
 }
 
 .right {
-  margin-right: 12%;
+  margin-right: 8%;
 }
 
 .showcase-image-container {

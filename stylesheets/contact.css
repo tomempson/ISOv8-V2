@@ -1,0 +1,138 @@
+#contact {
+  position: relative;
+
+  box-sizing: border-box;
+  width: 100dvw;
+
+  padding: 50px 80px 100px 80px;  
+
+  overflow-x: hidden;
+}
+
+.contact-background-flexbox {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: -1;
+}
+
+.contact-background {
+  height: 85%;
+
+  margin-right: -215px;
+
+  opacity: 0.25;
+}
+
+.contact-heading {
+  font-size: 45px;
+  font-weight: 700;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  color: black;
+
+  margin: 0 0 50px 0;
+}
+
+.contact-flexbox {
+  display: flex;
+
+  flex-direction: column;
+
+  row-gap: 40px;
+}
+
+.contact-flexbox input {
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none;
+
+  font-size: 18px;
+
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 5px;
+
+  background-color: rgba(255, 255, 255, 0.5);
+
+  padding: 15px;
+
+  transition: outline 0.3s ease;
+}
+
+.contact-input-enquiry-details {
+  height: 250px;
+
+  font-size: 18px;
+
+  padding: 15px;
+
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 5px;
+
+  background-color: rgba(255, 255, 255, 0.5);
+
+  resize: none;
+
+  transition: outline 0.3s ease;
+}
+
+.contact-flexbox input:focus-visible {
+  outline: 3px solid rgb(8, 140, 188);
+}
+
+.contact-flexbox textarea:focus-visible {
+  outline: 3px solid rgb(8, 140, 188);
+}
+
+.contact-submit-flexbox {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.contact-submit-button {
+  width: 250px;
+
+  font-size: 18px;
+
+  background-color: rgb(8, 140, 188);
+
+  color: white;
+
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 4px;
+  
+  padding: 10px 0;
+
+  transition: background-color 0.3s;
+}
+
+.contact-submit-button:hover {
+  background-color: rgb(12, 163, 218);
+
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .contact-submit-button {
+    width: 100%;
+  }
+}

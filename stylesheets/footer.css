@@ -71,11 +71,15 @@ footer hr {
 }
 
 .footer-sitemap-links {
+  display: block;
+
   font-size: 22px;
 
   text-decoration: none;
 
   color: black;
+
+  margin: 5px 0 5px 0;
 }
 
 .footer-sitemap-links:hover {
@@ -98,10 +102,14 @@ footer hr {
 }
 
 .footer-legal-copyright-disclaimer, .footer-legal-links {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
 
   color: rgba(0, 0, 0, 0.3);
+}
+
+.footer-legal-links:hover {
+  color: rgb(8, 140, 188);
 }
 
 .footer-legal-copyright-disclaimer {
@@ -111,7 +119,7 @@ footer hr {
 .footer-legal-links-flexbox {
   display: flex;
 
-  column-gap: 10px;
+  column-gap: 20px;
 }
 
 /* Media Queries */
@@ -147,11 +155,15 @@ footer hr {
 @media (max-width: 750px) {
   .footer-sitemap {
     grid-template-columns: 1fr 1fr;
+
+    gap: 60px;
   }
 }
 
 @media (max-width: 550px) {
   .footer-sitemap {
     grid-template-columns: 1fr;
+
+    gap: 40px;
   }
 }
