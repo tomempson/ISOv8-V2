@@ -2,9 +2,15 @@ header {
   box-sizing: border-box;
   width: 100dvw;
 
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
 
-  padding: 20px 40px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  background-color: transparent;
+
+  z-index: 1000;
 }
 
 .hamburger-menu {
@@ -37,6 +43,8 @@ header {
 
   justify-content: space-between;
   align-items: center;
+
+  padding: 20px 40px;
 }
 
 .header-links-flexbox {
@@ -80,4 +88,23 @@ header {
   header nav {
     display: none;
   }
+}
+
+/* Sticky header state classes */
+header.header-hidden {
+  transform: translateY(-100%);
+}
+
+header.header-scrolled {
+  background-color: rgba(24, 24, 24, 0.75);
+  backdrop-filter: blur(10px);
+}
+
+/* Ensure the sidebar covers the full viewport and sits above the header */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1100; /* higher than the header's 1000 */
 }

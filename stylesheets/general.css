@@ -1,15 +1,5 @@
-:root {
-  --header-height: 0px;
-
-  --sidebar-header-height: 0px;
-}
-
 * {
   font-family: barlow-semi-condensed, sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {

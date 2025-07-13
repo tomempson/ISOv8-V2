@@ -16,8 +16,6 @@
 
   opacity: 0;
 
-  z-index: 2;
-
   overflow-y: auto;
 
   transition: opacity 0.3s ease;
@@ -54,7 +52,7 @@
   flex-direction: column;
 
   position: absolute;
-  top: calc(var(--header-height) + 20px);
+  top: calc(105px + 20px);
   bottom: 0;
   left: 40px;
   right: 40px;
@@ -72,6 +70,16 @@
   text-decoration: underline;
 
   color: rgb(8, 140, 188);
+
+  margin: 0;
+}
+
+.sidebar-back-link:hover {
+  text-decoration: underline;
+
+  color: rgb(8, 140, 188);
+
+  cursor: pointer;
 }
 
 .navigation-sub-catagory {
@@ -82,7 +90,7 @@
   width: 80vw;
 
   position: absolute;
-  top: calc(var(--header-height) + 20px);
+  top: calc(105px + 20px);
   bottom: 0;
   left: 40px;
   right: 40px;
@@ -113,12 +121,16 @@
   text-decoration: none;
 
   color: black;
+
+  margin: 0;
 }
 
 .sidebar-navigation-links:hover {
   text-decoration: underline;
 
   color: rgb(8, 140, 188);
+
+  cursor: pointer;
 }
 
 #sidebar ul {
