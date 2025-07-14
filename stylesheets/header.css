@@ -54,6 +54,11 @@ header.header-scrolled {
   align-items: center;
 
   padding: 20px 40px;
+
+  background: linear-gradient(to bottom,
+                              rgba(0, 0, 0, 0.8) 0%,
+                              rgba(0, 0, 0, 0.4) 40%,
+                              rgba(0, 0, 0, 0) 100%);
 }
 
 .header-links-flexbox {
