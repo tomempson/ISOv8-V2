@@ -26,7 +26,8 @@
 }
 
 .hero-heading {
-  font-size: 40px;
+  /* font-size: 40px; */
+  font-size: clamp(1.8rem, 2.5vw + 1rem, 3rem);
   font-weight: 800;
 
   letter-spacing: 1px;

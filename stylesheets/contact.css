@@ -30,7 +30,7 @@
 }
 
 .contact-background {
-  height: 85%;
+  height: 65%;
 
   margin-right: -215px;
 
@@ -38,7 +38,8 @@
 }
 
 .contact-heading {
-  font-size: 45px;
+  /* font-size: 45px; */
+  font-size: clamp(2rem, 3vw + 0.5rem, 3.5rem);
   font-weight: 700;
 
   text-align: center;

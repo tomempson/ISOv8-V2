@@ -9,3 +9,9 @@ body {
 
   overflow-x: hidden;
 }
+
+/* For all Return Links on ISOv8 Logos */
+
+.logo-return-link {
+  height: 100%;
+}

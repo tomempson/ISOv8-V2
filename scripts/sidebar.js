@@ -24,6 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 300);
     });
   }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && sidebar.classList.contains('visible')) {
+      sidebar.classList.remove('visible');
+
+      setTimeout(() => {
+        sidebar.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 300);
+    }
+  });
 });
 
 function updateSidebarLogo() {

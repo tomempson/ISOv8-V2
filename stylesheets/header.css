@@ -13,6 +13,15 @@ header {
   z-index: 1000;
 }
 
+header.header-hidden {
+  transform: translateY(-100%);
+}
+
+header.header-scrolled {
+  background-color: rgba(24, 24, 24, 0.75);
+  backdrop-filter: blur(10px);
+}
+
 .hamburger-menu {
   display: flex;
 
@@ -88,23 +97,4 @@ header {
   header nav {
     display: none;
   }
-}
-
-/* Sticky header state classes */
-header.header-hidden {
-  transform: translateY(-100%);
-}
-
-header.header-scrolled {
-  background-color: rgba(24, 24, 24, 0.75);
-  backdrop-filter: blur(10px);
-}
-
-/* Ensure the sidebar covers the full viewport and sits above the header */
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  z-index: 1100; /* higher than the header's 1000 */
 }
