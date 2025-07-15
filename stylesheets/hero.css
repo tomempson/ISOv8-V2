@@ -1,5 +1,5 @@
 #hero {
-  width: 100dvw;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -12,7 +12,7 @@
   align-items: center;
 
   box-sizing: border-box;
-  width: 100dvw;
+  width: 100vw;
 
   row-gap: 5%;
 

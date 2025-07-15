@@ -4,35 +4,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeButton = document.querySelector('.sidebar-close-button');
 
   if (hamburgerMenu && sidebar) {
-    hamburgerMenu.addEventListener('click', () => {
-      sidebar.style.display = 'flex';
-      requestAnimationFrame(() => {
-        sidebar.classList.add('visible');
-      });
+    hamburgerMenu.setAttribute('aria-controls', 'sidebar');
+    hamburgerMenu.setAttribute('aria-expanded', 'false');
 
-      document.body.style.overflow = 'hidden';
+    hamburgerMenu.addEventListener('click', () => {
+      const isExpanded = sidebar.classList.contains('expanded');
+
+      if (isExpanded) {
+        /* collapse */
+        sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          sidebar.style.maxHeight = '0';
+        });
+        sidebar.classList.remove('expanded');
+        hamburgerMenu.setAttribute('aria-expanded', 'false');
+        sidebar.setAttribute('aria-hidden', 'true');
+      } else {
+        /* expand */
+        sidebar.classList.add('expanded');
+        sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
+        hamburgerMenu.setAttribute('aria-expanded', 'true');
+        sidebar.setAttribute('aria-hidden', 'false');
+      }
     });
   }
 
-  if (closeButton && sidebar) {
+  if (closeButton) {
     closeButton.addEventListener('click', () => {
-      sidebar.classList.remove('visible');
-      
-      setTimeout(() => {
-        sidebar.style.display = 'none';
-        document.body.style.overflow = '';
-      }, 300);
+      hamburgerMenu.click();
     });
   }
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && sidebar.classList.contains('visible')) {
-      sidebar.classList.remove('visible');
+      if (event.key === 'Escape' && sidebar.classList.contains('expanded')) {
+        hamburgerMenu.click();
+      }
+  });
 
-      setTimeout(() => {
-        sidebar.style.display = 'none';
-        document.body.style.overflow = '';
-      }, 300);
+  /* keep the correct height if the window is resized
+     while the menu is open */
+  window.addEventListener('resize', () => {
+    if (sidebar.classList.contains('expanded')) {
+      sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
     }
   });
 });
