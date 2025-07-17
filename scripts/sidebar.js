@@ -1,10 +1,4 @@
-
-
-// Show the matching sub‑category block when a main sidebar item is clicked
 document.addEventListener('DOMContentLoaded', () => {
-  /* ------------------------------------------------------------------ */
-  /* Element references                                                 */
-  /* ------------------------------------------------------------------ */
   const categoryLinks = document.querySelectorAll(
     '#sidebar-navigation-categories .sidebar-navigation-text'
   );
@@ -19,11 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const openSidebarBtn = document.querySelector('.hamburger-menu-button');
   const closeSidebarBtn = document.querySelector('.sidebar-close-button');
   const sidebarCategoriesSection = document.getElementById('sidebar-navigation-categories');
+  const asideEl = document.querySelector('aside');
+  const overlay = document.getElementById('sidebar-overlay');
+  const heroFlexbox = document.querySelector('.hero-flexbox');
 
-  /* ------------------------------------------------------------------ */
-  /* Helpers                                                            */
-  /* ------------------------------------------------------------------ */
-  // e.g. "General Information" → "general-information"
   const slugify = (str) =>
     str
       .trim()
@@ -36,26 +29,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const openSidebar = () => {
-    sidebarCategoriesSection.style.display = 'block';
+  function handleSubCategoriesTransitionEnd(e) {
+    if (e.propertyName === 'transform') {
+      subCategoryContainer.style.display = 'none';
+      hideAllSubCategories();
+      subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
+    }
+  }
 
-    // Reset sub‑categories so nothing is shown until a main item is clicked
+  const openSidebar = () => {
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    heroFlexbox.style.position = 'fixed';
+    overlay.style.display = 'block';
+    overlay.style.opacity = '0';
+    asideEl.style.display = 'flex';
+    sidebarCategoriesSection.style.display = 'block';
     subCategoryContainer.style.display = 'none';
     hideAllSubCategories();
+    requestAnimationFrame(() => {
+      asideEl.style.transform = 'translateX(0)';
+      overlay.style.opacity = '1';
+    });
   };
 
   const closeSidebar = () => {
-    // Hide the main sidebar pane
-    sidebarCategoriesSection.style.display = 'none';
-
-    // Also hide any visible sub‑category container and its blocks
-    subCategoryContainer.style.display = 'none';
-    hideAllSubCategories();
+    asideEl.style.transform = 'translateX(-100%)';
+    overlay.style.opacity = '0';
+    asideEl.addEventListener('transitionend', function handler() {
+      heroFlexbox.style.position = 'absolute';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      sidebarCategoriesSection.style.display = 'none';
+      subCategoryContainer.style.display = 'none';
+      hideAllSubCategories();
+      asideEl.style.display = 'none';
+      asideEl.removeEventListener('transitionend', handler);
+    });
+    overlay.addEventListener('transitionend', function overlayHandler(e) {
+      if (e.propertyName === 'opacity') {
+        overlay.style.display = 'none';
+        overlay.removeEventListener('transitionend', overlayHandler);
+      }
+    });
   };
 
-  /* ------------------------------------------------------------------ */
-  /* Event wiring                                                       */
-  /* ------------------------------------------------------------------ */
   if (openSidebarBtn) {
     openSidebarBtn.addEventListener('click', openSidebar);
   }
@@ -66,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   categoryLinks.forEach((link) => {
     link.addEventListener('click', () => {
+      subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
       const slug = slugify(link.textContent);
 
       const target = subCategoryContainer.querySelector(`.${slug}`);
@@ -74,17 +93,28 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Reveal the container (it is display:none in the CSS by default)
-      subCategoryContainer.style.display = 'block';
+      subCategoryContainer.style.transform = 'translateX(-100%)';
+      subCategoryContainer.style.display = 'flex';
+      requestAnimationFrame(() => {
+        subCategoryContainer.style.transform = 'translateX(0)';
+      });
 
       hideAllSubCategories();
       target.style.display = 'block';
     });
   });
 
-  // Start with every sub‑category hidden
+  const returnButtons = document.querySelectorAll('.sidebar-return-button');
+  const closeSubCategories = () => {
+    subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
+    subCategoryContainer.style.transform = 'translateX(-100%)';
+    subCategoryContainer.addEventListener('transitionend', handleSubCategoriesTransitionEnd);
+  };
+  returnButtons.forEach(btn => btn.addEventListener('click', closeSubCategories));
+
   hideAllSubCategories();
 
-  // Ensure the main sidebar pane starts hidden
-  closeSidebar();
+  asideEl.style.display = 'none';
+  sidebarCategoriesSection.style.display = 'none';
+  subCategoryContainer.style.display = 'none';
 });

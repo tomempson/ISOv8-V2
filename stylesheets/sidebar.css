@@ -1,31 +1,68 @@
 aside {
-  display: flex;
+  display: none;
 
   flex-direction: row;
 
   position: fixed;
+  top: 0;
+  left: 0;
+
+  transform: translateX(-100%);
 
   z-index: 100000;
+
+  transition: transform 0.9s;
+}
+
+#sidebar-overlay {
+  display: none;
+  
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  opacity: 0;
+
+  z-index: 99999;
+
+  transition: opacity 0.9s ease-in-out;
 }
 
 #sidebar-navigation-categories {
   height: 100vh;
 
+  position: relative;
+
   background-color: ghostwhite;
 
   overflow-y: auto;
+
+  z-index: 2;
 }
 
 #sidebar-navigation-sub-categories {
   display: none;
 
+  width: 400px;
   height: 100vh;
 
+  position: relative;
+  
   background-color: ghostwhite;
-
+  
   border-left: 1px solid rgb(205, 205, 205);
-
+  
   overflow-y: auto;
+  
+  z-index: 1;
+
+  transform: translateX(-100%);
+  transition: transform 0.9s;
 }
 
 aside hr {
@@ -50,15 +87,34 @@ aside hr {
 
   align-items: center;
 
+  column-gap: 15px;
+
   box-sizing: border-box;
   height: 108px;
 
   padding: 20px 40px;
 }
 
+.sidebar-return-button {
+  font-size: 25px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border: none;
+
+  padding-top: 4px;
+}
+
+.sidebar-return-button:hover {
+  cursor: pointer;
+}
+
 .sidebar-close-button {
-  width: 30px;
-  height: 30px;
+  display: flex;
+
+  flex-direction: row;
+
+  column-gap: 25px;
 
   background-color: rgba(0, 0, 0, 0);
 
@@ -78,6 +134,9 @@ aside hr {
   align-items: center;
 
   position: relative;
+
+  width: 40px;
+  height: 40px;
 }
 
 .sidebar-close::before, .sidebar-close::after {
@@ -88,7 +147,7 @@ aside hr {
   left: 0;
 
   width: 100%;
-  height: 3px;
+  height: 2px;
 
   background-color: black;
 
@@ -106,8 +165,8 @@ aside hr {
 .sidebar-close-text {
   align-self: center;
 
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
 
   text-decoration: none;
   text-transform: uppercase;
@@ -130,8 +189,15 @@ aside hr {
   padding: 0;
 }
 
+.sidebar-heading {
+  font-size: 20px;
+  font-weight: 500;
+
+  margin: 0;
+}
+
 .sidebar-navigation-text {
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 400;
 
   text-decoration: none;
@@ -160,13 +226,13 @@ aside hr {
 
   justify-self: start;
 
-  font-size: 25px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .sidebar-contact-telephone-number {
-  font-size: 22px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
 
   text-decoration: none;
 
@@ -180,5 +246,27 @@ aside hr {
 }
 
 .sidebar-sub-category-image {
-  width: 350px;
+  width: 100%;
+}
+
+@media (max-width: 650px) {
+  #sidebar-navigation-categories {
+    width: 100vw;
+  }
+
+  #sidebar-navigation-sub-categories {
+    width: 100vw;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 3;
+
+    overflow-y: auto;
+  }
+
+  .sidebar-navigation-container {
+    padding: 20px 40px 120px 40px;
+  }
 }

@@ -38,8 +38,8 @@ footer hr {
 }
 
 .footer-slogan {
-  font-size: 35px;
-  font-weight: 500;
+  font-size: 30px;
+  font-weight: 400;
 
   font-style: italic;
 
@@ -57,8 +57,8 @@ footer hr {
 }
 
 .footer-sitemap-heading {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
 
   margin: 0 0 15px 0;
 }
@@ -73,7 +73,8 @@ footer hr {
 .footer-sitemap-links {
   display: block;
 
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 400;
 
   text-decoration: none;
 

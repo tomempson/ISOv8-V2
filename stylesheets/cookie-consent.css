@@ -12,7 +12,7 @@
   border: 1px solid rgb(205, 205, 205);
   border-radius: 10px;
 
-  z-index: 10000;
+  z-index: 100000;
 
   opacity: 1;
 
@@ -108,7 +108,7 @@
 .cookie-consent-heading {
   flex: 90;
 
-  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.375rem);
+  font-size: 20px;
   font-weight: 500;
 
   text-align: center;
@@ -117,8 +117,7 @@
 }
 
 .cookie-consent-info {
-  /* font-size: 12px; */
-  font-size: clamp(0.65rem, 1vw + 0.4rem, 0.875rem);
+  font-size: 12px;
 }
 
 .cookie-consent-choice-flexbox {
@@ -135,7 +134,7 @@
 }
 
 .cookie-consent-button {
-  font-size: 14px;
+  font-size: 12px;
 
   color: white;
 

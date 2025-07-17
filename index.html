@@ -13,10 +13,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
     <link rel="manifest" href="favicons/site.webmanifest">
 
-    <link rel="stylesheet" href="https://use.typekit.net/lpp1fgl.css">
-
-    <!-- New Testing Font (Eurostile) -->
-
     <link rel="stylesheet" href="https://use.typekit.net/xjz3mil.css">
 
     <link rel="stylesheet" href="stylesheets/general.css">
@@ -33,7 +29,8 @@
     <link rel="stylesheet" href="stylesheets/footer.css">
   </head>
   <body>
-    <section id="cookie-consent">
+    <div id="sidebar-overlay"></div>
+    <!--<section id="cookie-consent">
       <div class="cookie-consent-flexbox">
         <div class="cookie-consent-heading-flexbox">
           <div class="cookie-consent-heading-container"></div>
@@ -55,7 +52,7 @@
           <button class="cookie-consent-button view-preferences">View Preferences</button>
         </div>
       </div>
-    </section>
+    </section>-->
 
     <header>
       <div class="hamburger-menu-container">
@@ -65,6 +62,8 @@
             <div></div>
             <div></div>
           </div>
+
+          <span class="hamburger-menu-text">Menu</span>
         </button>
       </div>
 
@@ -89,6 +88,8 @@
           <div class="sidebar-header-flexbox">
             <button class="sidebar-close-button">
               <div class="sidebar-close"></div>
+
+              <span class="sidebar-close-text">Close</span>
             </button>
           </div>
 
@@ -118,10 +119,16 @@
 
       <section id="sidebar-navigation-sub-categories">
         <div class="sidebar-flexbox general-information">
-          <!--<img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">-->
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
 
           <div class="sidebar-header-flexbox">
-            <h2>General Information</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading" class="sidebar-heading">General Information</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
@@ -138,50 +145,75 @@
         </div>
 
         <div class="sidebar-flexbox understanding">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>Understanding</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">Understanding</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
             <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">New vs. Used Containers</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Modular Buildings vs. Container Buildings</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Modular vs. Container Buildings</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">New vs. Used</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">ISO vs. Steel</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">ISO vs. AV</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">RAL vs. BS</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What is Corten Steel</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Lifea of a Container</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Process Behind an ISOv8&reg; Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Corten Steel</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Life of a Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Process of an ISOv8&reg; Container</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Structural Modifications</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">CSC Plating</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What is a High Cube Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">High Cube Containers</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">One-Trip Containers</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Delivery Logistics</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Stacking & Linking</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Wind & Water Tight vs. Cargo Worthy</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Wind & Water Tight</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cargo Worthy</a></li>
             </ul>
           </nav>
         </div>
 
         <div class="sidebar-flexbox how-to">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>How-To</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">How-To</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
             <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Transport a Shipping Container</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cladding a Shipping Container</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Brief a Container Conversion Company</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Questions to Ask Before Purchase</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Transport</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cladding</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Foundations</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Brief a Conversion Firm</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Questions to Ask</a></li>
             </ul>
           </nav>
         </div>
 
         <div class="sidebar-flexbox locations">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>Locations</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">Locations</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
@@ -195,8 +227,16 @@
         </div>
 
         <div class="sidebar-flexbox case-studies">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>Case Studies</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">Case Studies</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
@@ -210,17 +250,26 @@
         </div>
 
         <div class="sidebar-flexbox planning-design">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>Planning & Design</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">Planning & Design</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
             <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Designing your Ideal Conversion</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How Strong is a Shipping Container</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do you need an Architect</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Insulating a Shipping Container</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Internal Partitions & Room Layouts</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Designing your Conversion</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Container Strength</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Is an Architect Required</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Insulation</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Internal Partitions</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Room Layouts</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Planning Permission</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Timeline</a></li>
             </ul>
@@ -228,8 +277,16 @@
         </div>
 
         <div class="sidebar-flexbox regulations-complience">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>Regulations & Complience</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">Regulations & Complience</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
@@ -241,33 +298,51 @@
         </div>
 
         <div class="sidebar-flexbox finance-ownership">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>Finance & Ownership</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">Finance & Ownership</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
             <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What Effects Prices of Shipping Containers</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Why the Cheapest is more Expensive</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Container Prices</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cheap Costs More</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Warrenty</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Asset Finance</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Return on Investment</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Key Cost Factors</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Tax Benefits of Business Expenditure</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Tax Benefits</a></li>
             </ul>
           </nav>
         </div>
 
         <div class="sidebar-flexbox maintainence-lifespan">
+          <img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">
+
           <div class="sidebar-header-flexbox">
-            <h2>Maintainence & Lifespan</h2>
+            <button class="sidebar-return-button">
+              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <h2 class="sidebar-heading">Maintainence & Lifespan</h2>
           </div>
 
           <nav class="sidebar-navigation-container">
             <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Maintaining your Shipping Container Conversion</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Aftercare & Ongoing Maintainence Plan</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cleaning & Preporation</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Maintainence</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Aftercare</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Ongoing Maintainence Plan</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cleaning</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Preporation</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Weatherproofing</a></li>
               <li><a class="sidebar-navigation-text" href="sub-catagory.html">Longevity</a></li>
             </ul>
@@ -281,7 +356,14 @@
         <video class="hero-video" autoplay="" loop="" playsinline="" muted="" src="images/banner-v6.mp4"></video>
 
         <div class="hero-flexbox">
-          <h1 class="hero-heading">Shipping Container Conversions<br>Anti-Vandal Buildings</h1>
+          <div class="hero-heading-flexbox">
+            <div class="hero-bullet-points-flexbox">
+              <div class="hero-bullet-points"></div>
+              <div class="hero-bullet-points"></div>
+            </div>
+
+            <h1 class="hero-heading">Shipping Container Conversions<br>Anti-Vandal Buildings</h1>
+          </div>
 
           <a class="hero-cta-circle-link" href="#contact">
             <div class="hero-cta-circle-outer">
@@ -295,7 +377,7 @@
               <div class="hero-cta-circle-flexbox">
                 <div class="line"></div>
 
-                <p>Engage</p>
+                <span class="hero-cta-text">Engage</span>
 
                 <div class="line"></div>
               </div>
@@ -475,30 +557,6 @@
             <p class="showcase-description">
               Containers are increasingly used for compact microbrewery setups, providing controlled environments for brewing, fermenting, and serving beer. They’re ideal for small-scale production, with the added benefit of being mobile and expandable.
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact">
-        <div class="contact-background-flexbox">
-          <img class="contact-background" src="graphics/isov8-logo-mark-colour.svg" alt="ISOv8 logo mark">
-        </div>
-
-        <h2 class="contact-heading">Contact Us</h2>
-
-        <div class="contact-flexbox">
-          <input class="contact-input-first-name" type="text" placeholder="First name">
-
-          <input class="contact-input-last-name" type="text" placeholder="Last name">
-
-          <input class="contact-input-email-address" type="email" placeholder="Email address">
-
-          <input class="contact-input-phone-numbe" type="tel" placeholder="Phone number">
-
-          <textarea class="contact-input-enquiry-details" placeholder="Enquiry details"></textarea>
-
-          <div class="contact-submit-flexbox">
-            <button class="contact-submit-button">Submit</button>
           </div>
         </div>
       </section>
