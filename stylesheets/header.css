@@ -1,9 +1,4 @@
 header {
-  box-sizing: border-box;
-  width: 100vw;
-}
-
-.header-flexbox {
   display: flex;
 
   flex-direction: row;
@@ -11,28 +6,40 @@ header {
   justify-content: space-between;
   align-items: center;
 
+  box-sizing: border-box;
+  width: 100%;
+
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
 
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
 
   padding: 20px 40px;
 }
 
-.header-flexbox.menu-open {
-  background: ghostwhite;
+.hamburger-menu-container {
+  display: flex;
 
-  border-bottom: 1px solid rgb(205, 205, 205);
+  flex-direction: row;
+
+  justify-content: flex-start;
+
+  flex: 1;
 }
 
-.header-flexbox.menu-open .header-links {
-  color: black;
+.hamburger-menu-button {
+  display: flex;
+
+  flex-direction: row;
+
+  column-gap: 20px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border: none;
 }
 
-.header-flexbox.menu-open .hamburger-menu div {
-  background-color: rgb(8, 140, 188) !important;
+.hamburger-menu-button:hover {
+  cursor: pointer;
 }
 
 .hamburger-menu {
@@ -43,36 +50,62 @@ header {
   justify-content: space-between;
   align-items: center;
 
-  width: 65px;
-  height: 50px;
+  width: 60px;
+  height: 45px;
 }
 
-.hamburger-menu:hover {
-  cursor: pointer;
+.hamburger-menu-text {
+  align-self: center;
+
+  font-size: 24px;
+  font-weight: 600;
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  color: white;
 }
 
 .hamburger-menu div {
   width: 100%;
-  height: 6px;
+  height: 4px;
 
   background-color: white;
 }
 
-.header-links-flexbox {
+.header-logo-container {
   display: flex;
 
   flex-direction: row;
 
-  align-items: center;
+  justify-content: center;
 
-  column-gap: 40px;
+  flex: 1;
 }
 
 .header-logo {
   height: 65px;
 }
 
-.header-navigation {
+.regular-logo {
+  display: block;
+}
+
+.small-logo {
+  display: none;
+}
+
+.header-links-container {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: flex-end;
+
+  flex: 1;
+}
+
+.header-links-flexbox {
   display: flex;
 
   column-gap: 40px;
@@ -93,10 +126,32 @@ header {
   color: white;
 }
 
-/* Media Queries */
-
-/*@media (max-width: 1024px) {
-  header nav {
+@media (max-width: 1000px) {
+  .header-links-about-us {
     display: none;
   }
-}*/
+}
+
+@media (max-width: 750px) {
+  .hamburger-menu-text {
+    display: none;
+  }
+
+  .header-links-container {
+    display: none;
+  }
+}
+
+@media (max-width: 492px) {
+  .regular-logo {
+    display: none;
+  }
+
+  .small-logo {
+    display: block;
+  }
+
+  .header-logo-container {
+    justify-content: flex-end;
+  }
+}

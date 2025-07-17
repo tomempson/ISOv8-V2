@@ -1,122 +1,90 @@
+
+
+// Show the matching sub‑category block when a main sidebar item is clicked
 document.addEventListener('DOMContentLoaded', () => {
-  const hamburgerMenu = document.querySelector('.hamburger-menu');
-  const sidebar = document.getElementById('sidebar');
-  const closeButton = document.querySelector('.sidebar-close-button');
+  /* ------------------------------------------------------------------ */
+  /* Element references                                                 */
+  /* ------------------------------------------------------------------ */
+  const categoryLinks = document.querySelectorAll(
+    '#sidebar-navigation-categories .sidebar-navigation-text'
+  );
 
-  if (hamburgerMenu && sidebar) {
-    hamburgerMenu.setAttribute('aria-controls', 'sidebar');
-    hamburgerMenu.setAttribute('aria-expanded', 'false');
+  const subCategoryContainer = document.getElementById(
+    'sidebar-navigation-sub-categories'
+  );
 
-    hamburgerMenu.addEventListener('click', () => {
-      const isExpanded = sidebar.classList.contains('expanded');
+  const subCategoryGroups =
+    subCategoryContainer.querySelectorAll('.sidebar-flexbox');
 
-      if (isExpanded) {
-        /* collapse */
-        sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
-        requestAnimationFrame(() => {
-          sidebar.style.maxHeight = '0';
-        });
-        sidebar.classList.remove('expanded');
-        hamburgerMenu.setAttribute('aria-expanded', 'false');
-        sidebar.setAttribute('aria-hidden', 'true');
-      } else {
-        /* expand */
-        sidebar.classList.add('expanded');
-        sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
-        hamburgerMenu.setAttribute('aria-expanded', 'true');
-        sidebar.setAttribute('aria-hidden', 'false');
-      }
+  const openSidebarBtn = document.querySelector('.hamburger-menu-button');
+  const closeSidebarBtn = document.querySelector('.sidebar-close-button');
+  const sidebarCategoriesSection = document.getElementById('sidebar-navigation-categories');
+
+  /* ------------------------------------------------------------------ */
+  /* Helpers                                                            */
+  /* ------------------------------------------------------------------ */
+  // e.g. "General Information" → "general-information"
+  const slugify = (str) =>
+    str
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-');
+
+  const hideAllSubCategories = () => {
+    subCategoryGroups.forEach((el) => {
+      el.style.display = 'none';
     });
+  };
+
+  const openSidebar = () => {
+    sidebarCategoriesSection.style.display = 'block';
+
+    // Reset sub‑categories so nothing is shown until a main item is clicked
+    subCategoryContainer.style.display = 'none';
+    hideAllSubCategories();
+  };
+
+  const closeSidebar = () => {
+    // Hide the main sidebar pane
+    sidebarCategoriesSection.style.display = 'none';
+
+    // Also hide any visible sub‑category container and its blocks
+    subCategoryContainer.style.display = 'none';
+    hideAllSubCategories();
+  };
+
+  /* ------------------------------------------------------------------ */
+  /* Event wiring                                                       */
+  /* ------------------------------------------------------------------ */
+  if (openSidebarBtn) {
+    openSidebarBtn.addEventListener('click', openSidebar);
   }
 
-  if (closeButton) {
-    closeButton.addEventListener('click', () => {
-      hamburgerMenu.click();
-    });
+  if (closeSidebarBtn) {
+    closeSidebarBtn.addEventListener('click', closeSidebar);
   }
 
-  document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && sidebar.classList.contains('expanded')) {
-        hamburgerMenu.click();
+  categoryLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      const slug = slugify(link.textContent);
+
+      const target = subCategoryContainer.querySelector(`.${slug}`);
+      if (!target) {
+        console.warn(`No sub‑category block found for "${slug}"`);
+        return;
       }
+
+      // Reveal the container (it is display:none in the CSS by default)
+      subCategoryContainer.style.display = 'block';
+
+      hideAllSubCategories();
+      target.style.display = 'block';
+    });
   });
 
-  /* keep the correct height if the window is resized
-     while the menu is open */
-  window.addEventListener('resize', () => {
-    if (sidebar.classList.contains('expanded')) {
-      sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
-    }
-  });
+  // Start with every sub‑category hidden
+  hideAllSubCategories();
+
+  // Ensure the main sidebar pane starts hidden
+  closeSidebar();
 });
-
-function updateSidebarLogo() {
-  const logo = document.querySelector('.sidebar-logo');
-  if (!logo) return;
-
-  if (window.innerWidth <= 550) {
-    logo.src = 'graphics/isov8-logo-mark-colour.svg';
-  } else {
-    logo.src = 'graphics/isov8-logo-colour.svg'; 
-  }
-}
-
-  window.addEventListener('load', updateSidebarLogo);
-
-  window.addEventListener('resize', updateSidebarLogo);
-
-function slideBackToMainNavigation() {
-  const navAll = document.querySelector('.navigation-all');
-  const navSubCatagory = document.querySelector('.navigation-sub-catagory');
-
-  navAll.style.display = 'flex';
-  navAll.style.transform = 'translateX(100vw)';
-
-  requestAnimationFrame(() => {
-    navAll.style.transition = 'transform 0.25s ease-in-out';
-    navAll.style.transform = 'translateX(0)';
-  });
-
-  navSubCatagory.style.transition = 'transform 0.25s ease-in-out';
-  navSubCatagory.style.transform = 'translateX(-100vw)';
-
-  navSubCatagory.addEventListener('transitionend', function handleBackTransition() {
-    navSubCatagory.style.display = 'none';
-    navSubCatagory.removeEventListener('transitionend', handleBackTransition);
-  });
-}
-
-function slideNavigationMenu(clickedElement) {
-  const navAll = document.querySelector('.navigation-all');
-  const navSubCatagory = document.querySelector('.navigation-sub-catagory');
-
-  navAll.style.transition = 'transform 0.25s ease-in-out';
-  navAll.style.transform = 'translateX(100vw)';
-
-  navSubCatagory.style.display = 'flex';
-  navSubCatagory.style.transform = 'translateX(-100vw)';
-
-  requestAnimationFrame(() => {
-    navSubCatagory.style.transition = 'transform 0.25s ease-in-out';
-    navSubCatagory.style.transform = 'translateX(0)';
-  });
-
-  navAll.addEventListener('transitionend', function handleTransitionEnd() {
-    navAll.style.display = 'none';
-    navAll.removeEventListener('transitionend', handleTransitionEnd);
-  });
-
-  const clickedText = clickedElement?.textContent?.trim().toLowerCase();
-
-  document.querySelectorAll('.navigation-sub-catagory > div').forEach(div => {
-    div.classList.remove('active');
-  });
-
-  const slug = clickedText.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
-  const targetSelector = `.sidebar-sub-catagory-${slug}`;
-  const targetSubCat = document.querySelector(targetSelector);
-
-  if (targetSubCat) {
-    targetSubCat.classList.add('active');
-  }
-}

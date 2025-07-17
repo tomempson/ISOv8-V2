@@ -1,5 +1,8 @@
 * {
-  font-family: barlow-semi-condensed, sans-serif;
+  /* font-family: barlow-semi-condensed, sans-serif; */
+
+  /* New Testing Font (Eurostile) */
+  font-family: "eurostile", sans-serif;
 }
 
 body {

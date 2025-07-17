@@ -11,23 +11,19 @@
   justify-content: end;
   align-items: center;
 
+  row-gap: 50px;
+
   box-sizing: border-box;
   width: 100vw;
 
-  row-gap: 5%;
-
   position: absolute;
-  top: 105px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  padding: 0 5% 5% 5%;
+  bottom: 8%;
 }
 
 .hero-heading {
-  /* font-size: 40px; */
-  font-size: clamp(1.8rem, 2.5vw + 1rem, 3rem);
+  max-width: 85%;
+
+  font-size: 40px;
   font-weight: 800;
 
   letter-spacing: 1px;
@@ -177,8 +173,6 @@
   object-position: center;
 }
 
-/* Key Frames */
-
 @keyframes radar-sweep {
   from {
     transform: rotate(0deg);
@@ -191,19 +185,5 @@
 @keyframes ring-draw {
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-/* Media Queries */
-
-@media (max-width: 1085px) {
-  .hero-flexbox {
-    padding: 0 5% 5% 5%;
-  }
-}
-
-@media (max-width: 1024px) {
-  .hero-flexbox {
-    padding: 0 5% 25px 5%;
   }
 }

@@ -15,12 +15,16 @@
 
     <link rel="stylesheet" href="https://use.typekit.net/lpp1fgl.css">
 
+    <!-- New Testing Font (Eurostile) -->
+
+    <link rel="stylesheet" href="https://use.typekit.net/xjz3mil.css">
+
     <link rel="stylesheet" href="stylesheets/general.css">
 
     <link rel="stylesheet" href="stylesheets/cookie-consent.css">
 
     <link rel="stylesheet" href="stylesheets/header.css">
-    <link rel="stylesheet" href="stylesheets/dropdown-menu.css">
+    <link rel="stylesheet" href="stylesheets/sidebar.css">
 
     <link rel="stylesheet" href="stylesheets/hero.css">
     <link rel="stylesheet" href="stylesheets/showcase.css">
@@ -34,7 +38,7 @@
         <div class="cookie-consent-heading-flexbox">
           <div class="cookie-consent-heading-container"></div>
 
-          <p class="cookie-consent-heading cookie-consent-heading-container">Manage Consent</p>
+          <span class="cookie-consent-heading cookie-consent-heading-container">Manage Consent</span>
 
           <div class="cookie-consent-heading-container cookie-consent-close-flexbox">
             <button onclick="handleCookieConsent('close');" class="cookie-consent-close-button">
@@ -54,135 +58,230 @@
     </section>
 
     <header>
-      <div class="header-flexbox">
-        <a class="logo-return-link" href="index.html"><img class="header-logo" src="graphics/isov8-logo.svg" alt="ISOv8 logo"></a>
-
-        <div class="header-links-flexbox">
-          <nav>
-            <ul class="header-navigation">
-              <li><a class="header-links" href="sub-catagory.html">About Us</a></li>
-              <li><a class="header-links" href="sub-catagory.html">Locations</a></li>
-              <li><a class="header-links" href="sub-catagory.html">News & Innovations</a></li>
-            </ul>
-          </nav>
-
-          <div class="hamburger-menu" role="button" tabindex="0" aria-controls="dropdown-menu" aria-expanded="false">
+      <div class="hamburger-menu-container">
+        <button class="hamburger-menu-button">
+          <div class="hamburger-menu">
             <div></div>
             <div></div>
             <div></div>
           </div>
-        </div>
+        </button>
       </div>
 
-      <section id="dropdown-menu">
+      <div class="header-logo-container">
+        <a class="logo-return-link regular-logo" href="index.html"><img class="header-logo" src="graphics/isov8-logo.svg" alt="ISOv8 logo"></a>
+        <a class="logo-return-link small-logo" href="index.html"><img class="header-logo" src="graphics/isov8-logo-mark.svg" alt="ISOv8 logo mark"></a>
+      </div>
+
+      <div class="header-links-container">
         <nav>
-          <ul class="dropdown-menu-navigation-categories">
-            <li><button class="dropdown-menu-navigation-buttons">General Information</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">How-To</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Understanding</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Case Studies</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Planning & Design</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Regulations & Complience</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Finance & Ownership</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Maintainence & Lifespan</button></li>
+          <ul class="header-links-flexbox">
+            <li><a class="header-links header-links-about-us" href="sub-catagory.html">About Us</a></li>
+            <li><a class="header-links header-links-contact-us" href="sub-catagory.html">Contact Us</a></li>
           </ul>
         </nav>
-
-        <nav class="dropdown-menu-navigation-sub-categories-container general-information">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">Floor Types</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">External Cladding</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Internal Finishes</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Plumbing & Electrics</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Welding & Fabrication</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Spray Painting</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Lighting</button></li>
-          </ul>
-        </nav>
-
-        <nav style="left: 230px;" class="dropdown-menu-navigation-sub-categories-container how-to">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">Transport</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Cladding</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Foundations</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Brief a Company</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Questions to Ask</button></li>
-          </ul>
-        </nav>
-
-        <nav style="left: 325px;" class="dropdown-menu-navigation-sub-categories-container understanding">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">ISO vs. Steel</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">ISO vs. AV</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">RAL vs. BS</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">New vs. Used Containers</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Corten Steel</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Lifespan</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Structural Modifications</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">CSC Plating</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">High Cube Containers</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">One-Trip Containers</button></li>
-          </ul>
-        </nav>
-
-        <nav style="left: 470px;" class="dropdown-menu-navigation-sub-categories-container case-studies">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">Dunham Massey National Trust</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Edith Cavell School</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Marlborough Communications</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Customer Stories</button></li>
-          </ul>
-        </nav>
-
-        <nav style="left: 600px;" class="dropdown-menu-navigation-sub-categories-container planning-design">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">Designing your Ideal Conversion</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Strength</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Insulation</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Internal Partitions</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Planning Permission</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Timeline</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Do you need an Architect?</button></li>
-          </ul>
-        </nav>
-
-        <nav style="left: 790px;" class="dropdown-menu-navigation-sub-categories-container regulations-complience">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">Fire Safety</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Building Regulations</button></li>
-          </ul>
-        </nav>
-
-        <nav style="left: 1045px;" class="dropdown-menu-navigation-sub-categories-container finance-ownership">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">What Effects Prices</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Warrenty</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Asset Finance</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Return on Investment</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Key Cost Factors</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Tax Benefits of Business Expenditure</button></li>
-          </ul>
-        </nav>
-
-        <nav style="left: 1240px;" class="dropdown-menu-navigation-sub-categories-container maintainence-lifespan">
-          <ul class="dropdown-menu-navigation-sub-categories">
-            <li><button class="dropdown-menu-navigation-buttons">Cleaning & Preporation</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Maintaining your Container</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Ongoing Maintenance Plan</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Aftercare</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Weatherproofing</button></li>
-            <li><button class="dropdown-menu-navigation-buttons">Longevity</button></li>
-          </ul>
-        </nav>
-      </section>
+      </div>
     </header>
+
+    <aside>
+      <section id="sidebar-navigation-categories">
+        <div class="sidebar-flexbox">
+          <div class="sidebar-header-flexbox">
+            <button class="sidebar-close-button">
+              <div class="sidebar-close"></div>
+            </button>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><span class="sidebar-navigation-text">General Information</span></li>
+              <li><span class="sidebar-navigation-text">Understanding</span></li>
+              <li><span class="sidebar-navigation-text">How-To</span></li>
+              <li><span class="sidebar-navigation-text">Locations</span></li>
+              <li><span class="sidebar-navigation-text">Case Studies</span></li>
+              <li><span class="sidebar-navigation-text">Planning & Design</span></li>
+              <li><span class="sidebar-navigation-text">Regulations & Complience</span></li>
+              <li><span class="sidebar-navigation-text">Finance & Ownership</span></li>
+              <li><span class="sidebar-navigation-text">Maintainence & Lifespan</span></li>
+            </ul>
+          </nav>
+
+          <hr>
+
+          <div class="sidebar-contact-grid">
+            <span class="sidebar-contact-text sidebar-contact-title">Make it Happen:</span>
+
+            <a class="sidebar-contact-text sidebar-contact-telephone-number" href="tel:01724 870000">01724 870000</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="sidebar-navigation-sub-categories">
+        <div class="sidebar-flexbox general-information">
+          <!--<img class="sidebar-sub-category-image" src="images/sidebar-sub-category-placeholder.png" alt="ISOv8 converted container">-->
+
+          <div class="sidebar-header-flexbox">
+            <h2>General Information</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Floor Types</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Internal Finishes</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">External Cladding</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Plumbing & Electrics</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Welding & Fabrication</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Spray Painting</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Lighting Options</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox understanding">
+          <div class="sidebar-header-flexbox">
+            <h2>Understanding</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">New vs. Used Containers</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Modular Buildings vs. Container Buildings</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">ISO vs. Steel</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">ISO vs. AV</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">RAL vs. BS</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What is Corten Steel</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Lifea of a Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Process Behind an ISOv8&reg; Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Structural Modifications</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">CSC Plating</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What is a High Cube Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">One-Trip Containers</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Delivery Logistics</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Stacking & Linking</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Wind & Water Tight vs. Cargo Worthy</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox how-to">
+          <div class="sidebar-header-flexbox">
+            <h2>How-To</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Transport a Shipping Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cladding a Shipping Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Brief a Container Conversion Company</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Questions to Ask Before Purchase</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Foundations</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox locations">
+          <div class="sidebar-header-flexbox">
+            <h2>Locations</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Scunthorpe</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">North Lincolnshire</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Humberside</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Yorkshire</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox case-studies">
+          <div class="sidebar-header-flexbox">
+            <h2>Case Studies</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Dunham Massey National Trust</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Edith Cavell School</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Marlborough Communications</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Gallery</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox planning-design">
+          <div class="sidebar-header-flexbox">
+            <h2>Planning & Design</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Designing your Ideal Conversion</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How Strong is a Shipping Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do you need an Architect</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Insulating a Shipping Container</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Internal Partitions & Room Layouts</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Planning Permission</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Timeline</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox regulations-complience">
+          <div class="sidebar-header-flexbox">
+            <h2>Regulations & Complience</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Fire Safety</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Building Regulations</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox finance-ownership">
+          <div class="sidebar-header-flexbox">
+            <h2>Finance & Ownership</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What Effects Prices of Shipping Containers</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Why the Cheapest is more Expensive</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Warrenty</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Asset Finance</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Return on Investment</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Key Cost Factors</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Tax Benefits of Business Expenditure</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="sidebar-flexbox maintainence-lifespan">
+          <div class="sidebar-header-flexbox">
+            <h2>Maintainence & Lifespan</h2>
+          </div>
+
+          <nav class="sidebar-navigation-container">
+            <ul class="sidebar-navigation-grid">
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Maintaining your Shipping Container Conversion</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Aftercare & Ongoing Maintainence Plan</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cleaning & Preporation</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Weatherproofing</a></li>
+              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Longevity</a></li>
+            </ul>
+          </nav>
+        </div>
+      </section>
+    </aside>
     
     <main>
       <section id="hero">
         <video class="hero-video" autoplay="" loop="" playsinline="" muted="" src="images/banner-v6.mp4"></video>
 
         <div class="hero-flexbox">
-          <h1 class="hero-heading">The Best Shipping Container Conversions - Made in Scunthorpe</h1>
+          <h1 class="hero-heading">Shipping Container Conversions<br>Anti-Vandal Buildings</h1>
 
           <a class="hero-cta-circle-link" href="#contact">
             <div class="hero-cta-circle-outer">
@@ -190,7 +289,9 @@
                 <circle class="hero-cta-base-circle" cx="50" cy="50" r="48" />
                 <circle class="hero-cta-ring-circle" cx="50" cy="50" r="48" />
               </svg>
+
               <div class="hero-cta-circle-inner"></div>
+              
               <div class="hero-cta-circle-flexbox">
                 <div class="line"></div>
 
@@ -414,15 +515,15 @@
         <hr>
 
         <nav class="footer-sitemap">
-          <div class="footer-general-info">
+          <div>
             <h4 class="footer-sitemap-heading">
-              General Info
+              General Information
             </h4>
 
             <ul>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Floor Types</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">External Cladding</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Internal Finishes</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">External Cladding</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Plumbing & Electrics</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Welding & Fabrication</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Spray Painting</a></li>
@@ -430,7 +531,31 @@
             </ul>
           </div>
 
-          <div class="footer-how-to">
+          <div>
+            <h4 class="footer-sitemap-heading">
+              Understanding
+            </h4>
+
+            <ul>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">New vs. Used Containers</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Modular Buildings vs. Container Buildings</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">ISO vs. Steel</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">ISO vs. AV</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">RAL vs. BS</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">What is Corten Steel?</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Lifespan of a Container</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Process Behind an ISOv8&reg; Container</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Structural Modifications</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">CSC Plating</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">What is a High Cube Container?</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">One-Trip Containers</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Delivery Logistics</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Stacking & Linking</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Wind & Water Tight vs. Cargo Worthy</a></li>
+            </ul>
+          </div>
+
+          <div>
             <h4 class="footer-sitemap-heading">
               How-To
             </h4>
@@ -438,37 +563,26 @@
             <ul>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Transport a Shipping Container</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Cladding a Shipping Container</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Foundations</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Brief a Container Conversion Company</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Questions to ask Before Purchase</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Foundations</a></li>
             </ul>
           </div>
 
-          <div class="footer-understanding">
+          <div>
             <h4 class="footer-sitemap-heading">
-              Understanding
+              Locations
             </h4>
 
             <ul>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">ISO vs. Steel</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">ISO vs. AV</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">What is Corten Steel?</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">RAL vs. BS</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Lifespan of a Container</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Process Behind an ISOv8&reg; Container</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Strutural Modifications</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">CSC Plating</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">What is a High Cube Container?</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">One-Trip Containers</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Wind & Water Tight vs. Cargo Worthy</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">New vs. Used Containers</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Delivery Logistics</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Stacking & Linking</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Modular Buildings vs. Container Buildings</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Scunthorpe</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">North Lincolnshire</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Humberside</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Yorkshire</a></li>
             </ul>
           </div>
 
-          <div class="footer-case-studies">
+          <div>
             <h4 class="footer-sitemap-heading">
               Case Studies
             </h4>
@@ -481,7 +595,7 @@
             </ul>
           </div>
 
-          <div class="footer-planning-design">
+          <div>
             <h4 class="footer-sitemap-heading">
               Planning & Design
             </h4>
@@ -489,32 +603,32 @@
             <ul>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Designing your Ideal Conversion</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">How Strong is a Shipping Container</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Do you need an Architect?</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Insulating a Shipping Container</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Internal Partitions & Room Layouts</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Do you need an Architect?</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Planning Permission</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Timeline</a></li>
             </ul>
           </div>
 
-          <div class="footer-regulations-complience">
+          <div>
             <h4 class="footer-sitemap-heading">
               Regulations & Complience
             </h4>
 
             <ul>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Fire Safety</a></li>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Building Regulations for Converted Shipping Containers</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Building Regulations</a></li>
             </ul>
           </div>
 
-          <div class="footer-finance-ownership">
+          <div>
             <h4 class="footer-sitemap-heading">
               Finance & Ownership
             </h4>
 
             <ul>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">What Effects Prices of Containers?</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">What Effects Prices of Containers</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Why the Cheapest is more Expensive</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Warrenty</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Asset Finance</a></li>
@@ -524,15 +638,15 @@
             </ul>
           </div>
 
-          <div class="footer-maintainence-lifespan">
+          <div>
             <h4 class="footer-sitemap-heading">
               Maintainence & Lifespan
             </h4>
 
             <ul>
-              <li><a class="footer-sitemap-links" href="sub-catagory.html">Cleaning & Preporation</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Maintaining your Shipping Container Conversion</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Aftercare and Ongoing Maintainence Plan</a></li>
+              <li><a class="footer-sitemap-links" href="sub-catagory.html">Cleaning & Preporation</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Weatherproofing</a></li>
               <li><a class="footer-sitemap-links" href="sub-catagory.html">Longevity</a></li>
             </ul>
@@ -553,9 +667,7 @@
     </footer>
 
     <script src="scripts/cookie-consent.js"></script>
-
-    <script src="scripts/dropdown-menu.js"></script>
-
+    <script src="scripts/sidebar.js"></script>
     <script src="scripts/banner.js"></script>
   </body>
 </html>
