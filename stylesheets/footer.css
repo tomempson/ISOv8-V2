@@ -56,6 +56,12 @@ footer hr {
   padding: 40px 80px;
 }
 
+.footer-sitemap-vertical-grid {
+  display: grid;
+
+  gap: 30px;
+}
+
 .footer-sitemap-heading {
   font-size: 20px;
   font-weight: 500;
