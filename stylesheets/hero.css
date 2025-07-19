@@ -26,26 +26,20 @@
   display: flex;
 
   flex-direction: row;
-
-  align-items: flex-end;
 }
 
 .hero-bullet-points-flexbox {
-  display: grid;
-
-  margin: 0 15px 8px 0;
-}
-
-.hero-bullet-points-container {
   display: flex;
 
-  align-items: end;
+  flex-direction: column;
 
-  height: 50px;
+  justify-content: space-between;
+
+  margin: 8px 15px 8px 0;
 }
 
 .hero-bullet-points {
-  height: 20px;
+  height: 32px;
 }
 
 .hero-heading {

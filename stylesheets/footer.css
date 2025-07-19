@@ -56,15 +56,19 @@ footer hr {
   padding: 40px 80px;
 }
 
-/*.footer-sitemap-vertical-grid {
-  display: grid;
+.footer-sitemap-vertical-flexbox {
+  display: flex;
+
+  flex-direction: column;
 
   gap: 30px;
-}*/
+}
 
 .footer-sitemap-heading {
   font-size: 20px;
   font-weight: 500;
+
+  text-decoration: underline;
 
   margin: 0 0 15px 0;
 }
