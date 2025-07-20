@@ -213,12 +213,18 @@ aside hr {
   cursor: pointer;
 }
 
+.sidebar-navigation-text.active {
+  text-decoration: underline;
+
+  color: rgb(8, 140, 188);
+}
+
 .sidebar-contact-grid {
   display: grid;
 
   row-gap: 15px;
 
-  padding: 20px 40px;
+  padding: 20px 40px 40px 40px;
 }
 
 .sidebar-contact-text {
@@ -251,6 +257,19 @@ aside hr {
 
   object-fit: cover;
   object-position: center;
+
+  position: relative;
+}
+
+.sidebar-sub-category-image-overlay {
+  width: 100%;
+  height: 250px;
+
+  position: absolute;
+
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 60%, rgba(0, 0, 0, 0.5) 100%);
+
+  z-index: 1;
 }
 
 @media (max-width: 650px) {

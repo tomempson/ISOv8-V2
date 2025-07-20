@@ -1,10 +1,22 @@
 #contact-modal {
-  position: fixed;
+  display: none;
 
   width: 100vw;
   height: 100vh;
 
+  position: fixed;
+
+  opacity: 0;
+
   z-index: 100;
+
+  transition: opacity 1s;
+}
+
+.hero-cta-circle-button {
+  position: relative;
+
+  z-index: 101;
 }
 
 .contact-modal-wrapper-flexbox {
@@ -15,22 +27,208 @@
 
   width: 100%;
   height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .contact-modal-container {
   box-sizing: border-box;
   width: 750px;
-  height: 400px;
 
-  background-color: ghostwhite;
+  position: relative;
 
-  border: 1px solid rgb(205, 205, 205);
+  background-color: rgb(250, 250, 250);
+
   border-radius: 15px;
 
-  padding: 25px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+
+  padding: 25px 175px 50px 50px;
+}
+
+.contact-modal-just-ask-jo {
+  width: 250px;
+
+  position: absolute;
+  top: -100px;
+  right: -100px;
+}
+
+.contact-modal-close-button {
+  display: flex;
+
+  flex-direction: row;
+
+  column-gap: 25px;
+
+  position: absolute;
+  top: -75px;
+  left: -75px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border: none;
+
+  padding: 0;
+}
+
+.contact-modal-close-button:hover {
+  cursor: pointer;
+}
+
+.contact-modal-close {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  width: 40px;
+  height: 40px;
+
+  position: relative;
+}
+
+.contact-modal-close::before, .contact-modal-close::after {
+  content: '';
+
+  width: 100%;
+  height: 3px;
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  background-color: white;
+
+  transform-origin: center;
+}
+
+.contact-modal-close::before {
+  transform: rotate(45deg);
+}
+
+.contact-modal-close::after {
+  transform: rotate(-45deg);
 }
 
 .contact-modal-content-flexbox {
   display: flex;
 
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.contact-modal-heading {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.contact-modal-jo {
+  font-weight: 500;
+  font-style: italic;
+
+  color: rgb(8, 140, 188);
+}
+
+.contact-modal-input {
+  -webkit-appearance: none;
+  appearance: none;
+  box-shadow: none;
+
+  font-size: 15px;
+
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 5px;
+
+  background-color: rgba(255, 255, 255, 0.5);
+
+  padding: 5px;
+
+  transition: outline 0.3s ease;
+}
+
+.contact-modal-details-field {
+  height: 100px;
+
+  resize: none;
+}
+
+.contact-modal-input:focus-visible {
+  outline: 3px solid rgb(8, 140, 188);
+}
+
+.contact-modal-submit-button {
+  font-size: 15px;
+
+  background-color: rgb(8, 140, 188);
+
+  color: white;
+
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 4px;
+  
+  padding: 10px 0;
+
+  transition: background-color 0.3s;
+}
+
+.contact-modal-submit-button:hover {
+  background-color: rgb(12, 163, 218);
+
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .contact-modal-wrapper-flexbox {
+    align-items: flex-end;
+  }
+
+  .contact-modal-container {
+    width: 100%;
+
+    padding: 50px;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .contact-modal-just-ask-jo {
+    width: 100px;
+
+    top: 25px;
+    right: 25px;
+  }
+
+  .contact-modal-close-button {
+    top: 15px;
+    left: 15px;
+  }
+
+  .contact-modal-close::before, .contact-modal-close::after {
+    background-color: black;
+  }
+
+  .contact-modal-heading {
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  .contact-modal-container {
+    padding: 50px 30px 100px 30px;
+  }
+
+  .contact-modal-just-ask-jo {
+    display: none;
+  }
+
+  .contact-modal-heading {
+    font-size: 35px;
+
+    text-align: center;
+
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
 }

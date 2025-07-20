@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     asideEl.style.transform = 'translateX(-100%)';
     overlay.style.opacity = '0';
     asideEl.addEventListener('transitionend', function handler() {
+      categoryLinks.forEach(l => l.classList.remove('active'));
       heroFlexbox.style.position = 'absolute';
       document.body.style.position = '';
       document.body.style.width = '';
@@ -85,6 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
   categoryLinks.forEach((link) => {
     link.addEventListener('click', () => {
       subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
+      categoryLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
       const slug = slugify(link.textContent);
 
       const target = subCategoryContainer.querySelector(`.${slug}`);
@@ -106,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const returnButtons = document.querySelectorAll('.sidebar-return-button');
   const closeSubCategories = () => {
+    categoryLinks.forEach(l => l.classList.remove('active'));
     subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
     subCategoryContainer.style.transform = 'translateX(-100%)';
     subCategoryContainer.addEventListener('transitionend', handleSubCategoriesTransitionEnd);
