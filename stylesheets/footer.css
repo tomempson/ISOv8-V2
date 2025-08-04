@@ -47,17 +47,13 @@ footer hr {
 }
 
 .footer-sitemap {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-
-  gap: 80px;
-
+  column-count: 5;
+  column-gap: 80px;
   padding: 40px 80px;
 }
 
 .footer-sitemap-heading {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
 
   text-decoration: underline;
@@ -69,13 +65,13 @@ footer hr {
   list-style-type: none;
 
   padding: 0;
-  margin: 0;
+  margin: 0 0 50px 0;
 }
 
 .footer-sitemap-links {
   display: block;
 
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
 
   text-decoration: none;
