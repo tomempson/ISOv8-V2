@@ -13,12 +13,6 @@
   transition: opacity 1s;
 }
 
-.hero-cta-circle-button {
-  position: relative;
-
-  z-index: 101;
-}
-
 .contact-modal-wrapper-flexbox {
   display: flex;
 
@@ -31,27 +25,21 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.contact-modal-background {
+  width: 925px;
+
+  position: relative;
+}
+
 .contact-modal-container {
   box-sizing: border-box;
   width: 750px;
 
-  position: relative;
-
-  background-color: rgb(250, 250, 250);
-
-  border-radius: 15px;
-
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
-
-  padding: 25px 175px 50px 50px;
-}
-
-.contact-modal-just-ask-jo {
-  width: 250px;
-
   position: absolute;
-  top: -100px;
-  right: -100px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  padding: 25px 50px 50px 50px;
 }
 
 .contact-modal-close-button {
@@ -119,14 +107,34 @@
   gap: 15px;
 }
 
+.contact-modal-heading-flexbox {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
 .contact-modal-heading {
   font-size: 30px;
   font-weight: 500;
+
+  margin: 0;
 }
 
-.contact-modal-jo {
+.contact-modal-highlight {
   font-weight: 500;
   font-style: italic;
+
+  color: rgb(8, 140, 188);
+}
+
+.contact-modal-phone-number {
+  font-size: 30px;
+  font-weight: 600;
 
   color: rgb(8, 140, 188);
 }
