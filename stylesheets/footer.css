@@ -49,11 +49,12 @@ footer hr {
 .footer-sitemap {
   column-count: 5;
   column-gap: 80px;
+
   padding: 40px 80px;
 }
 
 .footer-sitemap-heading {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
 
   text-decoration: underline;
@@ -69,9 +70,9 @@ footer hr {
 }
 
 .footer-sitemap-links {
-  display: block;
+  display: inline;
 
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
 
   text-decoration: none;
@@ -101,7 +102,7 @@ footer hr {
 }
 
 .footer-legal-copyright-disclaimer, .footer-legal-links {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
 
   color: rgba(0, 0, 0, 0.3);
