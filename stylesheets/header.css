@@ -48,17 +48,28 @@ header {
   flex-direction: column;
 
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
   width: 40px;
   height: 30px;
 }
 
 .hamburger-menu div {
-  width: 100%;
   height: 2px;
 
   background-color: white;
+}
+
+.hamburger-menu-long {
+  width: 100%;
+}
+
+.hamburger-menu-medium {
+  width: 70%;
+}
+
+.hamburger-menu-short {
+  width: 40%;
 }
 
 .hamburger-menu-text {

@@ -26,14 +26,14 @@
 }
 
 .contact-modal-background {
-  width: 1050px;
+  width: 900px;
 
   position: relative;
 }
 
 .contact-modal-container {
   box-sizing: border-box;
-  width: 850px;
+  width: 750px;
 
   position: absolute;
 
@@ -118,6 +118,18 @@
   margin-bottom: 15px;
 }
 
+.contact-modal-heading-slogan-flexbox {
+  display: flex;
+
+  flex-direction: row;
+
+  align-items: center;
+}
+
+.contact-modal-heading-logo {
+  height: 23px;
+}
+
 .contact-modal-heading {
   font-size: 30px;
   font-weight: 500;
@@ -144,7 +156,7 @@
   appearance: none;
   box-shadow: none;
 
-  font-size: 15px;
+  font-size: 12px;
 
   border: 1px solid rgb(205, 205, 205);
   border-radius: 5px;
@@ -167,7 +179,9 @@
 }
 
 .contact-modal-submit-button {
-  font-size: 15px;
+  width: 35%;
+
+  font-size: 12px;
 
   background-color: rgb(8, 140, 188);
 
