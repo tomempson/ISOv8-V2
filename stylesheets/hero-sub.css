@@ -1,8 +1,3 @@
-#hero {
-  width: 100vw;
-  height: 100vh;
-}
-
 .hero-flexbox {
   display: flex;
 
@@ -23,7 +18,27 @@
 .hero-heading-flexbox {
   display: flex;
 
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.hero-heading-flexbox h1 {
+  font-size: 30px;
+
+  margin: 15px 0 40px 0;
+}
+
+.hero-heading-flexbox h2 {
+  font-size: 25px;
+  font-weight: 500;
+
+  margin: 15px 0 0 0;
+}
+
+.hero-heading-flexbox h3 {
+  font-size: 20px;
+  font-weight: 400;
+
+  margin: 15px 0 0 0;
 }
 
 .hero-heading-flexbox-sub {

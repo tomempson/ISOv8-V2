@@ -1,0 +1,172 @@
+header {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 1136px;
+
+  position: absolute;
+
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
+
+  border-bottom: 1px solid black;
+
+  padding: 20px 40px;
+
+  z-index: 1;
+}
+
+.hamburger-menu-container {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: flex-start;
+
+  flex: 1;
+}
+
+.hamburger-menu-button {
+  display: flex;
+
+  flex-direction: row;
+
+  column-gap: 20px;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  border: none;
+}
+
+.hamburger-menu-button:hover {
+  cursor: pointer;
+}
+
+.hamburger-menu {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+  align-items: flex-start;
+
+  width: 40px;
+  height: 30px;
+}
+
+.hamburger-menu div {
+  height: 2px;
+
+  background-color: white;
+}
+
+.hamburger-menu-long {
+  width: 100%;
+}
+
+.hamburger-menu-medium {
+  width: 70%;
+}
+
+.hamburger-menu-short {
+  width: 40%;
+}
+
+.hamburger-menu-text {
+  align-self: center;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  color: white;
+}
+
+.header-logo-container {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: center;
+
+  flex: 1;
+}
+
+.header-logo {
+  height: 65px;
+}
+
+.regular-logo {
+  display: block;
+}
+
+.small-logo {
+  display: none;
+}
+
+.header-links-container {
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: flex-end;
+
+  flex: 1;
+}
+
+.header-links-flexbox {
+  display: flex;
+
+  column-gap: 40px;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+.header-links {
+  font-size: 20px;
+  font-weight: 500;
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  color: white;
+}
+
+@media (max-width: 1000px) {
+  .header-links-about-us {
+    display: none;
+  }
+}
+
+@media (max-width: 750px) {
+  .hamburger-menu-text {
+    display: none;
+  }
+
+  .header-links-container {
+    display: none;
+  }
+}
+
+@media (max-width: 492px) {
+  .regular-logo {
+    display: none;
+  }
+
+  .small-logo {
+    display: block;
+  }
+
+  .header-logo-container {
+    justify-content: flex-end;
+  }
+}

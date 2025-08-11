@@ -1,1270 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ISOv8&reg;</title>
-
-    <meta name="robots" content="noindex, nofollow">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg">
-    <link rel="shortcut icon" href="favicons/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
-    <link rel="manifest" href="favicons/site.webmanifest">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
 
     <link rel="stylesheet" href="https://use.typekit.net/xjz3mil.css">
 
+    <link rel="stylesheet" href="stylesheets/sub-category.css">
+
     <link rel="stylesheet" href="stylesheets/general.css">
 
-    <link rel="stylesheet" href="stylesheets/cookie-consent.css">
+    <link rel="stylesheet" href="stylesheets/sidebar-sub.css">
 
-    <link rel="stylesheet" href="stylesheets/contact-modal.css">
+    <link rel="stylesheet" href="stylesheets/header-sub.css">
 
-    <link rel="stylesheet" href="stylesheets/header.css">
-    <link rel="stylesheet" href="stylesheets/sidebar.css">
+    <link rel="stylesheet" href="stylesheets/hero-sub.css">
 
-    <link rel="stylesheet" href="stylesheets/hero.css">
-    <link rel="stylesheet" href="stylesheets/showcase.css">
-
-    <link rel="stylesheet" href="stylesheets/footer.css">
+    <link rel="stylesheet" href="stylesheets/footer-sub.css">
   </head>
   <body>
-    <div id="sidebar-overlay"></div>
-    
-    <section id="cookie-consent">
-      <div class="cookie-consent-flexbox">
-        <div class="cookie-consent-heading-flexbox">
-          <div class="cookie-consent-heading-container"></div>
+    <div class="body-flexbox">
 
-          <span class="cookie-consent-heading cookie-consent-heading-container">Manage Consent</span>
+      <div class="sidebar">
+        <aside>
+          <div class="sidebar-flexbox blueprint-files">
+            <div class="sidebar-sub-category-image-overlay"></div>
+            <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
 
-          <div class="cookie-consent-heading-container cookie-consent-close-flexbox">
-            <button onclick="handleCookieConsent('close');" class="cookie-consent-close-button">
-              <div class="cookie-consent-close"></div>
-            </button>
-          </div>
-        </div>
-        
-        <p class="cookie-consent-info">To provide the best experiences, we use technologies like cookies to store and/or access device information. Consenting to these technologies will allow us to process data such as browsing behaviour or unique IDs on this site. Not consenting or withdrawing consent, may adversely affect certain features and functions.</p>
+            <div class="sidebar-header-flexbox">
+              <button class="sidebar-return-button">
+                <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
 
-        <div class="cookie-consent-choice-flexbox">
-          <button onclick="handleCookieConsent('close');" class="cookie-consent-button accept">Accept</button>
-          <button onclick="handleCookieConsent('close');" class="cookie-consent-button deny">Deny</button>
-          <button class="cookie-consent-button view-preferences">View Preferences</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact-modal">
-      <div class="contact-modal-wrapper-flexbox">
-        <img class="contact-modal-background" src="graphics/contact-modal-background.svg">
-        <div class="contact-modal-container">
-          <button class="contact-modal-close-button">
-            <div class="contact-modal-close"></div>
-          </button>
-          <div class="contact-modal-content-flexbox">
-            <div class="contact-modal-heading-flexbox">
-              <div class="contact-modal-heading-slogan-flexbox">
-                <span class="contact-modal-heading">
-                  Just As
-                </span>
-
-                <img class="contact-modal-heading-logo" src="graphics/container-king-logo-mark-colour.svg">
-              </div>
-
-              <span class="contact-modal-phone-number">01724 870000</span>
+              <h2 class="sidebar-heading" class="sidebar-heading">Blueprint Files</h2>
             </div>
 
-            <input class="contact-modal-input contact-modal-name-field" type="text" placeholder="Name">
-
-            <input class="contact-modal-input contact-modal-email-field" type="email" placeholder="Email Address">
-
-            <input class="contact-modal-input contact-modal-tel-field" type="tel" placeholder="Telephone Number">
-
-            <input class="contact-modal-input contact-modal-business-name-field" type="text" placeholder="Business Name">
-
-            <textarea class="contact-modal-input contact-modal-details-field" type="text" placeholder="Enquiry Details"></textarea>
-
-            <button class="contact-modal-submit-button">Submit</button>
+            <nav class="sidebar-navigation-container">
+              <ul class="sidebar-navigation-grid">
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do I Need Planning Permission for a Container?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Planning Permission vs Building Regulations - What's the Difference?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Permitted Development and Container Conversions</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can I Run a Business from a Container on My Land?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">What Counts as a Permanent Building?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">The Rules Around Residential Use</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Fire Safety, Access &amp; Other Rules, Nobody Tells You</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Designing Your Ideal Container Conversion</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do I Need an Architect for My Container Project?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">How Big Can I Go?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">The Rules Around Residential Use</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can I Stack Containers? - Rules & Safety Considerations</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">What Makes a Container &quot;Temporary&quot;?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Container Projects on Rented Land - What to Watch Out For</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do I Need a Change of Use for My Land?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can I Put a Container in a Conservation Area or AONB?</a></li>
+                <li><a class="sidebar-navigation-text" href="sub-catagory.html">Does a Converted Container Need a Building Control Certificate?</a></li>
+              </ul>
+            </nav>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <header>
-      <div class="hamburger-menu-container">
-        <button class="hamburger-menu-button">
-          <div class="hamburger-menu">
-            <div class="hamburger-menu-long"></div>
-            <div class="hamburger-menu-medium"></div>
-            <div class="hamburger-menu-short"></div>
-          </div>
-
-          <span class="hamburger-menu-text">Menu</span>
-        </button>
+        </aside>
       </div>
 
-      <div class="header-logo-container">
-        <a class="logo-return-link regular-logo" href="#"><img class="header-logo" src="graphics/isov8-logo.svg"></a>
-        <a class="logo-return-link small-logo" href="#"><img class="header-logo" src="graphics/isov8-logo-mark.svg"></a>
-      </div>
-
-      <div class="header-links-container">
-        <nav>
-          <ul class="header-links-flexbox">
-            <li><a class="header-links header-links-about-us" href="sub-catagory.html">About Us</a></li>
-            <li><a class="header-links header-links-contact-us" href="sub-catagory.html">Inside V8</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-
-    <aside>
-      <section id="sidebar-navigation-categories">
-        <div class="sidebar-flexbox">
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-close-button">
-              <div class="sidebar-close"></div>
-
-              <span class="sidebar-close-text">Close</span>
-            </button>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><span class="sidebar-navigation-text">All Crewed Up</span></li>
-              <li><span class="sidebar-navigation-text">Blueprint Files</span></li>
-              <li><span class="sidebar-navigation-text">Box Office Hits</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - Can You?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - Does?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - How Do?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - How To?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - Is It Safe To?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - Should I?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - V/s</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - When Do?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - Which?</span></li>
-              <li><span class="sidebar-navigation-text">Clue Me - Why Do?</span></li>
-              <li><span class="sidebar-navigation-text">Core Range</span></li>
-              <li><span class="sidebar-navigation-text">Fact CHQ</span></li>
-              <li><span class="sidebar-navigation-text">FPF - Dry Ryvita</span></li>
-              <li><span class="sidebar-navigation-text">From A ➡️ DONE</span></li>
-              <li><span class="sidebar-navigation-text">Front Page</span></li>
-              <li><span class="sidebar-navigation-text">Hard Copy Hub</span></li>
-              <li><span class="sidebar-navigation-text">Heads Up Files</span></li>
-              <li><span class="sidebar-navigation-text">How-To Hub</span></li>
-              <li><span class="sidebar-navigation-text">Ignore At Your Peril</span></li>
-              <li><span class="sidebar-navigation-text">Insight Series</span></li>
-              <li><span class="sidebar-navigation-text">It's Not That Simple</span></li>
-              <li><span class="sidebar-navigation-text">Knowledge Vault</span></li>
-              <li><span class="sidebar-navigation-text">No B-S Guide</span></li>
-              <li><span class="sidebar-navigation-text">On The Map</span></li>
-              <li><span class="sidebar-navigation-text">Reality CHQ</span></li>
-              <li><span class="sidebar-navigation-text">Red Tape Rundown</span></li>
-              <li><span class="sidebar-navigation-text">Red Flag Warnings Guide</span></li>
-              <li><span class="sidebar-navigation-text">Snapshot</span></li>
-              <li><span class="sidebar-navigation-text">Tax &amp; Finance Academy</span></li>
-              <li><span class="sidebar-navigation-text">Trim</span></li>
-              <li><span class="sidebar-navigation-text">Trivia Vault</span></li>
-              <li><span class="sidebar-navigation-text">V8 Manual</span></li>
-              <li><span class="sidebar-navigation-text">Who The Hell is ISOv8&reg;?</span></li>
-            </ul>
-          </nav>
-
-          <hr>
-
-          <div class="sidebar-contact-grid">
-            <span class="sidebar-contact-text sidebar-contact-title">Make it Happen:</span>
-
-            <a class="sidebar-contact-text sidebar-contact-telephone-number" href="tel:01724 870000">01724 870000</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="sidebar-navigation-sub-categories">
-        <div class="sidebar-flexbox all-crewed-up">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">All Crewed Up</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox blueprint-files">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Blueprint Files</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do I Need Planning Permission for a Container?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Planning Permission vs Building Regulations - What's the Difference?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Permitted Development and Container Conversions</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can I Run a Business from a Container on My Land?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What Counts as a Permanent Building?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">The Rules Around Residential Use</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Fire Safety, Access &amp; Other Rules, Nobody Tells You</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Designing Your Ideal Container Conversion</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do I Need an Architect for My Container Project?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How Big Can I Go?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">The Rules Around Residential Use</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can I Stack Containers? - Rules & Safety Considerations</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">What Makes a Container &quot;Temporary&quot;?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Container Projects on Rented Land - What to Watch Out For</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do I Need a Change of Use for My Land?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can I Put a Container in a Conservation Area or AONB?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Does a Converted Container Need a Building Control Certificate?</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox box-office-hits">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Box Office Hits</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Dunham Massey National Trust</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Edith Cavell School Northfork</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cheesecake Energy</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Marlborough Communications</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Gallery</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-can-you-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - Can You?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Put a Container on Grass or Soil Without Foundations?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Put a Log Burner in a Shipping Container?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Completely Soundproof a Container Conversion or Anti-Vandal Building?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Use Wet Plaster in a Container Conversion?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Fit a Pitched Roof or Overhang to a Container?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Join Two Containers Together?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Convert a Container for Disabled Access or DDA Compliance?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Fit a Container with Underfloor Heating?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Create a Hidden or Secret Room in a Container?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Can You Hang Heavy Equipment or Gym Gear from the Ceiling?</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-does-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - Does?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do Containers Get Condensation?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Does a Container Conversion Need Ventilation?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do Container Conversions Get Hot in Summer?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Does Steel Expand or Contract in Heat?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do Container Conversions Hold Their Value?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do You Need a Warranty for a Container Conversion?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Does a Container Conversion Need a Fire Exit?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do Containers Rust Over Time?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Does the Floor Need Replacing in a Used Container?</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Do You Need to Insulate Underneath a Container?</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-how-do-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - How Do?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-how-to-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - How To?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Choose Between What You Want and What You Actually Need</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Plan Your Container Conversion Layout</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Insulate Without Losing Internal Space</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Design a Container for Off-Grid Use</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Avoid the “It Still Looks Like a Shipping Container” Problem</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Make a Container Feel Bigger Inside</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Make a Container Feel Inspiring, Not Just Functional</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Choose a Container That Matches Your Personality or Brand</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Reconfigure a Container You've Already Bought</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Build a Container You'll Still Be Happy With in 5 Years</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Position Your Container for Maximum Usefulness</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Upgrade a Standard Container into a Premium Space</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Avoid the “It Still Looks Like a Shipping Container” Problem</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">How to Make a Container Feel Inspiring, Not Just Functional</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-is-it-safe-to-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - Is It Safe To?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-should-i-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - Should I?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-v-s">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - V/s</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-when-do-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - When Do?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-which-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - Which?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox clue-me-why-do-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Clue Me - Why Do?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox core-range">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Core Range</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Airbnb Pods</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Arts, Crafts, Hobbyists Studio</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">BDSM Play Room</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Canteens</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Cinema Room</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Classrooms</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Craft Studios</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Gaming Rooms</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Garden Rooms</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Gyms</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Insulated Storage</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Luxury Bar &amp; Lounge</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Luxury Offices</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Man Caves</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Meeting Rooms</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Motorsport Garages</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Pop-Up Shops</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">She Sheds</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Site Offices</a></li>
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Workshops</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox fact-chq">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Fact CHQ</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox fpf-dry-ryvita">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">FPF - Dry Ryvita</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox from-a-done">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">From A ➡️ DONE</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox front-page">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Front Page</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox hard-copy-hub">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Hard Copy Hub</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox heads-up-files">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Heads Up Files</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox how-to-hub">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">How-To Hub</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox ignore-at-your-peril">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Ignore At Your Peril</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox insight-series">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Insight Series</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox it-s-not-that-simple">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">It's Not That Simple</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox knowledge-vault">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Knowledge Vault</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox no-b-s-guide">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">No B-S Guide</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox on-the-map">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">On The Map</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox reality-chq">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Reality CHQ</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox red-tape-rundown">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Red Tape Rundown</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox red-flags-warning-guide">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Red Flags Warning Guide</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox snapshot">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Snapshot</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox tax-finance-academy">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Tax & Finance Academy</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox trim">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Trim</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox trivia-vault">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Trivia Vault</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox v8-manual">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">V8 Manual</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="sidebar-flexbox who-the-hell-is-isov8-">
-          <div class="sidebar-sub-category-image-overlay"></div>
-          <img class="sidebar-sub-category-image" src="images/sidebar/conversion-examples.png">
-
-          <div class="sidebar-header-flexbox">
-            <button class="sidebar-return-button">
-              <svg width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polyline points="60,20 30,50 60,80" stroke="black" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <h2 class="sidebar-heading" class="sidebar-heading">Who The Hell Is ISOv8&reg;?</h2>
-          </div>
-
-          <nav class="sidebar-navigation-container">
-            <ul class="sidebar-navigation-grid">
-              <li><a class="sidebar-navigation-text" href="sub-catagory.html">Sub Category Page</a></li>
-            </ul>
-          </nav>
-        </div>
-
-
-      </section>
-    </aside>
-    
-    <main>
-      <section id="hero">
-        <img src="images/sub-category/isov8-pure-white.png" style="
-        width: 100%;
-        height: 100vh;
-        object-fit: contain;
-        object-position: center;
-        ">
-
-        <div class="hero-flexbox">
-          <div class="hero-heading-flexbox">
-            <h1 class="hero-heading" style="color: black; margin: 0 0 80px 55px; font-size: 40px;">Do I Need Planning Permission?</h1>
-          </div>
-
-          <button class="hero-cta-circle-button">
-            <div class="hero-cta-circle-outer">
-              <svg class="hero-cta-ring" viewBox="0 0 100 100" width="100" height="100">
-                <circle class="hero-cta-base-circle" cx="50" cy="50" r="48" />
-                <circle class="hero-cta-ring-circle" cx="50" cy="50" r="48" />
-              </svg>
-
-              <div class="hero-cta-circle-inner"></div>
-              
-              <div class="hero-cta-circle-flexbox">
-                <div class="line"></div>
-
-                <span class="hero-cta-text">Engage</span>
-
-                <div class="line"></div>
+      <div class="content">
+        <header>
+          <div class="hamburger-menu-container">
+            <button class="hamburger-menu-button">
+              <div class="hamburger-menu">
+                <div class="hamburger-menu-long"></div>
+                <div class="hamburger-menu-medium"></div>
+                <div class="hamburger-menu-short"></div>
               </div>
-            </div>
-          </button>
-        </div>
-      </section>
 
-      <article style="padding: 50px 100px 50px 100px;">
-        <h2>Summary</h2>
-        <p>Thinking about placing a shipping container on your land? You’re not alone — but the rules can be confusing. This guide explains when planning permission is likely to be needed, when you might be exempt, and how to avoid costly assumptions. We break it down clearly, based on our decades of experience delivering container conversions across the UK. This isn’t legal advice — but it is the real-world knowledge we wish every customer had before they started.</p>
-        <h3>What Is Planning Permission?</h3>
-        <p>Planning permission is formal consent from your local council to place a structure or change the use of land. It’s designed to protect the local environment and prevent inappropriate developments.</p>
-        <p>Planning is concerned with:</p>
-        <ul>
-        <li>Where you place the container</li>
-        <li>How visible it is</li>
-        <li>What it’s used for</li>
-        <li>Whether it impacts neighbours or public land</li>
-        </ul>
-        <p>It’s not the same as building regulations.</p>
-        <h3>When Planning Permission May Not Be Required</h3>
-        <p>In many cases, you can place a container without planning permission, especially when:</p>
-        <ul>
-        <li>It’s temporary and easily moveable</li>
-        <li>It’s used for storage (not accommodation or public access)</li>
-        <li>It’s located on private land, out of sight</li>
-        <li>It’s part of a permitted use (e.g. on a working farm or active construction site)</li>
-        </ul>
-        <p>But even temporary placement can raise questions if it’s prominent, modified, or remains in place for an extended period.</p>
-        <h3>When You Will Likely Need It</h3>
-        <p>Planning permission is usually required when your container is:</p>
-        <ul>
-        <li>Used for residential accommodation</li>
-        <li>Connected to services (electricity, water, drainage)</li>
-        <li>Located in a conservation area or Area of Outstanding Natural Beauty (AONB)</li>
-        <li>Placed in front of a house, or clearly visible from the road</li>
-        <li>On land that doesn’t already have a compatible use (e.g. placing a unit on a field or garden)</li>
-        </ul>
-        <p>If you’re unsure, always check — even homeowners can fall foul of planning rules.</p>
-        <h3>What Triggers a Planning Application</h3>
-        <p>You’ll likely need to apply for planning if your container:</p>
-        <ul>
-        <li>Becomes a permanent fixture</li>
-        <li>Is stacked or attached to another building</li>
-        <li>Includes doors, windows, or external finishes that change its appearance</li>
-        <li>Will be used as a workspace, shop, or classroom</li>
-        <li>Is part of a change of land use</li>
-        </ul>
-        <h3>What About Permitted Development?</h3>
-        <p>Some developments — particularly in domestic gardens or on farms — may qualify for Permitted Development (PD), meaning you don’t need full planning.</p>
-        <p>But PD has strict limits:</p>
-        <ul>
-        <li>Applies mainly to outbuildings, not living spaces</li>
-        <li>Height, location, and use matter</li>
-        <li>Doesn’t apply in all areas</li>
-        </ul>
-        <h3>Typical Pitfalls and Red Flags</h3>
-        <ul>
-        <li>Assuming it’s “just a temporary box”</li>
-        <li>Placing it on rented land without permission</li>
-        <li>Converting it internally without external changes — it can still count as development</li>
-        <li>Connecting power or plumbing without consent</li>
-        <li>Placing it near a public road or path</li>
-        </ul>
-        <h3>Need Help Navigating the Rules?</h3>
-        <p>We’re not planning consultants, but we can help you understand what’s likely to be acceptable and what needs further advice. We’ll also build your conversion to meet high standards — and flag anything that could cause issues.</p>
-      </article>
-    </main>
-    
-    <footer>
-      <div class="footer-flexbox">
-        <div class="footer-heading-flexbox">
-          <a class="logo-return-link" href="#"><img class="footer-logo" src="graphics/isov8-logo-colour.svg"></a>
-
-          <h4 class="footer-slogan">without doubt&reg;</h4>
-        </div>
-
-        <hr>
-
-        <nav class="footer-sitemap" style="position: relative;">
-          <ul class="footer-sitemap-grid">
-            <li>
-              <span class="footer-sitemap-text">All Crewed Up</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Blueprint Files</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Box Office Hits</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - Can You?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - Does</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - How Do?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - How To?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - Is It Safe To?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - Should I?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - V/s</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - When Do?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - Which?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Clue Me - Why Do?</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Core Range</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Fact CHQ</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">FPF - Dry Ryvita</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">From A ➡️ DONE</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Front Page</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Hard Copy Hub</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Heads Up Files</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">How-To Hub</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Ignore At Your Peril</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Insight Series</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">It's Not That Simple</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Knowledge Vault</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">No B-S Guide</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">On The Map</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Reality CHQ</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Red Tape Rundown</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Red Flag Warnings Guide</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Snapshot</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Tax & Finance Academy</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Trim</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Trivia Vault</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">V8 Manual</span>
-            </li>
-            <li>
-              <span class="footer-sitemap-text">Who The Hell Is ISOv8&reg;?</span>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="footer-popup">
-          <button class="footer-popup-close-button">
-            <div class="footer-popup-close"></div>
-          </button>
-
-          <nav class="footer-sitemap">
-            <ul>
-              <li>
-                <span class="footer-sitemap-text">Sub Category Page</span>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <hr>
-
-        <div class="footer-legal-flexbox">
-          <p class="footer-legal-copyright-disclaimer">&copy; 2025 ContainerKing&reg;. All rights reserved.</p>
-
-          <div class="footer-legal-links-flexbox">
-            <a class="footer-legal-links" href="sub-catagory.html">Cookie Policy</a>
-            <a class="footer-legal-links" href="sub-catagory.html">Privacy Policy</a>
+              <span class="hamburger-menu-text">Menu</span>
+            </button>
           </div>
-        </div>          
-      </div>
-    </footer>
 
-    <script src="scripts/cookie-consent.js"></script>
-    <script src="scripts/contact-modal.js"></script>
-    <script src="scripts/sidebar.js"></script>
-    <script src="scripts/banner.js"></script>
-    <script src="scripts/hero-cta.js"></script>
-    <script src="scripts/footer-popup.js"></script>
+          <div class="header-logo-container">
+            <a class="logo-return-link regular-logo" href="#"><img class="header-logo" src="graphics/isov8-logo.svg"></a>
+            <a class="logo-return-link small-logo" href="#"><img class="header-logo" src="graphics/isov8-logo-mark.svg"></a>
+          </div>
+
+          <div class="header-links-container">
+            <nav>
+              <ul class="header-links-flexbox">
+                <li><a class="header-links header-links-about-us" href="sub-catagory.html">About Us</a></li>
+                <li><a class="header-links header-links-contact-us" href="sub-catagory.html">Inside V8</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+
+        <section id="hero">
+          <img src="images/sub-category/isov8-pure-white.png" style="width: 100%; height: 100vh; object-fit: contain; object-position: center;">
+
+          <div class="hero-flexbox">
+            <div class="hero-heading-flexbox">
+              <h3>Blueprint Files - 01</h3>
+              <h2>Sub Heading Here...</h2>
+              <h1>Do I Need Planning Permission For a Container on My Land?</h1>
+            </div>
+
+            <button class="hero-cta-circle-button">
+              <div class="hero-cta-circle-outer">
+                <svg class="hero-cta-ring" viewBox="0 0 100 100" width="100" height="100">
+                  <circle class="hero-cta-base-circle" cx="50" cy="50" r="48" />
+                  <circle class="hero-cta-ring-circle" cx="50" cy="50" r="48" />
+                </svg>
+
+                <div class="hero-cta-circle-inner"></div>
+                
+                <div class="hero-cta-circle-flexbox">
+                  <div class="line"></div>
+
+                  <span class="hero-cta-text">Engage</span>
+
+                  <div class="line"></div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <article style="padding: 50px 100px 50px 100px;">
+          <h2>Summary</h2>
+          <p>Thinking about placing a shipping container on your land? You’re not alone — but the rules can be confusing. This guide explains when planning permission is likely to be needed, when you might be exempt, and how to avoid costly assumptions. We break it down clearly, based on our decades of experience delivering container conversions across the UK. This isn’t legal advice — but it is the real-world knowledge we wish every customer had before they started.</p>
+          <h3>What Is Planning Permission?</h3>
+          <p>Planning permission is formal consent from your local council to place a structure or change the use of land. It’s designed to protect the local environment and prevent inappropriate developments.</p>
+          <p>Planning is concerned with:</p>
+          <ul>
+          <li>Where you place the container</li>
+          <li>How visible it is</li>
+          <li>What it’s used for</li>
+          <li>Whether it impacts neighbours or public land</li>
+          </ul>
+          <p>It’s not the same as building regulations.</p>
+          <h3>When Planning Permission May Not Be Required</h3>
+          <p>In many cases, you can place a container without planning permission, especially when:</p>
+          <ul>
+          <li>It’s temporary and easily moveable</li>
+          <li>It’s used for storage (not accommodation or public access)</li>
+          <li>It’s located on private land, out of sight</li>
+          <li>It’s part of a permitted use (e.g. on a working farm or active construction site)</li>
+          </ul>
+          <p>But even temporary placement can raise questions if it’s prominent, modified, or remains in place for an extended period.</p>
+          <h3>When You Will Likely Need It</h3>
+          <p>Planning permission is usually required when your container is:</p>
+          <ul>
+          <li>Used for residential accommodation</li>
+          <li>Connected to services (electricity, water, drainage)</li>
+          <li>Located in a conservation area or Area of Outstanding Natural Beauty (AONB)</li>
+          <li>Placed in front of a house, or clearly visible from the road</li>
+          <li>On land that doesn’t already have a compatible use (e.g. placing a unit on a field or garden)</li>
+          </ul>
+          <p>If you’re unsure, always check — even homeowners can fall foul of planning rules.</p>
+          <h3>What Triggers a Planning Application</h3>
+          <p>You’ll likely need to apply for planning if your container:</p>
+          <ul>
+          <li>Becomes a permanent fixture</li>
+          <li>Is stacked or attached to another building</li>
+          <li>Includes doors, windows, or external finishes that change its appearance</li>
+          <li>Will be used as a workspace, shop, or classroom</li>
+          <li>Is part of a change of land use</li>
+          </ul>
+          <h3>What About Permitted Development?</h3>
+          <p>Some developments — particularly in domestic gardens or on farms — may qualify for Permitted Development (PD), meaning you don’t need full planning.</p>
+          <p>But PD has strict limits:</p>
+          <ul>
+          <li>Applies mainly to outbuildings, not living spaces</li>
+          <li>Height, location, and use matter</li>
+          <li>Doesn’t apply in all areas</li>
+          </ul>
+          <h3>Typical Pitfalls and Red Flags</h3>
+          <ul>
+          <li>Assuming it’s “just a temporary box”</li>
+          <li>Placing it on rented land without permission</li>
+          <li>Converting it internally without external changes — it can still count as development</li>
+          <li>Connecting power or plumbing without consent</li>
+          <li>Placing it near a public road or path</li>
+          </ul>
+          <h3>Need Help Navigating the Rules?</h3>
+          <p>We’re not planning consultants, but we can help you understand what’s likely to be acceptable and what needs further advice. We’ll also build your conversion to meet high standards — and flag anything that could cause issues.</p>
+
+          <h1 style="font-size: 40px;">
+            Legal Disclaimer
+          </h1>
+
+          <p>
+            Some legal BS here....
+          </p>
+        </article>
+
+        <footer>
+          <div class="footer-flexbox">
+            <div class="footer-heading-flexbox">
+              <a class="logo-return-link" href="#"><img class="footer-logo" src="graphics/isov8-logo-colour.svg"></a>
+
+              <h4 class="footer-slogan">without doubt&reg;</h4>
+            </div>
+
+            <hr>
+
+            <nav class="footer-sitemap" style="position: relative;">
+              <ul class="footer-sitemap-grid">
+                <li>
+                  <span class="footer-sitemap-text">All Crewed Up</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Blueprint Files</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Box Office Hits</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - Can You?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - Does</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - How Do?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - How To?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - Is It Safe To?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - Should I?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - V/s</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - When Do?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - Which?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Clue Me - Why Do?</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Core Range</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Fact CHQ</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">FPF - Dry Ryvita</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">From A ➡️ DONE</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Front Page</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Hard Copy Hub</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Heads Up Files</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">How-To Hub</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Ignore At Your Peril</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Insight Series</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">It's Not That Simple</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Knowledge Vault</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">No B-S Guide</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">On The Map</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Reality CHQ</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Red Tape Rundown</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Red Flag Warnings Guide</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Snapshot</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Tax & Finance Academy</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Trim</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Trivia Vault</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">V8 Manual</span>
+                </li>
+                <li>
+                  <span class="footer-sitemap-text">Who The Hell Is ISOv8&reg;?</span>
+                </li>
+              </ul>
+            </nav>
+
+            <div class="footer-popup">
+              <button class="footer-popup-close-button">
+                <div class="footer-popup-close"></div>
+              </button>
+
+              <nav class="footer-sitemap">
+                <ul>
+                  <li>
+                    <span class="footer-sitemap-text">Sub Category Page</span>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <hr>
+
+            <div class="footer-legal-flexbox">
+              <p class="footer-legal-copyright-disclaimer">&copy; 2025 ContainerKing&reg;. All rights reserved.</p>
+
+              <div class="footer-legal-links-flexbox">
+                <a class="footer-legal-links" href="sub-catagory.html">Cookie Policy</a>
+                <a class="footer-legal-links" href="sub-catagory.html">Privacy Policy</a>
+              </div>
+            </div>          
+          </div>
+        </footer>
+      </div>
+
+    </div>
   </body>
 </html>
