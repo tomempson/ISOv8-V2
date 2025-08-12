@@ -7,6 +7,19 @@ aside {
   width: 350px;
 }
 
+/* Animate the sidebar wrapper width so content reflows smoothly */
+.sidebar {
+  width: 350px;            /* match <aside> width */
+  overflow: hidden;        /* hide sliding panel as width shrinks */
+  transition: width 0.9s ease; /* keep in sync with aside's transform */
+}
+
+@media (max-width: 650px) {
+  .sidebar {
+    width: 100vw;          /* full width on small screens */
+  }
+}
+
 #sidebar-overlay {
   display: none;
   

@@ -219,6 +219,29 @@ aside hr {
   color: rgb(8, 140, 188);
 }
 
+.sidebar-sub-navigation-text {
+  font-size: 18px;
+  font-weight: 400;
+
+  text-decoration: none;
+
+  color: black;
+}
+
+.sidebar-sub-navigation-text:hover {
+  text-decoration: underline;
+
+  color: rgb(8, 140, 188);
+
+  cursor: pointer;
+}
+
+.sidebar-sub-navigation-text.active {
+  text-decoration: underline;
+
+  color: rgb(8, 140, 188);
+}
+
 .sidebar-contact-grid {
   display: grid;
 

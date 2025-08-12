@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const closeSidebar = () => {
+  const closeSidebar = (afterClose) => {
     asideEl.style.transform = 'translateX(-100%)';
     overlay.style.opacity = '0';
     asideEl.addEventListener('transitionend', function handler() {
@@ -66,6 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
       hideAllSubCategories();
       asideEl.style.display = 'none';
       asideEl.removeEventListener('transitionend', handler);
+      if (typeof afterClose === 'function') {
+        afterClose();
+      }
     });
     overlay.addEventListener('transitionend', function overlayHandler(e) {
       if (e.propertyName === 'opacity') {
@@ -80,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (closeSidebarBtn) {
-    closeSidebarBtn.addEventListener('click', closeSidebar);
+    closeSidebarBtn.addEventListener('click', () => closeSidebar());
   }
 
   categoryLinks.forEach((link) => {
@@ -104,6 +107,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
       hideAllSubCategories();
       target.style.display = 'block';
+    });
+  });
+
+  // Intercept sub-navigation link clicks so categories slide left by their full width
+  // while sub-categories stick to them and end flush against the left edge. Then navigate.
+  const subNavLinks = document.querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text');
+
+  const TRANSITION_SECONDS = 0.9; // match CSS timing
+
+  subNavLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetHref = link.getAttribute('href');
+
+      // Ensure both sections are visible for the animation
+      sidebarCategoriesSection.style.display = 'block';
+      subCategoryContainer.style.display = 'flex';
+
+      // How far to move: exactly the width of the categories panel
+      const catWidth = sidebarCategoriesSection.getBoundingClientRect().width;
+
+      // Explicit starting state so we animate from 0 → -catWidth
+      sidebarCategoriesSection.style.transform = 'translateX(0px)';
+      subCategoryContainer.style.transform = 'translateX(0px)';
+
+      // Apply transitions to both panes
+      sidebarCategoriesSection.style.transition = `transform ${TRANSITION_SECONDS}s`;
+      subCategoryContainer.style.transition = `transform ${TRANSITION_SECONDS}s`;
+
+      // Force reflow to ensure transitions take effect
+      void sidebarCategoriesSection.offsetWidth;
+      void subCategoryContainer.offsetWidth;
+
+      // Animate: both shift left by the categories width. This keeps the
+      // sub-categories panel "stuck" to the categories until categories are off-screen,
+      // leaving sub-categories flush against the left page edge.
+      sidebarCategoriesSection.style.transform = `translateX(-${catWidth}px)`;
+      subCategoryContainer.style.transform = `translateX(-${catWidth}px)`;
+
+      // After categories finish sliding, navigate
+      const onCategoriesEnd = (ev) => {
+        if (ev.propertyName !== 'transform') return;
+        sidebarCategoriesSection.removeEventListener('transitionend', onCategoriesEnd);
+        // Clean up inline transitions for future interactions
+        sidebarCategoriesSection.style.transition = '';
+        subCategoryContainer.style.transition = '';
+        window.location.href = targetHref;
+      };
+      sidebarCategoriesSection.addEventListener('transitionend', onCategoriesEnd);
     });
   });
 
