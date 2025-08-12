@@ -4,6 +4,8 @@ footer {
   background-color: ghostwhite;
 
   border-top: 1px solid rgb(205, 205, 205);
+
+  position: relative;
 }
 
 footer hr {

@@ -11,7 +11,7 @@ body {
 .sidebar {
   display: block;
 
-  max-width: 500px;
+  max-width: 350px;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -20,7 +20,7 @@ body {
 .content {
   display: block;
 
-  width: 100%;
+  flex: 1;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -40,7 +40,6 @@ body {
   position: sticky;   /* stick to the top of the scrolling .content */
   top: 0;
   z-index: 2;         /* above the hero image */
-  width: 100%;
 }
 
 .gradient {

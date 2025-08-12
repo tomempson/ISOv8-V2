@@ -7,13 +7,9 @@ header {
   align-items: center;
 
   box-sizing: border-box;
-  width: 1136px;
-
-  position: absolute;
+  flex: 1;
 
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
-
-  border-bottom: 1px solid black;
 
   padding: 20px 40px;
 

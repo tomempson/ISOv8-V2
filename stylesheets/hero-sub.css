@@ -1,3 +1,19 @@
+#hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
 .hero-flexbox {
   display: flex;
 
@@ -7,10 +23,11 @@
   align-items: flex-end;
 
   box-sizing: border-box;
-  width: 100%;
 
   position: absolute;
-  bottom: 0;
+  left: 0;
+  right: 0;
+  bottom: 150px;
 
   padding: 0 40px 30px 40px;
 }
@@ -19,26 +36,26 @@
   display: flex;
 
   flex-direction: column;
+
+  justify-content: space-between;
+
+  height: calc(100vh - 110px);
 }
 
 .hero-heading-flexbox h1 {
   font-size: 30px;
 
-  margin: 15px 0 40px 0;
+  margin-bottom: 75px;
 }
 
 .hero-heading-flexbox h2 {
   font-size: 25px;
   font-weight: 500;
-
-  margin: 15px 0 0 0;
 }
 
 .hero-heading-flexbox h3 {
   font-size: 20px;
   font-weight: 400;
-
-  margin: 15px 0 0 0;
 }
 
 .hero-heading-flexbox-sub {
@@ -88,6 +105,8 @@
 
   position: fixed;
   right: 50px;
+  bottom: 50px;
+  top: auto;
 }
 
 .hero-cta-circle-button:hover {
