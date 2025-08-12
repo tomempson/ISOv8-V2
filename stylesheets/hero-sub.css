@@ -2,6 +2,8 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+
+  height: 5000px;
 }
 
 #hero .hero-bg {
@@ -19,7 +21,6 @@
 
   flex-direction: row;
 
-  justify-content: space-between;
   align-items: flex-end;
 
   box-sizing: border-box;
@@ -37,7 +38,6 @@
 
   flex-direction: column;
 
-  justify-content: space-between;
 
   height: calc(100vh - 110px);
 }
