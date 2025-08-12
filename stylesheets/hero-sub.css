@@ -107,6 +107,8 @@
   right: 50px;
   bottom: 50px;
   top: auto;
+
+  z-index: 1000;
 }
 
 .hero-cta-circle-button:hover {

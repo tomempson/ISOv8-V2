@@ -1,11 +1,10 @@
 aside {
   display: flex;
-
   flex-direction: row;
-
   z-index: 100000;
-
   transition: transform 0.9s;
+  position: relative;
+  width: 350px;
 }
 
 #sidebar-overlay {
@@ -29,11 +28,19 @@ aside {
 #sidebar-navigation-categories {
   height: 100dvh;
 
-  position: relative;
+  transform: translateX(-100%);
+  transition: transform 0.9s ease;
 
-  background-color: ghostwhite;
+  display: none;
 
-  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: white;
+
+  z-index: 4;
+  width: 350px;
 }
 
 #sidebar-navigation-sub-categories {
@@ -44,7 +51,7 @@ aside {
 
   position: relative;
   
-  background-color: ghostwhite;
+  background-color: white;
   
   border-left: 1px solid rgb(205, 205, 205);
   
@@ -260,6 +267,9 @@ aside hr {
 }
 
 @media (max-width: 650px) {
+  aside {
+    width: 100vw;
+  }
   #sidebar-navigation-categories {
     width: 100vw;
   }
@@ -272,7 +282,5 @@ aside hr {
     left: 0;
 
     z-index: 3;
-
-
   }
 }

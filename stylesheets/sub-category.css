@@ -42,10 +42,22 @@ body {
   z-index: 2;         /* above the hero image */
 }
 
-.gradient {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
-  height: 100px;
+.gradient-disclaimer-container {
+  position: relative;
 }
 
-.copy {
+.disclaimer-text {
+  position: absolute;
+
+  padding: 0 40px 30px 40px;
+}
+
+.gradient-top {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
+  height: 300px;
+}
+
+.gradient-bottom {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
+  height: 100px;
 }
