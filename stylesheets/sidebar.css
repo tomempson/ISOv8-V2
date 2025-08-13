@@ -319,7 +319,6 @@ aside hr {
 }
 
 
-/* Two-stage reveal: show a 40px high slither from the middle of each sub-category block, then fully reveal */
 #sidebar-navigation-sub-categories.reveal-band {
   clip-path: inset(calc(var(--band-y, 50%) - 20px) 0 calc(100% - (var(--band-y, 50%) + 20px)) 0);
   -webkit-clip-path: inset(calc(var(--band-y, 50%) - 20px) 0 calc(100% - (var(--band-y, 50%) + 20px)) 0);
