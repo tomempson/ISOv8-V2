@@ -38,7 +38,7 @@ aside {
 
   position: relative;
 
-  background-color: ghostwhite;
+  background-color: white;
 
   overflow-y: auto;
 
@@ -50,10 +50,9 @@ aside {
 
   width: 350px;
   height: 100dvh;
-
   position: relative;
   
-  background-color: ghostwhite;
+  background-color: white;
   
   border-left: 1px solid rgb(205, 205, 205);
   
@@ -63,6 +62,10 @@ aside {
 
   transform: translateX(-100%);
   transition: transform 0.9s;
+  -webkit-overflow-scrolling: touch; /* smooth iOS scrolling inside panel */
+  overscroll-behavior: contain;      /* prevent scroll chaining to page */
+  touch-action: pan-y;               /* ensure vertical touch scroll */
+  will-change: transform, clip-path;
 }
 
 aside hr {
@@ -76,9 +79,11 @@ aside hr {
 
 .sidebar-flexbox {
   display: flex;
-
   flex-direction: column;
+  background-color: white;
+  will-change: clip-path;
 }
+.sidebar-flexbox { overflow: visible; }
 
 .sidebar-header-flexbox {
   display: flex;
@@ -311,4 +316,44 @@ aside hr {
 
 
   }
+}
+
+
+/* Two-stage reveal: show a 40px high slither from the middle of each sub-category block, then fully reveal */
+#sidebar-navigation-sub-categories.reveal-band {
+  clip-path: inset(calc(var(--band-y, 50%) - 20px) 0 calc(100% - (var(--band-y, 50%) + 20px)) 0);
+  -webkit-clip-path: inset(calc(var(--band-y, 50%) - 20px) 0 calc(100% - (var(--band-y, 50%) + 20px)) 0);
+  transition: transform 0.9s ease, clip-path 0s; /* horizontal slide only in stage 1 */
+}
+
+#sidebar-navigation-sub-categories.reveal-open {
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
+  transition: clip-path 0.6s ease; /* vertical reveal after slide finishes */
+}
+
+#sidebar-navigation-sub-categories.reveal-band,
+#sidebar-navigation-sub-categories.closing {
+  overflow-y: hidden;               /* no scrollbar while animating */
+  -ms-overflow-style: none;         /* IE/Edge */
+  scrollbar-width: none;            /* Firefox */
+}
+#sidebar-navigation-sub-categories.reveal-band::-webkit-scrollbar,
+#sidebar-navigation-sub-categories.closing::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Restore a neat scrollbar after the vertical reveal finishes */
+#sidebar-navigation-sub-categories.reveal-open {
+  overflow-y: auto;
+}
+#sidebar-navigation-sub-categories.reveal-open::-webkit-scrollbar {
+  width: 8px;
+}
+#sidebar-navigation-sub-categories.reveal-open::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.35);
+}
+#sidebar-navigation-sub-categories.reveal-open::-webkit-scrollbar-track {
+  background: transparent;
 }

@@ -31,8 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleSubCategoriesTransitionEnd(e) {
     if (e.propertyName === 'transform') {
+      subCategoryContainer.classList.remove('closing');
+      // Clear any inline transitions and clip-path so future opens are clean
+      subCategoryContainer.style.transition = '';
+      subCategoryContainer.style.clipPath = 'none';
+      subCategoryContainer.style.webkitClipPath = 'none';
       subCategoryContainer.style.display = 'none';
       hideAllSubCategories();
+      subCategoryContainer.classList.remove('reveal-band', 'reveal-open');
       subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
     }
   }
@@ -88,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   categoryLinks.forEach((link) => {
     link.addEventListener('click', () => {
+      subCategoryContainer.classList.remove('closing');
       subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
       categoryLinks.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
@@ -95,62 +102,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const target = subCategoryContainer.querySelector(`.${slug}`);
       if (!target) {
-        console.warn(`No sub‑category block found for "${slug}"`);
+        console.warn(`No sub-category block found for "${slug}"`);
         return;
       }
 
-      subCategoryContainer.style.transform = 'translateX(-100%)';
-      subCategoryContainer.style.display = 'flex';
-      requestAnimationFrame(() => {
-        subCategoryContainer.style.transform = 'translateX(0)';
-      });
-
+      
       hideAllSubCategories();
       target.style.display = 'block';
+
+      // Reset any inline styles from the previous open so the new two-stage animation plays
+      subCategoryContainer.style.clipPath = '';
+      subCategoryContainer.style.webkitClipPath = '';
+      subCategoryContainer.style.overflowY = '';
+      subCategoryContainer.style.transition = '';
+
+      const asideRect = asideEl.getBoundingClientRect();
+      const linkRect = link.getBoundingClientRect();
+      let bandY = linkRect.top + linkRect.height / 2 - asideRect.top; 
+      const minBand = 20;
+      const maxBand = asideRect.height - 20;
+      bandY = Math.max(minBand, Math.min(maxBand, bandY));
+      subCategoryContainer.style.setProperty('--band-y', bandY + 'px');
+
+      
+      subCategoryContainer.classList.remove('reveal-open');
+      subCategoryContainer.classList.add('reveal-band');
+
+      
+      subCategoryContainer.style.display = 'flex';
+      subCategoryContainer.style.transform = 'translateX(-100%)';
+      void subCategoryContainer.offsetWidth; 
+      subCategoryContainer.style.transform = 'translateX(0)';
+
+      
+      const onSlideInEnd = (e) => {
+        if (e.propertyName !== 'transform') return;
+        subCategoryContainer.removeEventListener('transitionend', onSlideInEnd);
+        subCategoryContainer.classList.remove('reveal-band');
+        subCategoryContainer.classList.add('reveal-open');
+        // ensure the scroll container is active right away
+        subCategoryContainer.style.overflowY = 'auto';
+        // when the clip-path transition on the container finishes, clear it entirely
+        const onRevealEnd = (ev) => {
+          if (ev.propertyName !== 'clip-path' && ev.propertyName !== 'webkit-clip-path') return;
+          subCategoryContainer.removeEventListener('transitionend', onRevealEnd);
+          subCategoryContainer.style.clipPath = 'none';
+          subCategoryContainer.style.webkitClipPath = 'none';
+        };
+        subCategoryContainer.addEventListener('transitionend', onRevealEnd);
+      };
+      subCategoryContainer.addEventListener('transitionend', onSlideInEnd);
     });
   });
 
-  // Intercept sub-navigation link clicks so categories slide left by their full width
-  // while sub-categories stick to them and end flush against the left edge. Then navigate.
+  
+  
   const subNavLinks = document.querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text');
 
-  const TRANSITION_SECONDS = 0.9; // match CSS timing
+  const TRANSITION_SECONDS = 0.9; 
 
   subNavLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetHref = link.getAttribute('href');
 
-      // Ensure both sections are visible for the animation
+      
       sidebarCategoriesSection.style.display = 'block';
       subCategoryContainer.style.display = 'flex';
 
-      // How far to move: exactly the width of the categories panel
+      
       const catWidth = sidebarCategoriesSection.getBoundingClientRect().width;
 
-      // Explicit starting state so we animate from 0 → -catWidth
+      
       sidebarCategoriesSection.style.transform = 'translateX(0px)';
       subCategoryContainer.style.transform = 'translateX(0px)';
 
-      // Apply transitions to both panes
+      
       sidebarCategoriesSection.style.transition = `transform ${TRANSITION_SECONDS}s`;
       subCategoryContainer.style.transition = `transform ${TRANSITION_SECONDS}s`;
 
-      // Force reflow to ensure transitions take effect
+      
       void sidebarCategoriesSection.offsetWidth;
       void subCategoryContainer.offsetWidth;
 
-      // Animate: both shift left by the categories width. This keeps the
-      // sub-categories panel "stuck" to the categories until categories are off-screen,
-      // leaving sub-categories flush against the left page edge.
+      
+      
+      
       sidebarCategoriesSection.style.transform = `translateX(-${catWidth}px)`;
       subCategoryContainer.style.transform = `translateX(-${catWidth}px)`;
 
-      // After categories finish sliding, navigate
+      
       const onCategoriesEnd = (ev) => {
         if (ev.propertyName !== 'transform') return;
         sidebarCategoriesSection.removeEventListener('transitionend', onCategoriesEnd);
-        // Clean up inline transitions for future interactions
+        
         sidebarCategoriesSection.style.transition = '';
         subCategoryContainer.style.transition = '';
         window.location.href = targetHref;
@@ -161,10 +206,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const returnButtons = document.querySelectorAll('.sidebar-return-button');
   const closeSubCategories = () => {
+    subCategoryContainer.classList.add('closing');
     categoryLinks.forEach(l => l.classList.remove('active'));
+
+    // Ensure container is visible and at the on-screen position to start the reverse animation
+    subCategoryContainer.style.display = 'flex';
+    subCategoryContainer.style.transform = 'translateX(0)';
+
+    // IMPORTANT: clear any inline clip-path from a previous open so the collapse can animate
+    subCategoryContainer.style.clipPath = '';
+    subCategoryContainer.style.webkitClipPath = '';
+
+    // Ensure we start from fully open state
+    subCategoryContainer.classList.remove('reveal-band');
+    subCategoryContainer.classList.add('reveal-open');
+
+    // Stage A: collapse vertically back to the 40px band at the stored --band-y
     subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
-    subCategoryContainer.style.transform = 'translateX(-100%)';
-    subCategoryContainer.addEventListener('transitionend', handleSubCategoriesTransitionEnd);
+    subCategoryContainer.style.transition = 'clip-path 0.6s ease';
+    // force reflow then switch to band state to animate the clip-path
+    void subCategoryContainer.offsetWidth;
+    subCategoryContainer.classList.remove('reveal-open');
+    subCategoryContainer.classList.add('reveal-band');
+
+    const onCollapseEnd = (ev) => {
+      if (ev.propertyName !== 'clip-path' && ev.propertyName !== 'webkit-clip-path') return;
+      subCategoryContainer.removeEventListener('transitionend', onCollapseEnd);
+
+      // Stage B: slide out to the left (animate transform)
+      subCategoryContainer.style.transition = 'transform 0.9s ease';
+      subCategoryContainer.addEventListener('transitionend', handleSubCategoriesTransitionEnd);
+      // force reflow to apply the new transition before changing transform
+      void subCategoryContainer.offsetWidth;
+      subCategoryContainer.style.transform = 'translateX(-100%)';
+    };
+    subCategoryContainer.addEventListener('transitionend', onCollapseEnd);
   };
   returnButtons.forEach(btn => btn.addEventListener('click', closeSubCategories));
 

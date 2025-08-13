@@ -1,6 +1,4 @@
 aside {
-  display: flex;
-  flex-direction: row;
   z-index: 100000;
   transition: transform 0.9s;
   position: relative;
@@ -97,6 +95,7 @@ aside {
 
   box-sizing: border-box;
   height: 108px;
+  width: 335px;
 
   padding: 20px 40px;
 }
@@ -181,7 +180,10 @@ aside {
 }
 
 .sidebar-navigation-container {
+  box-sizing: border-box;
   padding: 20px 40px 40px 40px;
+
+  width: 335px;
 }
 
 .sidebar-navigation-grid {
@@ -258,22 +260,13 @@ aside {
 }
 
 .sidebar-sub-category-image {
-  width: 100%;
+  width: 335px;
   height: 250px;
 
   object-fit: cover;
   object-position: center;
 
   position: relative;
-}
-
-.sidebar-sub-category-image-overlay {
-  width: 361px;
-  height: 250px;
-
-  position: absolute;
-
-  z-index: 1;
 }
 
 @media (max-width: 650px) {
@@ -293,4 +286,17 @@ aside {
 
     z-index: 3;
   }
+}
+
+/* Two-stage reveal: show a 40px high slither from the middle of each sub-category block, then fully reveal */
+#sidebar-navigation-sub-categories.reveal-band .sidebar-flexbox {
+  clip-path: inset(calc(50% - 20px) 0 calc(50% - 20px) 0);
+  -webkit-clip-path: inset(calc(50% - 20px) 0 calc(50% - 20px) 0);
+  transition: clip-path 0s; /* no vertical reveal during horizontal slide */
+}
+
+#sidebar-navigation-sub-categories.reveal-open .sidebar-flexbox {
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
+  transition: clip-path 0.6s ease; /* vertical reveal after slide finishes */
 }
