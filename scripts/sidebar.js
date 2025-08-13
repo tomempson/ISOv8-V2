@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const asideEl = document.querySelector('aside');
   const overlay = document.getElementById('sidebar-overlay');
   const heroFlexbox = document.querySelector('.hero-flexbox');
+  let onSubCloseCallback = null; // queued opener after a close finishes
+  let subCloseFinalized = false;   // idempotent guard for close finalize
+  let subCloseTimer = null;        // timeout fallback for transform end
 
   const slugify = (str) =>
     str
@@ -29,17 +32,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // Helper: wait for a transition on specific properties (with timeout fallback)
+  function waitForTransition(el, props, timeoutMs, cb) {
+    let done = false;
+    const wanted = Array.isArray(props) ? props : [props];
+    const handler = (e) => {
+      if (!wanted.includes(e.propertyName)) return;
+      if (done) return;
+      done = true;
+      el.removeEventListener('transitionend', handler);
+      if (timer) clearTimeout(timer);
+      cb();
+    };
+    const timer = setTimeout(() => {
+      if (done) return;
+      done = true;
+      el.removeEventListener('transitionend', handler);
+      cb();
+    }, timeoutMs || 800);
+    el.addEventListener('transitionend', handler);
+  }
+
+  function finalizeSubClose() {
+    if (subCloseFinalized) return;
+    subCloseFinalized = true;
+    if (subCloseTimer) { clearTimeout(subCloseTimer); subCloseTimer = null; }
+
+    subCategoryContainer.classList.remove('closing');
+    // Clear any inline transitions and clip-path so future opens are clean
+    subCategoryContainer.style.transition = '';
+    subCategoryContainer.style.clipPath = 'none';
+    subCategoryContainer.style.webkitClipPath = 'none';
+    subCategoryContainer.style.display = 'none';
+    hideAllSubCategories();
+    subCategoryContainer.classList.remove('reveal-band', 'reveal-open');
+
+    // If an opener has been queued, run it on next frame
+    const cb = onSubCloseCallback;
+    onSubCloseCallback = null;
+    if (typeof cb === 'function') {
+      requestAnimationFrame(cb);
+    }
+
+    subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
+  }
+
   function handleSubCategoriesTransitionEnd(e) {
     if (e.propertyName === 'transform') {
-      subCategoryContainer.classList.remove('closing');
-      // Clear any inline transitions and clip-path so future opens are clean
-      subCategoryContainer.style.transition = '';
-      subCategoryContainer.style.clipPath = 'none';
-      subCategoryContainer.style.webkitClipPath = 'none';
-      subCategoryContainer.style.display = 'none';
-      hideAllSubCategories();
-      subCategoryContainer.classList.remove('reveal-band', 'reveal-open');
-      subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
+      finalizeSubClose();
     }
   }
 
@@ -94,64 +134,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
   categoryLinks.forEach((link) => {
     link.addEventListener('click', () => {
-      subCategoryContainer.classList.remove('closing');
-      subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
-      categoryLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
+      // Prepare target slug and element
       const slug = slugify(link.textContent);
-
       const target = subCategoryContainer.querySelector(`.${slug}`);
       if (!target) {
         console.warn(`No sub-category block found for "${slug}"`);
         return;
       }
 
-      
-      hideAllSubCategories();
-      target.style.display = 'block';
+      // Define the full two-stage OPEN sequence for this link
+      const doOpen = () => {
+        subCategoryContainer.classList.remove('closing');
+        subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
+        categoryLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
 
-      // Reset any inline styles from the previous open so the new two-stage animation plays
-      subCategoryContainer.style.clipPath = '';
-      subCategoryContainer.style.webkitClipPath = '';
-      subCategoryContainer.style.overflowY = '';
-      subCategoryContainer.style.transition = '';
+        hideAllSubCategories();
+        target.style.display = 'block';
 
-      const asideRect = asideEl.getBoundingClientRect();
-      const linkRect = link.getBoundingClientRect();
-      let bandY = linkRect.top + linkRect.height / 2 - asideRect.top; 
-      const minBand = 20;
-      const maxBand = asideRect.height - 20;
-      bandY = Math.max(minBand, Math.min(maxBand, bandY));
-      subCategoryContainer.style.setProperty('--band-y', bandY + 'px');
+        // Reset any inline styles from the previous open so the new two-stage animation plays
+        subCategoryContainer.style.clipPath = '';
+        subCategoryContainer.style.webkitClipPath = '';
+        subCategoryContainer.style.overflowY = '';
+        subCategoryContainer.style.transition = '';
 
-      
-      subCategoryContainer.classList.remove('reveal-open');
-      subCategoryContainer.classList.add('reveal-band');
+        // Position the 40px band at the clicked item's center within the aside viewport
+        const asideRect = asideEl.getBoundingClientRect();
+        const linkRect = link.getBoundingClientRect();
+        let bandY = linkRect.top + linkRect.height / 2 - asideRect.top;
+        const minBand = 20;
+        const maxBand = asideRect.height - 20;
+        bandY = Math.max(minBand, Math.min(maxBand, bandY));
+        subCategoryContainer.style.setProperty('--band-y', bandY + 'px');
 
-      
-      subCategoryContainer.style.display = 'flex';
-      subCategoryContainer.style.transform = 'translateX(-100%)';
-      void subCategoryContainer.offsetWidth; 
-      subCategoryContainer.style.transform = 'translateX(0)';
+        // Stage 1: thin band + horizontal slide in
+        subCategoryContainer.classList.remove('reveal-open');
+        subCategoryContainer.classList.add('reveal-band');
+        subCategoryContainer.style.display = 'flex';
+        subCategoryContainer.style.transform = 'translateX(-100%)';
+        void subCategoryContainer.offsetWidth; // reflow
+        subCategoryContainer.style.transform = 'translateX(0)';
 
-      
-      const onSlideInEnd = (e) => {
-        if (e.propertyName !== 'transform') return;
-        subCategoryContainer.removeEventListener('transitionend', onSlideInEnd);
-        subCategoryContainer.classList.remove('reveal-band');
-        subCategoryContainer.classList.add('reveal-open');
-        // ensure the scroll container is active right away
-        subCategoryContainer.style.overflowY = 'auto';
-        // when the clip-path transition on the container finishes, clear it entirely
-        const onRevealEnd = (ev) => {
-          if (ev.propertyName !== 'clip-path' && ev.propertyName !== 'webkit-clip-path') return;
-          subCategoryContainer.removeEventListener('transitionend', onRevealEnd);
-          subCategoryContainer.style.clipPath = 'none';
-          subCategoryContainer.style.webkitClipPath = 'none';
+        // Stage 2: after slide-in, vertically reveal
+        const onSlideInEnd = (e) => {
+          if (e.propertyName !== 'transform') return;
+          subCategoryContainer.removeEventListener('transitionend', onSlideInEnd);
+          subCategoryContainer.classList.remove('reveal-band');
+          subCategoryContainer.classList.add('reveal-open');
+          subCategoryContainer.style.overflowY = 'auto';
+          const onRevealEnd = (ev) => {
+            if (ev.propertyName !== 'clip-path' && ev.propertyName !== '-webkit-clip-path') return;
+            subCategoryContainer.removeEventListener('transitionend', onRevealEnd);
+            subCategoryContainer.style.clipPath = 'none';
+            subCategoryContainer.style.webkitClipPath = 'none';
+          };
+          subCategoryContainer.addEventListener('transitionend', onRevealEnd);
         };
-        subCategoryContainer.addEventListener('transitionend', onRevealEnd);
+        subCategoryContainer.addEventListener('transitionend', onSlideInEnd);
       };
-      subCategoryContainer.addEventListener('transitionend', onSlideInEnd);
+
+      const isVisible = getComputedStyle(subCategoryContainer).display !== 'none';
+      const isClosing = subCategoryContainer.classList.contains('closing');
+
+      if (isClosing) {
+        // Queue this open to start as soon as the current close finishes
+        onSubCloseCallback = doOpen;
+        return;
+      }
+
+      if (isVisible) {
+        // Close the current one first, then open the requested one
+        closeSubCategories(doOpen);
+      } else {
+        // Nothing open; just run the open animation
+        doOpen();
+      }
     });
   });
 
@@ -205,7 +262,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const returnButtons = document.querySelectorAll('.sidebar-return-button');
-  const closeSubCategories = () => {
+  const closeSubCategories = (afterClose) => {
+    subCloseFinalized = false;
+    if (subCloseTimer) { clearTimeout(subCloseTimer); subCloseTimer = null; }
+    // If a callback function is provided, queue it to run after the close completes
+    onSubCloseCallback = (typeof afterClose === 'function') ? afterClose : null;
+
     subCategoryContainer.classList.add('closing');
     categoryLinks.forEach(l => l.classList.remove('active'));
 
@@ -224,25 +286,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // Stage A: collapse vertically back to the 40px band at the stored --band-y
     subCategoryContainer.removeEventListener('transitionend', handleSubCategoriesTransitionEnd);
     subCategoryContainer.style.transition = 'clip-path 0.6s ease';
-    // force reflow then switch to band state to animate the clip-path
-    void subCategoryContainer.offsetWidth;
+    void subCategoryContainer.offsetWidth; // reflow
     subCategoryContainer.classList.remove('reveal-open');
     subCategoryContainer.classList.add('reveal-band');
 
-    const onCollapseEnd = (ev) => {
-      if (ev.propertyName !== 'clip-path' && ev.propertyName !== 'webkit-clip-path') return;
-      subCategoryContainer.removeEventListener('transitionend', onCollapseEnd);
-
-      // Stage B: slide out to the left (animate transform)
-      subCategoryContainer.style.transition = 'transform 0.9s ease';
-      subCategoryContainer.addEventListener('transitionend', handleSubCategoriesTransitionEnd);
-      // force reflow to apply the new transition before changing transform
-      void subCategoryContainer.offsetWidth;
-      subCategoryContainer.style.transform = 'translateX(-100%)';
-    };
-    subCategoryContainer.addEventListener('transitionend', onCollapseEnd);
+    // Wait for the vertical collapse (clip-path) to finish, then slide out left
+    waitForTransition(
+      subCategoryContainer,
+      ['clip-path', '-webkit-clip-path'],
+      800,
+      () => {
+        // Stage B: slide out to the left (animate transform)
+        subCategoryContainer.style.transition = 'transform 0.9s ease';
+        subCategoryContainer.addEventListener('transitionend', handleSubCategoriesTransitionEnd);
+        // force reflow to apply the new transition before changing transform
+        void subCategoryContainer.offsetWidth;
+        subCategoryContainer.style.transform = 'translateX(-100%)';
+        // Fallback: if the transform transitionend is missed, finalize anyway
+        subCloseTimer = setTimeout(finalizeSubClose, 950);
+      }
+    );
   };
-  returnButtons.forEach(btn => btn.addEventListener('click', closeSubCategories));
+  returnButtons.forEach(btn => btn.addEventListener('click', () => closeSubCategories()));
 
   hideAllSubCategories();
 
