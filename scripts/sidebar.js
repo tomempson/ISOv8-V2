@@ -252,9 +252,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const onCategoriesEnd = (ev) => {
         if (ev.propertyName !== 'transform') return;
         sidebarCategoriesSection.removeEventListener('transitionend', onCategoriesEnd);
-        
+
+        // --- Restore panels to the "both open" layout WITHOUT animating ---
+        // Stop any animations while we reset transforms
+        sidebarCategoriesSection.style.transition = 'none';
+        subCategoryContainer.style.transition = 'none';
+
+        // Ensure both sections are visible
+        sidebarCategoriesSection.style.display = 'block';
+        subCategoryContainer.style.display = 'flex';
+
+        // Put both panels back to their original positions
+        sidebarCategoriesSection.style.transform = 'translateX(0)';
+        subCategoryContainer.style.transform = 'translateX(0)';
+
+        // Force a reflow so the browser snapshots this state before navigation
+        void sidebarCategoriesSection.offsetWidth;
+
+        // Clear inline transition properties so future opens behave normally
         sidebarCategoriesSection.style.transition = '';
         subCategoryContainer.style.transition = '';
+
+        // Now navigate to the target
         window.location.href = targetHref;
       };
       sidebarCategoriesSection.addEventListener('transitionend', onCategoriesEnd);
