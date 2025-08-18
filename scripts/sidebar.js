@@ -20,6 +20,49 @@ document.addEventListener('DOMContentLoaded', () => {
   let subCloseFinalized = false;   // idempotent guard for close finalize
   let subCloseTimer = null;        // timeout fallback for transform end
 
+  // If we set a restore flag before navigating away, rebuild the "both open" state on return (via Back/Forward)
+  const RESTORE_KEY = 'ISOv8_restore_both_open';
+  const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
+  window.addEventListener('pageshow', () => {
+    if (sessionStorage.getItem(RESTORE_KEY) === '1') {
+      sessionStorage.removeItem(RESTORE_KEY);
+      const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
+      if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
+
+      // Re-open the sidebar with both panels visible
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      heroFlexbox.style.position = 'fixed';
+
+      overlay.style.display = 'block';
+      overlay.style.opacity = '1';
+
+      asideEl.style.display = 'flex';
+      asideEl.style.transform = 'translateX(0)';
+
+      sidebarCategoriesSection.style.display = 'block';
+      subCategoryContainer.style.display = 'flex';
+      subCategoryContainer.style.overflowY = 'auto';
+
+      // Show the previously active category's sub group, if known
+      if (slug) {
+        categoryLinks.forEach(l => {
+          if (slugify(l.textContent) === slug) {
+            l.classList.add('active');
+          } else {
+            l.classList.remove('active');
+          }
+        });
+        hideAllSubCategories();
+        const target = subCategoryContainer.querySelector(`.${slug}`);
+        if (target) target.style.display = 'block';
+      }
+
+      sidebarCategoriesSection.style.transform = 'translateX(0)';
+      subCategoryContainer.style.transform = 'translateX(0)';
+    }
+  });
+
   const slugify = (str) =>
     str
       .trim()
@@ -223,60 +266,37 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const targetHref = link.getAttribute('href');
 
-      
-      sidebarCategoriesSection.style.display = 'block';
-      subCategoryContainer.style.display = 'flex';
-
-      
-      const catWidth = sidebarCategoriesSection.getBoundingClientRect().width;
-
-      
-      sidebarCategoriesSection.style.transform = 'translateX(0px)';
-      subCategoryContainer.style.transform = 'translateX(0px)';
-
-      
-      sidebarCategoriesSection.style.transition = `transform ${TRANSITION_SECONDS}s`;
-      subCategoryContainer.style.transition = `transform ${TRANSITION_SECONDS}s`;
-
-      
-      void sidebarCategoriesSection.offsetWidth;
-      void subCategoryContainer.offsetWidth;
-
-      
-      
-      
-      sidebarCategoriesSection.style.transform = `translateX(-${catWidth}px)`;
-      subCategoryContainer.style.transform = `translateX(-${catWidth}px)`;
-
-      
       const onCategoriesEnd = (ev) => {
         if (ev.propertyName !== 'transform') return;
         sidebarCategoriesSection.removeEventListener('transitionend', onCategoriesEnd);
 
-        // --- Restore panels to the "both open" layout WITHOUT animating ---
-        // Stop any animations while we reset transforms
-        sidebarCategoriesSection.style.transition = 'none';
-        subCategoryContainer.style.transition = 'none';
+        // Record a request to restore "both open" state when this page is shown again (e.g., user taps Back)
+        try {
+          sessionStorage.setItem(RESTORE_KEY, '1');
+          const activeCat = sidebarCategoriesSection.querySelector('.sidebar-navigation-text.active');
+          if (activeCat) {
+            const slug = slugify(activeCat.textContent);
+            sessionStorage.setItem(RESTORE_SLUG_KEY, slug);
+          }
+        } catch (_) {}
 
-        // Ensure both sections are visible
-        sidebarCategoriesSection.style.display = 'block';
-        subCategoryContainer.style.display = 'flex';
-
-        // Put both panels back to their original positions
-        sidebarCategoriesSection.style.transform = 'translateX(0)';
-        subCategoryContainer.style.transform = 'translateX(0)';
-
-        // Force a reflow so the browser snapshots this state before navigation
-        void sidebarCategoriesSection.offsetWidth;
-
-        // Clear inline transition properties so future opens behave normally
-        sidebarCategoriesSection.style.transition = '';
-        subCategoryContainer.style.transition = '';
-
-        // Now navigate to the target
+        // Navigate immediately without any further DOM changes (prevents any visible flash)
         window.location.href = targetHref;
       };
+
       sidebarCategoriesSection.addEventListener('transitionend', onCategoriesEnd);
+
+      sidebarCategoriesSection.style.display = 'block';
+      subCategoryContainer.style.display = 'flex';
+      const catWidth = sidebarCategoriesSection.getBoundingClientRect().width;
+      sidebarCategoriesSection.style.transform = 'translateX(0px)';
+      subCategoryContainer.style.transform = 'translateX(0px)';
+      sidebarCategoriesSection.style.transition = `transform ${TRANSITION_SECONDS}s`;
+      subCategoryContainer.style.transition = `transform ${TRANSITION_SECONDS}s`;
+      void sidebarCategoriesSection.offsetWidth;
+      void subCategoryContainer.offsetWidth;
+      sidebarCategoriesSection.style.transform = `translateX(-${catWidth}px)`;
+      subCategoryContainer.style.transform = `translateX(-${catWidth}px)`;
     });
   });
 
