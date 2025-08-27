@@ -77,7 +77,8 @@
   padding: 0;
 
   position: fixed;
-  right: 50px;
+  right: 40px;
+  bottom: 30px;
 }
 
 .hero-cta-circle-button:hover {
@@ -115,7 +116,7 @@
 
 .hero-cta-base-circle {
   fill: none;
-  stroke: rgb(8, 140, 188);
+  stroke: #ffffff;
   stroke-width: 3;
   stroke-linecap: round;
   pointer-events: none;
@@ -231,13 +232,19 @@
   animation: ring-undraw 1s linear forwards;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 750px) {
   .hero-flexbox {
     flex-direction: column;
 
     align-items: center;
 
     row-gap: 50px;
+  }
+}
+
+@media (max-width: 800px) {
+  .hero-cta-circle-button {
+    display: none;
   }
 }
 

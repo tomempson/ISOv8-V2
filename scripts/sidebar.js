@@ -131,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.width = '100%';
     heroFlexbox.style.position = 'fixed';
     overlay.style.display = 'block';
+    // Reset overlay layering for normal sidebar usage
+    overlay.style.zIndex = '99999';
     overlay.style.opacity = '0';
     asideEl.style.display = 'flex';
     sidebarCategoriesSection.style.display = 'block';
@@ -261,10 +263,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const TRANSITION_SECONDS = 0.9; 
 
+  // Create a left-to-right sliding panel that displays the target page (via iframe)
+  function createTransitionPanel(startLeftPx, targetHref) {
+    const panel = document.createElement('div');
+    panel.className = 'page-transition-panel';
+    // Size and position so it appears from behind the sub-category column
+    const left = Math.max(0, Math.floor(startLeftPx));
+    panel.style.left = left + 'px';
+    panel.style.width = Math.max(0, window.innerWidth - left) + 'px';
+    panel.style.height = '100dvh';
+    panel.style.transform = 'translateX(-100%)';
+    panel.style.transition = `transform ${TRANSITION_SECONDS}s ease`;
+    // Below <aside> (100000), above overlay (99999), above main.
+    panel.style.zIndex = '99999';
+    panel.style.background = 'white';
+    panel.style.position = 'fixed';
+    panel.style.top = '0';
+    panel.style.overflow = 'hidden';
+    panel.style.pointerEvents = 'none';
+
+    const iframe = document.createElement('iframe');
+    iframe.src = targetHref;
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = '0';
+    iframe.style.display = 'block';
+    panel.appendChild(iframe);
+
+    document.body.appendChild(panel);
+
+    // Kick off the slide-in on the next frame
+    requestAnimationFrame(() => {
+      // Force reflow to ensure the starting transform is applied
+      void panel.offsetWidth;
+      panel.style.transform = 'translateX(0)';
+    });
+
+    return panel;
+  }
+
   subNavLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetHref = link.getAttribute('href');
+
+      // We'll calculate the origin left after the sidebar finishes collapsing
+      let panelEl = null;
 
       const onCategoriesEnd = (ev) => {
         if (ev.propertyName !== 'transform') return;
@@ -280,12 +324,26 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         } catch (_) {}
 
-        // Navigate immediately without any further DOM changes (prevents any visible flash)
-        window.location.href = targetHref;
+        // After collapse, use the now-current left edge of the sub-categories
+        // area (typically 0) so the panel feels like it emerges from that edge.
+        const subNow = subCategoryContainer.getBoundingClientRect();
+        const startLeftNow = subNow.left;
+        // Create and run the reveal panel, then navigate after its slide finishes
+        panelEl = createTransitionPanel(startLeftNow, targetHref);
+        const onPanelEnd = (pe) => {
+          if (pe.propertyName !== 'transform') return;
+          panelEl.removeEventListener('transitionend', onPanelEnd);
+      // Follow the link once the panel fully slides in
+      window.location.href = targetHref;
+        };
+        panelEl.addEventListener('transitionend', onPanelEnd);
       };
 
-      sidebarCategoriesSection.addEventListener('transitionend', onCategoriesEnd);
+      // Ensure overlay sits behind the slide panel during the reveal
+      if (overlay) overlay.style.zIndex = '99998';
 
+      // Start the sidebar collapse (categories + sub-categories shift left by the categories width)
+      sidebarCategoriesSection.addEventListener('transitionend', onCategoriesEnd);
       sidebarCategoriesSection.style.display = 'block';
       subCategoryContainer.style.display = 'flex';
       const catWidth = sidebarCategoriesSection.getBoundingClientRect().width;
@@ -295,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
       subCategoryContainer.style.transition = `transform ${TRANSITION_SECONDS}s`;
       void sidebarCategoriesSection.offsetWidth;
       void subCategoryContainer.offsetWidth;
+      // Keep the dim overlay visible during the slide.
       sidebarCategoriesSection.style.transform = `translateX(-${catWidth}px)`;
       subCategoryContainer.style.transform = `translateX(-${catWidth}px)`;
     });

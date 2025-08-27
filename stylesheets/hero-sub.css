@@ -1,9 +1,7 @@
 #hero {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
 
-  height: 5000px;
+
+  overflow: hidden;
 }
 
 #hero .hero-bg {
@@ -25,11 +23,6 @@
 
   box-sizing: border-box;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 150px;
-
   padding: 0 40px 30px 40px;
 }
 
@@ -37,9 +30,6 @@
   display: flex;
 
   flex-direction: column;
-
-
-  height: calc(100vh - 110px);
 }
 
 .hero-heading-flexbox h1 {
@@ -146,7 +136,7 @@
 
 .hero-cta-base-circle {
   fill: none;
-  stroke: rgb(8, 140, 188);
+  stroke: rgb(255, 255, 255);
   stroke-width: 3;
   stroke-linecap: round;
   pointer-events: none;
