@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Clean up any lingering transition panels (e.g., when returning via bfcache)
+  function cleanupTransitionPanels() {
+    try {
+      const panels = document.querySelectorAll('.page-transition-panel');
+      panels.forEach(p => p.remove());
+    } catch (_) {}
+  }
   const categoryLinks = document.querySelectorAll(
     '#sidebar-navigation-categories .sidebar-navigation-text'
   );
@@ -23,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // If we set a restore flag before navigating away, rebuild the "both open" state on return (via Back/Forward)
   const RESTORE_KEY = 'ISOv8_restore_both_open';
   const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
+  // Also run cleanup when the page is shown (covers bfcache restores)
   window.addEventListener('pageshow', () => {
+    cleanupTransitionPanels();
+    // Ensure overlay z-index is reset for normal sidebar usage
+    if (overlay) overlay.style.zIndex = '99999';
     if (sessionStorage.getItem(RESTORE_KEY) === '1') {
       sessionStorage.removeItem(RESTORE_KEY);
       const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
@@ -62,6 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
       subCategoryContainer.style.transform = 'translateX(0)';
     }
   });
+
+  // Initial cleanup in case DOMContentLoaded fires from a cached state
+  cleanupTransitionPanels();
 
   const slugify = (str) =>
     str
