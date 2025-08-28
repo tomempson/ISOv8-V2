@@ -62,3 +62,53 @@
     attachListener();
   }
 })();
+
+// Highlight active sub-category link on sub pages
+(function () {
+  var ACTIVE_KEY = 'ISOv8_sub_active_text';
+
+  function normaliseLabel(s) {
+    return (s || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function applyActive(label) {
+    var links = document.querySelectorAll('.sidebar-sub-navigation-text');
+    links.forEach(function (l) { l.classList.remove('active'); });
+    if (!label) return;
+    var norm = normaliseLabel(label);
+    for (var i = 0; i < links.length; i++) {
+      if (normaliseLabel(links[i].textContent) === norm) {
+        links[i].classList.add('active');
+        break;
+      }
+    }
+  }
+
+  function initActive() {
+    // Prefer a stored selection from the last click
+    var stored = null;
+    try { stored = sessionStorage.getItem(ACTIVE_KEY); } catch (e) {}
+
+    // Fallback: match the page's H1 text if present
+    var label = stored;
+    if (!label) {
+      var h1 = document.querySelector('h1');
+      if (h1) label = h1.textContent;
+    }
+    applyActive(label);
+
+    // When user clicks a sub link, store and let navigation proceed
+    var links = document.querySelectorAll('.sidebar-sub-navigation-text');
+    links.forEach(function (link) {
+      link.addEventListener('click', function () {
+        try { sessionStorage.setItem(ACTIVE_KEY, normaliseLabel(link.textContent)); } catch (e) {}
+      }, { capture: true });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initActive);
+  } else {
+    initActive();
+  }
+})();
