@@ -6,22 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
       panels.forEach(p => p.remove());
     } catch (_) {}
   }
+
+  // Grab core elements first and bail out early on pages without the sidebar (e.g., sub pages)
+  const asideEl = document.querySelector('aside');
+  const overlay = document.getElementById('sidebar-overlay');
+  const sidebarCategoriesSection = document.getElementById('sidebar-navigation-categories');
+  const subCategoryContainer = document.getElementById('sidebar-navigation-sub-categories');
+  if (!asideEl || !sidebarCategoriesSection || !subCategoryContainer) {
+    // Still clean any stray transition panels if present, then no-op
+    cleanupTransitionPanels();
+    return;
+  }
+
   const categoryLinks = document.querySelectorAll(
     '#sidebar-navigation-categories .sidebar-navigation-text'
   );
-
-  const subCategoryContainer = document.getElementById(
-    'sidebar-navigation-sub-categories'
-  );
-
-  const subCategoryGroups =
-    subCategoryContainer.querySelectorAll('.sidebar-flexbox');
-
+  const subCategoryGroups = subCategoryContainer.querySelectorAll('.sidebar-flexbox');
   const openSidebarBtn = document.querySelector('.hamburger-menu-button');
   const closeSidebarBtn = document.querySelector('.sidebar-close-button');
-  const sidebarCategoriesSection = document.getElementById('sidebar-navigation-categories');
-  const asideEl = document.querySelector('aside');
-  const overlay = document.getElementById('sidebar-overlay');
   const heroFlexbox = document.querySelector('.hero-flexbox');
   let onSubCloseCallback = null; // queued opener after a close finishes
   let subCloseFinalized = false;   // idempotent guard for close finalize
