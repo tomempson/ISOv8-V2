@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // If we set a restore flag before navigating away, rebuild the "both open" state on return (via Back/Forward)
   const RESTORE_KEY = 'ISOv8_restore_both_open';
   const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
+  const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
+
+  const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
   // Also run cleanup when the page is shown (covers bfcache restores)
   window.addEventListener('pageshow', () => {
     cleanupTransitionPanels();
@@ -66,7 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         hideAllSubCategories();
         const target = subCategoryContainer.querySelector(`.${slug}`);
-        if (target) target.style.display = 'block';
+        if (target) {
+          target.style.display = 'block';
+          // Apply stored active state for sub links, if any
+          try {
+            const stored = sessionStorage.getItem(SUB_ACTIVE_KEY);
+            if (stored) {
+              const links = target.querySelectorAll('.sidebar-sub-navigation-text');
+              links.forEach(l => l.classList.remove('active'));
+              const match = Array.from(links).find(l => normaliseLabel(l.textContent) === normaliseLabel(stored));
+              if (match) match.classList.add('active');
+            }
+          } catch (_) {}
+        }
       }
 
       sidebarCategoriesSection.style.transform = 'translateX(0)';
@@ -320,6 +335,14 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetHref = link.getAttribute('href');
+
+      // Visually mark this link active immediately and persist the choice
+      try {
+        const label = normaliseLabel(link.textContent);
+        sessionStorage.setItem(SUB_ACTIVE_KEY, label);
+      } catch (_) {}
+      subNavLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
 
       // We'll calculate the origin left after the sidebar finishes collapsing
       let panelEl = null;
