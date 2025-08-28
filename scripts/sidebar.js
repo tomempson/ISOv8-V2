@@ -44,32 +44,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
     if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
 
-    // Re-open the sidebar with both panels visible
+    // Re-open the sidebar with both panels visible; start animation immediately
     document.body.style.position = 'fixed';
     document.body.style.width = '100%';
     heroFlexbox.style.position = 'fixed';
 
     overlay.style.display = 'block';
-    overlay.style.opacity = '1';
+    overlay.style.opacity = '0';
 
     asideEl.style.display = 'flex';
-    asideEl.style.transform = 'translateX(0)';
+    // Force starting position off-screen, then animate in on next frame
+    asideEl.style.transform = 'translateX(-100%)';
 
     sidebarCategoriesSection.style.display = 'block';
     subCategoryContainer.style.display = 'flex';
     subCategoryContainer.style.overflowY = 'auto';
 
-    // Show the previously active category's sub group, if known
-    if (slug) {
+    // Ensure a clean, fully-open sub panel state with only one group visible
+    subCategoryContainer.classList.remove('reveal-band', 'closing');
+    subCategoryContainer.classList.add('reveal-open');
+    subCategoryContainer.style.clipPath = 'none';
+    subCategoryContainer.style.webkitClipPath = 'none';
+    hideAllSubCategories();
+
+    // Decide which sub group to show
+    let slugToShow = slug;
+    if (!slugToShow) {
+      const activeCat = sidebarCategoriesSection.querySelector('.sidebar-navigation-text.active');
+      if (activeCat) slugToShow = slugify(activeCat.textContent);
+      else if (categoryLinks.length) slugToShow = slugify(categoryLinks[0].textContent);
+    }
+
+    if (slugToShow) {
       categoryLinks.forEach(l => {
-        if (slugify(l.textContent) === slug) {
-          l.classList.add('active');
-        } else {
-          l.classList.remove('active');
-        }
+        if (slugify(l.textContent) === slugToShow) l.classList.add('active');
+        else l.classList.remove('active');
       });
-      hideAllSubCategories();
-      const target = subCategoryContainer.querySelector(`.${slug}`);
+      const target = subCategoryContainer.querySelector(`.${slugToShow}`);
       if (target) {
         target.style.display = 'block';
         // Apply stored active state for sub links, if any
@@ -85,8 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    sidebarCategoriesSection.style.transform = 'translateX(0)';
-    subCategoryContainer.style.transform = 'translateX(0)';
+    // Kick off the visible animation on the next frame
+    requestAnimationFrame(() => {
+      void asideEl.offsetWidth; // reflow
+      asideEl.style.transform = 'translateX(0)';
+      overlay.style.opacity = '1';
+      sidebarCategoriesSection.style.transform = 'translateX(0)';
+      subCategoryContainer.style.transform = 'translateX(0)';
+    });
     restoredOnLoad = true;
     return true;
   }
@@ -222,6 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn(`No sub-category block found for "${slug}"`);
         return;
       }
+      // Persist chosen category immediately as well
+      try { sessionStorage.setItem(RESTORE_SLUG_KEY, slug); } catch (_) {}
 
       // Define the full two-stage OPEN sequence for this link
       const doOpen = () => {
