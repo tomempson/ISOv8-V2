@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     subCategoryContainer.style.overflowY = 'auto';
 
     // Ensure a clean, fully-open sub panel state with only one group visible
-    subCategoryContainer.classList.remove('reveal-band', 'closing');
+    subCategoryContainer.classList.remove('reveal-band');
     subCategoryContainer.classList.add('reveal-open');
     subCategoryContainer.style.clipPath = 'none';
     subCategoryContainer.style.webkitClipPath = 'none';
@@ -239,8 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn(`No sub-category block found for "${slug}"`);
         return;
       }
-      // Persist chosen category immediately as well
-      try { sessionStorage.setItem(RESTORE_SLUG_KEY, slug); } catch (_) {}
+      
 
       // Define the full two-stage OPEN sequence for this link
       const doOpen = () => {
