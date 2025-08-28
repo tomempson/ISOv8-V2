@@ -74,9 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebarCategoriesSection.style.transform = 'translateX(0)';
       subCategoryContainer.style.transform = 'translateX(0)';
 
-      // Purge all active states on return to the main page
+      // Purge only sub-link active states on return; keep the category active
       try { sessionStorage.removeItem(SUB_ACTIVE_KEY); } catch (_) {}
-      categoryLinks.forEach(l => l.classList.remove('active'));
       document
         .querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text')
         .forEach(l => l.classList.remove('active'));
