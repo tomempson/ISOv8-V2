@@ -69,22 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
         hideAllSubCategories();
         const target = subCategoryContainer.querySelector(`.${slug}`);
         if (target) target.style.display = 'block';
-
-        // Reapply stored active sub-link highlight, if any
-        try {
-          const stored = sessionStorage.getItem(SUB_ACTIVE_KEY);
-          if (stored) {
-            const links = subCategoryContainer.querySelectorAll('.sidebar-sub-navigation-text');
-            links.forEach((l) => {
-              if (normaliseLabel(l.textContent) === normaliseLabel(stored)) l.classList.add('active');
-              else l.classList.remove('active');
-            });
-          }
-        } catch (_) {}
       }
 
       sidebarCategoriesSection.style.transform = 'translateX(0)';
       subCategoryContainer.style.transform = 'translateX(0)';
+
+      // Purge all active states on return to the main page
+      try { sessionStorage.removeItem(SUB_ACTIVE_KEY); } catch (_) {}
+      categoryLinks.forEach(l => l.classList.remove('active'));
+      document
+        .querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text')
+        .forEach(l => l.classList.remove('active'));
     }
   });
 
