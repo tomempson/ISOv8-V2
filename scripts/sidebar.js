@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Remove any lingering transition panels/iframes when this page loads/restores
+  function cleanupTransitionPanels() {
+    try {
+      document.querySelectorAll('.page-transition-panel').forEach((p) => p.remove());
+    } catch (_) {}
+  }
+  cleanupTransitionPanels();
+
   const categoryLinks = document.querySelectorAll(
     '#sidebar-navigation-categories .sidebar-navigation-text'
   );
@@ -24,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const RESTORE_KEY = 'ISOv8_restore_both_open';
   const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
   window.addEventListener('pageshow', () => {
+    // Clean up any transition panel left from a prior navigation
+    cleanupTransitionPanels();
     if (sessionStorage.getItem(RESTORE_KEY) === '1') {
       sessionStorage.removeItem(RESTORE_KEY);
       const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
