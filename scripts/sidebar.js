@@ -33,64 +33,71 @@ document.addEventListener('DOMContentLoaded', () => {
   const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
 
   const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
-  // Also run cleanup when the page is shown (covers bfcache restores)
-  window.addEventListener('pageshow', () => {
+  // Helper to restore the "both open" state immediately (DOM ready) or on pageshow
+  let restoredOnLoad = false;
+  function restoreBothOpenIfRequested() {
     cleanupTransitionPanels();
-    // Ensure overlay z-index is reset for normal sidebar usage
     if (overlay) overlay.style.zIndex = '99999';
-    if (sessionStorage.getItem(RESTORE_KEY) === '1') {
-      sessionStorage.removeItem(RESTORE_KEY);
-      const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
-      if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
+    if (sessionStorage.getItem(RESTORE_KEY) !== '1') return false;
 
-      // Re-open the sidebar with both panels visible
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-      heroFlexbox.style.position = 'fixed';
+    sessionStorage.removeItem(RESTORE_KEY);
+    const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
+    if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
 
-      overlay.style.display = 'block';
-      overlay.style.opacity = '1';
+    // Re-open the sidebar with both panels visible
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    heroFlexbox.style.position = 'fixed';
 
-      asideEl.style.display = 'flex';
-      asideEl.style.transform = 'translateX(0)';
+    overlay.style.display = 'block';
+    overlay.style.opacity = '1';
 
-      sidebarCategoriesSection.style.display = 'block';
-      subCategoryContainer.style.display = 'flex';
-      subCategoryContainer.style.overflowY = 'auto';
+    asideEl.style.display = 'flex';
+    asideEl.style.transform = 'translateX(0)';
 
-      // Show the previously active category's sub group, if known
-      if (slug) {
-        categoryLinks.forEach(l => {
-          if (slugify(l.textContent) === slug) {
-            l.classList.add('active');
-          } else {
-            l.classList.remove('active');
-          }
-        });
-        hideAllSubCategories();
-        const target = subCategoryContainer.querySelector(`.${slug}`);
-        if (target) {
-          target.style.display = 'block';
-          // Apply stored active state for sub links, if any
-          try {
-            const stored = sessionStorage.getItem(SUB_ACTIVE_KEY);
-            if (stored) {
-              const links = target.querySelectorAll('.sidebar-sub-navigation-text');
-              links.forEach(l => l.classList.remove('active'));
-              const match = Array.from(links).find(l => normaliseLabel(l.textContent) === normaliseLabel(stored));
-              if (match) match.classList.add('active');
-            }
-          } catch (_) {}
+    sidebarCategoriesSection.style.display = 'block';
+    subCategoryContainer.style.display = 'flex';
+    subCategoryContainer.style.overflowY = 'auto';
+
+    // Show the previously active category's sub group, if known
+    if (slug) {
+      categoryLinks.forEach(l => {
+        if (slugify(l.textContent) === slug) {
+          l.classList.add('active');
+        } else {
+          l.classList.remove('active');
         }
+      });
+      hideAllSubCategories();
+      const target = subCategoryContainer.querySelector(`.${slug}`);
+      if (target) {
+        target.style.display = 'block';
+        // Apply stored active state for sub links, if any
+        try {
+          const stored = sessionStorage.getItem(SUB_ACTIVE_KEY);
+          if (stored) {
+            const links = target.querySelectorAll('.sidebar-sub-navigation-text');
+            links.forEach(l => l.classList.remove('active'));
+            const match = Array.from(links).find(l => normaliseLabel(l.textContent) === normaliseLabel(stored));
+            if (match) match.classList.add('active');
+          }
+        } catch (_) {}
       }
-
-      sidebarCategoriesSection.style.transform = 'translateX(0)';
-      subCategoryContainer.style.transform = 'translateX(0)';
     }
-  });
+
+    sidebarCategoriesSection.style.transform = 'translateX(0)';
+    subCategoryContainer.style.transform = 'translateX(0)';
+    restoredOnLoad = true;
+    return true;
+  }
+
+  // Run on pageshow (bfcache restore) and as a fallback
+  window.addEventListener('pageshow', restoreBothOpenIfRequested);
 
   // Initial cleanup in case DOMContentLoaded fires from a cached state
   cleanupTransitionPanels();
+  // If we set restore flags before navigating away, restore immediately on DOM ready
+  restoreBothOpenIfRequested();
 
   const slugify = (str) =>
     str
@@ -446,7 +453,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   hideAllSubCategories();
 
-  asideEl.style.display = 'none';
-  sidebarCategoriesSection.style.display = 'none';
-  subCategoryContainer.style.display = 'none';
+  // Only hide initial panels if we didn't just restore the "both open" state
+  if (!restoredOnLoad) {
+    asideEl.style.display = 'none';
+    sidebarCategoriesSection.style.display = 'none';
+    subCategoryContainer.style.display = 'none';
+  }
 });
