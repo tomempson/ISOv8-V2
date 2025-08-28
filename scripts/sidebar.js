@@ -1,29 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Clean up any lingering transition panels (e.g., when returning via bfcache)
-  function cleanupTransitionPanels() {
-    try {
-      const panels = document.querySelectorAll('.page-transition-panel');
-      panels.forEach(p => p.remove());
-    } catch (_) {}
-  }
-
-  // Grab core elements first and bail out early on pages without the sidebar (e.g., sub pages)
-  const asideEl = document.querySelector('aside');
-  const overlay = document.getElementById('sidebar-overlay');
-  const sidebarCategoriesSection = document.getElementById('sidebar-navigation-categories');
-  const subCategoryContainer = document.getElementById('sidebar-navigation-sub-categories');
-  if (!asideEl || !sidebarCategoriesSection || !subCategoryContainer) {
-    // Still clean any stray transition panels if present, then no-op
-    cleanupTransitionPanels();
-    return;
-  }
-
   const categoryLinks = document.querySelectorAll(
     '#sidebar-navigation-categories .sidebar-navigation-text'
   );
-  const subCategoryGroups = subCategoryContainer.querySelectorAll('.sidebar-flexbox');
+
+  const subCategoryContainer = document.getElementById(
+    'sidebar-navigation-sub-categories'
+  );
+
+  const subCategoryGroups =
+    subCategoryContainer.querySelectorAll('.sidebar-flexbox');
+
   const openSidebarBtn = document.querySelector('.hamburger-menu-button');
   const closeSidebarBtn = document.querySelector('.sidebar-close-button');
+  const sidebarCategoriesSection = document.getElementById('sidebar-navigation-categories');
+  const asideEl = document.querySelector('aside');
+  const overlay = document.getElementById('sidebar-overlay');
   const heroFlexbox = document.querySelector('.hero-flexbox');
   let onSubCloseCallback = null; // queued opener after a close finishes
   let subCloseFinalized = false;   // idempotent guard for close finalize
@@ -32,91 +23,45 @@ document.addEventListener('DOMContentLoaded', () => {
   // If we set a restore flag before navigating away, rebuild the "both open" state on return (via Back/Forward)
   const RESTORE_KEY = 'ISOv8_restore_both_open';
   const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
-  const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
+  window.addEventListener('pageshow', () => {
+    if (sessionStorage.getItem(RESTORE_KEY) === '1') {
+      sessionStorage.removeItem(RESTORE_KEY);
+      const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
+      if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
 
-  const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
-  // Helper to restore the "both open" state immediately (DOM ready) or on pageshow
-  let restoredOnLoad = false;
-  function restoreBothOpenIfRequested() {
-    cleanupTransitionPanels();
-    if (overlay) overlay.style.zIndex = '99999';
-    if (sessionStorage.getItem(RESTORE_KEY) !== '1') return false;
+      // Re-open the sidebar with both panels visible
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      heroFlexbox.style.position = 'fixed';
 
-    sessionStorage.removeItem(RESTORE_KEY);
-    const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
-    if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
-
-    // Re-open the sidebar with both panels visible; start animation immediately
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-    heroFlexbox.style.position = 'fixed';
-
-    overlay.style.display = 'block';
-    overlay.style.opacity = '0';
-
-    asideEl.style.display = 'flex';
-    // Force starting position off-screen, then animate in on next frame
-    asideEl.style.transform = 'translateX(-100%)';
-
-    sidebarCategoriesSection.style.display = 'block';
-    subCategoryContainer.style.display = 'flex';
-    subCategoryContainer.style.overflowY = 'auto';
-
-    // Ensure a clean, fully-open sub panel state with only one group visible
-    subCategoryContainer.classList.remove('reveal-band');
-    subCategoryContainer.classList.add('reveal-open');
-    subCategoryContainer.style.clipPath = 'none';
-    subCategoryContainer.style.webkitClipPath = 'none';
-    hideAllSubCategories();
-
-    // Decide which sub group to show
-    let slugToShow = slug;
-    if (!slugToShow) {
-      const activeCat = sidebarCategoriesSection.querySelector('.sidebar-navigation-text.active');
-      if (activeCat) slugToShow = slugify(activeCat.textContent);
-      else if (categoryLinks.length) slugToShow = slugify(categoryLinks[0].textContent);
-    }
-
-    if (slugToShow) {
-      categoryLinks.forEach(l => {
-        if (slugify(l.textContent) === slugToShow) l.classList.add('active');
-        else l.classList.remove('active');
-      });
-      const target = subCategoryContainer.querySelector(`.${slugToShow}`);
-      if (target) {
-        target.style.display = 'block';
-        // Apply stored active state for sub links, if any
-        try {
-          const stored = sessionStorage.getItem(SUB_ACTIVE_KEY);
-          if (stored) {
-            const links = target.querySelectorAll('.sidebar-sub-navigation-text');
-            links.forEach(l => l.classList.remove('active'));
-            const match = Array.from(links).find(l => normaliseLabel(l.textContent) === normaliseLabel(stored));
-            if (match) match.classList.add('active');
-          }
-        } catch (_) {}
-      }
-    }
-
-    // Kick off the visible animation on the next frame
-    requestAnimationFrame(() => {
-      void asideEl.offsetWidth; // reflow
-      asideEl.style.transform = 'translateX(0)';
+      overlay.style.display = 'block';
       overlay.style.opacity = '1';
+
+      asideEl.style.display = 'flex';
+      asideEl.style.transform = 'translateX(0)';
+
+      sidebarCategoriesSection.style.display = 'block';
+      subCategoryContainer.style.display = 'flex';
+      subCategoryContainer.style.overflowY = 'auto';
+
+      // Show the previously active category's sub group, if known
+      if (slug) {
+        categoryLinks.forEach(l => {
+          if (slugify(l.textContent) === slug) {
+            l.classList.add('active');
+          } else {
+            l.classList.remove('active');
+          }
+        });
+        hideAllSubCategories();
+        const target = subCategoryContainer.querySelector(`.${slug}`);
+        if (target) target.style.display = 'block';
+      }
+
       sidebarCategoriesSection.style.transform = 'translateX(0)';
       subCategoryContainer.style.transform = 'translateX(0)';
-    });
-    restoredOnLoad = true;
-    return true;
-  }
-
-  // Run on pageshow (bfcache restore) and as a fallback
-  window.addEventListener('pageshow', restoreBothOpenIfRequested);
-
-  // Initial cleanup in case DOMContentLoaded fires from a cached state
-  cleanupTransitionPanels();
-  // If we set restore flags before navigating away, restore immediately on DOM ready
-  restoreBothOpenIfRequested();
+    }
+  });
 
   const slugify = (str) =>
     str
@@ -363,13 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const targetHref = link.getAttribute('href');
 
-      // Visually mark this link active immediately and persist the choice
-      try {
-        const label = normaliseLabel(link.textContent);
-        sessionStorage.setItem(SUB_ACTIVE_KEY, label);
-      } catch (_) {}
-      subNavLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
+      
 
       // We'll calculate the origin left after the sidebar finishes collapsing
       let panelEl = null;
@@ -473,10 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   hideAllSubCategories();
 
-  // Only hide initial panels if we didn't just restore the "both open" state
-  if (!restoredOnLoad) {
-    asideEl.style.display = 'none';
-    sidebarCategoriesSection.style.display = 'none';
-    subCategoryContainer.style.display = 'none';
-  }
+  asideEl.style.display = 'none';
+  sidebarCategoriesSection.style.display = 'none';
+  subCategoryContainer.style.display = 'none';
 });
