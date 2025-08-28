@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // If we set a restore flag before navigating away, rebuild the "both open" state on return (via Back/Forward)
   const RESTORE_KEY = 'ISOv8_restore_both_open';
   const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
+  const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
+
+  const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
   window.addEventListener('pageshow', () => {
     // Clean up any transition panel left from a prior navigation
     cleanupTransitionPanels();
@@ -66,6 +69,18 @@ document.addEventListener('DOMContentLoaded', () => {
         hideAllSubCategories();
         const target = subCategoryContainer.querySelector(`.${slug}`);
         if (target) target.style.display = 'block';
+
+        // Reapply stored active sub-link highlight, if any
+        try {
+          const stored = sessionStorage.getItem(SUB_ACTIVE_KEY);
+          if (stored) {
+            const links = subCategoryContainer.querySelectorAll('.sidebar-sub-navigation-text');
+            links.forEach((l) => {
+              if (normaliseLabel(l.textContent) === normaliseLabel(stored)) l.classList.add('active');
+              else l.classList.remove('active');
+            });
+          }
+        } catch (_) {}
       }
 
       sidebarCategoriesSection.style.transform = 'translateX(0)';
@@ -317,7 +332,12 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetHref = link.getAttribute('href');
-
+      // Immediately mark this link active and persist selection
+      try {
+        sessionStorage.setItem(SUB_ACTIVE_KEY, normaliseLabel(link.textContent));
+      } catch (_) {}
+      subNavLinks.forEach((l) => l.classList.remove('active'));
+      link.classList.add('active');
       
 
       // We'll calculate the origin left after the sidebar finishes collapsing
