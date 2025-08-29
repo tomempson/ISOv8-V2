@@ -79,6 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
       document
         .querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text')
         .forEach(l => l.classList.remove('active'));
+
+      // Drop any early-restore CSS so subsequent animations work normally
+      try {
+        const early = document.getElementById('early-restore-style');
+        if (early && early.parentNode) early.parentNode.removeChild(early);
+        document.documentElement.classList.remove('restore-open');
+      } catch (_) {}
     }
   });
 
