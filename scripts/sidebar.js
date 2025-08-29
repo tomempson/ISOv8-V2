@@ -329,6 +329,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Immediately mark this link active and persist selection
       try {
         sessionStorage.setItem(SUB_ACTIVE_KEY, normaliseLabel(link.textContent));
+        // Record the history length while we are on the home page so we can jump back to it later from sub pages
+        sessionStorage.setItem('ISOv8_last_home_index', String(history.length));
       } catch (_) {}
       subNavLinks.forEach((l) => l.classList.remove('active'));
       link.classList.add('active');
