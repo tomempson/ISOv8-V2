@@ -7,23 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   cleanupTransitionPanels();
 
-  const categoryLinks = document.querySelectorAll(
-    '#sidebar-navigation-categories .sidebar-navigation-text'
-  );
-
-  const subCategoryContainer = document.getElementById(
-    'sidebar-navigation-sub-categories'
-  );
-
-  const subCategoryGroups =
-    subCategoryContainer.querySelectorAll('.sidebar-flexbox');
-
-  const openSidebarBtn = document.querySelector('.hamburger-menu-button');
-  const closeSidebarBtn = document.querySelector('.sidebar-close-button');
+  // Core elements (guard for non-home pages)
   const sidebarCategoriesSection = document.getElementById('sidebar-navigation-categories');
+  const subCategoryContainer = document.getElementById('sidebar-navigation-sub-categories');
   const asideEl = document.querySelector('aside');
   const overlay = document.getElementById('sidebar-overlay');
   const heroFlexbox = document.querySelector('.hero-flexbox');
+  const categoryLinks = document.querySelectorAll('#sidebar-navigation-categories .sidebar-navigation-text');
+  if (!sidebarCategoriesSection || !subCategoryContainer || !asideEl) {
+    // Not the home page; abort safely
+    return;
+  }
+
+  const subCategoryGroups = subCategoryContainer.querySelectorAll('.sidebar-flexbox');
+  const openSidebarBtn = document.querySelector('.hamburger-menu-button');
+  const closeSidebarBtn = document.querySelector('.sidebar-close-button');
   let onSubCloseCallback = null; // queued opener after a close finishes
   let subCloseFinalized = false;   // idempotent guard for close finalize
   let subCloseTimer = null;        // timeout fallback for transform end
@@ -59,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       subCategoryContainer.style.overflowY = 'auto';
 
       // Show the previously active category's sub group, if known
+      let target = null;
       if (slug) {
         categoryLinks.forEach(l => {
           if (slugify(l.textContent) === slug) {
@@ -67,9 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
             l.classList.remove('active');
           }
         });
+        target = subCategoryContainer.querySelector(`.${slug}`);
+      }
+      if (!target) {
+        // fallback to first group if slug missing/mismatch
+        target = subCategoryContainer.querySelector('.sidebar-flexbox');
+        if (target) {
+          categoryLinks.forEach((l, i) => l.classList.toggle('active', i === 0));
+        }
+      }
+      if (target) {
         hideAllSubCategories();
-        const target = subCategoryContainer.querySelector(`.${slug}`);
-        if (target) target.style.display = 'block';
+        target.style.display = 'block';
       }
 
       sidebarCategoriesSection.style.transform = 'translateX(0)';
@@ -130,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
       subCategoryContainer.style.overflowY = 'auto';
 
       // Show the previously active category's sub group, if known
+      let target = null;
       if (slug) {
         categoryLinks.forEach(l => {
           if (slugify(l.textContent) === slug) {
@@ -138,9 +147,18 @@ document.addEventListener('DOMContentLoaded', () => {
             l.classList.remove('active');
           }
         });
+        target = subCategoryContainer.querySelector(`.${slug}`);
+      }
+      if (!target) {
+        // fallback to first group if slug missing/mismatch
+        target = subCategoryContainer.querySelector('.sidebar-flexbox');
+        if (target) {
+          categoryLinks.forEach((l, i) => l.classList.toggle('active', i === 0));
+        }
+      }
+      if (target) {
         hideAllSubCategories();
-        const target = subCategoryContainer.querySelector(`.${slug}`);
-        if (target) target.style.display = 'block';
+        target.style.display = 'block';
       }
 
       sidebarCategoriesSection.style.transform = 'translateX(0)';

@@ -11,16 +11,19 @@
             var style = document.createElement('style');
             style.id = 'early-restore-style';
             var safeSlug = (slug + '').toLowerCase().replace(/[^a-z0-9\-]/g, '');
-            style.textContent = [
+            var rules = [
               'html.restore-open body{position:fixed;width:100%;}',
               'html.restore-open .hero-flexbox{position:fixed;}',
               'html.restore-open #sidebar-overlay{display:block!important;opacity:1!important;}',
               'html.restore-open aside{display:flex!important;transform:translateX(0)!important;}',
               'html.restore-open #sidebar-navigation-categories{display:block!important;}',
-              'html.restore-open #sidebar-navigation-sub-categories{display:flex!important;overflow-y:auto!important;transform:translateX(0)!important;}',
-              'html.restore-open #sidebar-navigation-sub-categories .sidebar-flexbox{display:none!important;}',
-              safeSlug ? ('html.restore-open #sidebar-navigation-sub-categories .sidebar-flexbox.' + safeSlug + '{display:block!important;}') : ''
-            ].join('\n');
+              'html.restore-open #sidebar-navigation-sub-categories{display:flex!important;overflow-y:auto!important;transform:translateX(0)!important;}'
+            ];
+            if (safeSlug) {
+              rules.push('html.restore-open #sidebar-navigation-sub-categories .sidebar-flexbox{display:none!important;}');
+              rules.push('html.restore-open #sidebar-navigation-sub-categories .sidebar-flexbox.' + safeSlug + '{display:block!important;}');
+            }
+            style.textContent = rules.join('\n');
             document.head.appendChild(style);
           }
         } catch (e) {}
