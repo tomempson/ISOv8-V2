@@ -310,9 +310,8 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.style.transform = 'translateX(-100%)';
     panel.style.transition = `transform ${TRANSITION_SECONDS}s ease-in-out`;
     panel.style.willChange = 'transform';
-    // Above <aside> (100000) so it remains visible while sliding out
-    // and above overlay (99998), but below any future modals.
-    panel.style.zIndex = '100001';
+    // Below <aside> (100000), above overlay (99999), above main.
+    panel.style.zIndex = '99999';
     panel.style.background = 'white';
     panel.style.position = 'fixed';
     panel.style.top = '0';
@@ -541,7 +540,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroFlexbox) heroFlexbox.style.position = 'fixed';
     if (overlay) {
       overlay.style.display = 'block';
-      overlay.style.zIndex = '99999';
+      // Keep overlay below any transition panels we create (panel zIndex 99999)
+      overlay.style.zIndex = '99998';
       overlay.style.opacity = '0';
     }
     asideEl.style.display = 'flex';
@@ -577,7 +577,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Position the aside so the sub-menu is already onscreen: shift left by the
     // categories panel width, then animate the aside to 0 to reveal categories.
-    const catWidth = sidebarCategoriesSection.offsetWidth || 0;
+    // Force layout before measuring to avoid 0 widths, and provide a safe fallback
+    void sidebarCategoriesSection.offsetWidth;
+    const measuredCat = sidebarCategoriesSection.offsetWidth || 0;
+    const catWidth = measuredCat > 0 ? measuredCat : 300;
     const prevAsideTransition = asideEl.style.transition;
     asideEl.style.transition = 'none';
     asideEl.style.transform = `translateX(-${catWidth}px)`;
@@ -586,7 +589,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // If we have captured content, place it to the right of the visible sub-menu and slide it out
     let exitPanel = null;
     if ((returnPagePath && typeof returnPagePath === 'string') || (returnFramePayload && returnFramePayload.html)) {
-      const subWidth = subCategoryContainer.offsetWidth || 0;
+      // Ensure sub-menu has a sensible width; fallback to 350px (CSS sets 350px)
+      void subCategoryContainer.offsetWidth;
+      const measuredSub = subCategoryContainer.offsetWidth || 0;
+      const subWidth = measuredSub > 0 ? measuredSub : 350;
       exitPanel = createOutgoingFramePanel(subWidth, returnFramePayload, returnPagePath);
       if (exitPanel) {
         exitPanel.addEventListener('transitionend', function handler(e) {
