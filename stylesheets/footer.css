@@ -5,6 +5,8 @@ footer {
   background-color: white;
 
   border-top: 1px solid rgb(205, 205, 205);
+  position: relative; /* establish stacking context */
+  z-index: 1001;      /* ensure footer sits above hero CTA */
 }
 
 footer hr {
@@ -240,5 +242,41 @@ footer hr {
     grid-template-columns: 1fr;
 
     gap: 40px;
+  }
+}
+
+@media (max-width: 1350px) {
+  .footer-sitemap-grid {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 1080px) {
+  .footer-sitemap-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 850px) {
+  .footer-sitemap-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-sitemap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-sitemap-grid {
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-sitemap-grid li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   }
 }
