@@ -28,68 +28,57 @@ document.addEventListener('DOMContentLoaded', () => {
   let subCloseFinalized = false;   // idempotent guard for close finalize
   let subCloseTimer = null;        // timeout fallback for transform end
 
-  // If we set a restore flag before navigating away, rebuild the "both open" state on return
+  // If we set a restore flag before navigating away, rebuild the "both open" state on return (via Back/Forward)
   const RESTORE_KEY = 'ISOv8_restore_both_open';
   const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
   const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
 
   const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
-  let restoredOnLoad = false;
-  function restoreBothOpenIfRequested() {
-    if (sessionStorage.getItem(RESTORE_KEY) !== '1') return false;
-    sessionStorage.removeItem(RESTORE_KEY);
-    const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
-    if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
-
-    // Re-open the sidebar with both panels visible
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-    heroFlexbox.style.position = 'fixed';
-
-    overlay.style.display = 'block';
-    overlay.style.opacity = '1';
-
-    asideEl.style.display = 'flex';
-    asideEl.style.transform = 'translateX(0)';
-
-    sidebarCategoriesSection.style.display = 'block';
-    subCategoryContainer.style.display = 'flex';
-    subCategoryContainer.style.overflowY = 'auto';
-
-    // Show the previously active category's sub group, if known
-    if (slug) {
-      categoryLinks.forEach(l => {
-        if (slugify(l.textContent) === slug) {
-          l.classList.add('active');
-        } else {
-          l.classList.remove('active');
-        }
-      });
-      hideAllSubCategories();
-      const target = subCategoryContainer.querySelector(`.${slug}`);
-      if (target) target.style.display = 'block';
-    }
-
-    sidebarCategoriesSection.style.transform = 'translateX(0)';
-    subCategoryContainer.style.transform = 'translateX(0)';
-
-    // Purge only sub-link active states on return; keep the category active
-    try { sessionStorage.removeItem(SUB_ACTIVE_KEY); } catch (_) {}
-    document
-      .querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text')
-      .forEach(l => l.classList.remove('active'));
-
-    return true;
-  }
-
-  // Run restore early during DOMContentLoaded to avoid visible delay on full reloads
-  restoredOnLoad = restoreBothOpenIfRequested();
-
-  // Also handle BFCache restores (pageshow on history traversal)
   window.addEventListener('pageshow', () => {
+    // Clean up any transition panel left from a prior navigation
     cleanupTransitionPanels();
-    if (restoreBothOpenIfRequested()) {
-      restoredOnLoad = true;
+    if (sessionStorage.getItem(RESTORE_KEY) === '1') {
+      sessionStorage.removeItem(RESTORE_KEY);
+      const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
+      if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
+
+      // Re-open the sidebar with both panels visible
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      heroFlexbox.style.position = 'fixed';
+
+      overlay.style.display = 'block';
+      overlay.style.opacity = '1';
+
+      asideEl.style.display = 'flex';
+      asideEl.style.transform = 'translateX(0)';
+
+      sidebarCategoriesSection.style.display = 'block';
+      subCategoryContainer.style.display = 'flex';
+      subCategoryContainer.style.overflowY = 'auto';
+
+      // Show the previously active category's sub group, if known
+      if (slug) {
+        categoryLinks.forEach(l => {
+          if (slugify(l.textContent) === slug) {
+            l.classList.add('active');
+          } else {
+            l.classList.remove('active');
+          }
+        });
+        hideAllSubCategories();
+        const target = subCategoryContainer.querySelector(`.${slug}`);
+        if (target) target.style.display = 'block';
+      }
+
+      sidebarCategoriesSection.style.transform = 'translateX(0)';
+      subCategoryContainer.style.transform = 'translateX(0)';
+
+      // Purge only sub-link active states on return; keep the category active
+      try { sessionStorage.removeItem(SUB_ACTIVE_KEY); } catch (_) {}
+      document
+        .querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text')
+        .forEach(l => l.classList.remove('active'));
     }
   });
 
@@ -340,8 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Immediately mark this link active and persist selection
       try {
         sessionStorage.setItem(SUB_ACTIVE_KEY, normaliseLabel(link.textContent));
-        // Record the history length while we are on the home page so we can jump back to it later from sub pages
-        sessionStorage.setItem('ISOv8_last_home_index', String(history.length));
       } catch (_) {}
       subNavLinks.forEach((l) => l.classList.remove('active'));
       link.classList.add('active');
@@ -449,10 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   hideAllSubCategories();
 
-  // Only hide the sidebar scaffolding if we did not just restore it
-  if (!restoredOnLoad) {
-    asideEl.style.display = 'none';
-    sidebarCategoriesSection.style.display = 'none';
-    subCategoryContainer.style.display = 'none';
-  }
+  asideEl.style.display = 'none';
+  sidebarCategoriesSection.style.display = 'none';
+  subCategoryContainer.style.display = 'none';
 });

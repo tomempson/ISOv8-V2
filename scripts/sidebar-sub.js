@@ -1,7 +1,6 @@
 (function () {
   // Destination for the site home page
   var HOME_URL = 'https://tomempson.github.io/ISOv8-V2/';
-  var LAST_HOME_INDEX_KEY = 'ISOv8_last_home_index';
 
   function normalisePathname(pathname) {
     // Keep a trailing slash only for root-like paths
@@ -10,7 +9,7 @@
     return pathname.replace(/\/+$/, '/');
   }
 
-  function isHomeUrl(urlStr) {
+  function isHomeReferrer(urlStr) {
     try {
       var u = new URL(urlStr);
       if (u.origin !== 'https://tomempson.github.io') return false;
@@ -25,37 +24,16 @@
     window.location.href = HOME_URL;
   }
 
-  function getLastHomeIndex() {
-    try {
-      var v = sessionStorage.getItem(LAST_HOME_INDEX_KEY);
-      if (v == null) return null;
-      var n = parseInt(v, 10);
-      return isFinite(n) && n >= 0 ? n : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
   function handleReturnClick(e) {
     // Prevent the default <a> navigation inside the button
     e.preventDefault();
     e.stopPropagation();
 
-    // Prefer jumping back to the last known home entry in history
-    var lastIndex = getLastHomeIndex();
-    var len = window.history.length || 0;
-    if (lastIndex != null && len > lastIndex) {
-      var delta = len - lastIndex; // steps to go back
-      // Avoid trying to go back 0 or negative steps
-      if (delta > 0) {
-        window.history.go(-delta);
-        return;
-      }
-    }
-
-    // Fallbacks: if immediate referrer is home, go back once; otherwise navigate to HOME_URL
     var ref = document.referrer;
-    if (ref && isHomeUrl(ref) && window.history.length > 1) {
+
+    // If the last page was the site's home page, go back to it via history.
+    // Otherwise (external site, other internal page, no referrer), go to HOME_URL.
+    if (ref && isHomeReferrer(ref) && window.history.length > 1) {
       window.history.back();
     } else {
       goHome();
