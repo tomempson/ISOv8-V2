@@ -1,89 +1,59 @@
+
+
 (function () {
   // Destination for the site home page
   var HOME_URL = 'https://tomempson.github.io/ISOv8-V2/';
-  var RESTORE_KEY = 'ISOv8_restore_both_open';
-  var RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
 
-  function slugify(str) {
-    return (str || '')
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-');
+  function normalisePathname(pathname) {
+    // Keep a trailing slash only for root-like paths
+    if (pathname === '/') return pathname;
+    // Collapse multiple trailing slashes to one
+    return pathname.replace(/\/+$/, '/');
   }
 
-  function getCurrentCategorySlug() {
-    // Prefer the class on the sub page's .sidebar-flexbox (e.g. "blueprint-files")
-    var flex = document.querySelector('.sidebar > aside .sidebar-flexbox, aside .sidebar-flexbox');
-    if (flex && flex.classList) {
-      for (var i = 0; i < flex.classList.length; i++) {
-        var cls = flex.classList[i];
-        if (cls !== 'sidebar-flexbox') return cls;
-      }
-    }
-    // Fallback to the heading text
-    var h2 = document.querySelector('.sidebar-heading');
-    if (h2) return slugify(h2.textContent);
-    return null;
-  }
-
-  function redirectHomeWithRestore() {
-    var slug = getCurrentCategorySlug();
+  function isHomeReferrer(urlStr) {
     try {
-      sessionStorage.setItem(RESTORE_KEY, '1');
-      if (slug) sessionStorage.setItem(RESTORE_SLUG_KEY, slug);
-    } catch (e) {}
+      var u = new URL(urlStr);
+      if (u.origin !== 'https://tomempson.github.io') return false;
+      var p = normalisePathname(u.pathname);
+      return p === '/ISOv8-V2/' || p === '/ISOv8-V2/index.html';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function goHome() {
     window.location.href = HOME_URL;
   }
 
-  function attachListener() {
-    // Only run this behavior on sub pages (home has #sidebar-navigation-categories)
-    if (document.getElementById('sidebar-navigation-categories')) return;
+  function handleReturnClick(e) {
+    // Prevent the default <a> navigation inside the button
+    e.preventDefault();
+    e.stopPropagation();
 
-    // Proactively record the current sub category so Home can restore
-    try {
-      var initSlug = getCurrentCategorySlug();
-      if (initSlug) {
-        sessionStorage.setItem(RESTORE_KEY, '1');
-        sessionStorage.setItem(RESTORE_SLUG_KEY, initSlug);
-      }
-    } catch (_) {}
+    var ref = document.referrer;
 
-    var btn = document.querySelector('.sidebar-return-button');
-    if (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        redirectHomeWithRestore();
-      }, { capture: true });
+    // If the last page was the site's home page, go back to it via history.
+    // Otherwise (external site, other internal page, no referrer), go to HOME_URL.
+    if (ref && isHomeReferrer(ref) && window.history.length > 1) {
+      window.history.back();
+    } else {
+      goHome();
     }
+  }
 
-    // Also handle header logo links that point home
-    var logoLinks = document.querySelectorAll('.logo-return-link[href]');
-    logoLinks.forEach(function (a) {
-      try {
-        var href = a.getAttribute('href') || '';
-        if (!href) return;
-        var u = new URL(href, window.location.href);
-        var norm = u.href.replace(/\/+$/, '/');
-        var homeNorm = HOME_URL.replace(/\/+$/, '/');
-        if (norm !== homeNorm) return; // only intercept links to HOME_URL
-      } catch (_) { return; }
+  function attachListener() {
+    var btn = document.querySelector('.sidebar-return-button');
+    if (!btn) return;
 
-      a.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        redirectHomeWithRestore();
-      }, { capture: true });
-    });
+    // Capture phase to beat any default link behaviour inside the button
+    btn.addEventListener('click', handleReturnClick, { capture: true });
 
-    // Also set flags on pagehide so browser Back (BFCache) is covered
-    window.addEventListener('pagehide', function () {
-      try {
-        var slug = getCurrentCategorySlug();
-        sessionStorage.setItem(RESTORE_KEY, '1');
-        if (slug) sessionStorage.setItem(RESTORE_SLUG_KEY, slug);
-      } catch (_) {}
-    });
+    // Also attach directly to an <a> inside the button, if present
+    var innerLink = btn.querySelector('a');
+    if (innerLink) {
+      innerLink.addEventListener('click', handleReturnClick, { capture: true });
+    }
   }
 
   if (document.readyState === 'loading') {
