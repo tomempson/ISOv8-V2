@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const RESTORE_KEY = 'ISOv8_restore_both_open';
   const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
   const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
+  let restoredOnLoad = false;
 
   const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
   window.addEventListener('pageshow', () => {
@@ -86,6 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (early && early.parentNode) early.parentNode.removeChild(early);
         document.documentElement.classList.remove('restore-open');
       } catch (_) {}
+
+      restoredOnLoad = true;
     }
   });
 
@@ -100,6 +103,65 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.display = 'none';
     });
   };
+
+  // Early restore during DOMContentLoaded (prior to load/pageshow) so UI is interactive immediately
+  (function earlyRestore() {
+    try {
+      const shouldRestore =
+        document.documentElement.classList.contains('restore-open') ||
+        sessionStorage.getItem(RESTORE_KEY) === '1';
+      if (!shouldRestore) return;
+
+      // Consume flags now so pageshow doesn't re-run
+      sessionStorage.removeItem(RESTORE_KEY);
+      const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
+      if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
+
+      // Re-open the sidebar with both panels visible
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      heroFlexbox.style.position = 'fixed';
+      overlay.style.display = 'block';
+      overlay.style.opacity = '1';
+      asideEl.style.display = 'flex';
+      asideEl.style.transform = 'translateX(0)';
+      sidebarCategoriesSection.style.display = 'block';
+      subCategoryContainer.style.display = 'flex';
+      subCategoryContainer.style.overflowY = 'auto';
+
+      // Show the previously active category's sub group, if known
+      if (slug) {
+        categoryLinks.forEach(l => {
+          if (slugify(l.textContent) === slug) {
+            l.classList.add('active');
+          } else {
+            l.classList.remove('active');
+          }
+        });
+        hideAllSubCategories();
+        const target = subCategoryContainer.querySelector(`.${slug}`);
+        if (target) target.style.display = 'block';
+      }
+
+      sidebarCategoriesSection.style.transform = 'translateX(0)';
+      subCategoryContainer.style.transform = 'translateX(0)';
+
+      // Purge only sub-link active states on return; keep the category active
+      try { sessionStorage.removeItem(SUB_ACTIVE_KEY); } catch (_) {}
+      document
+        .querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text')
+        .forEach(l => l.classList.remove('active'));
+
+      // Remove early-restore helpers now so they don't override future animations
+      try {
+        const early = document.getElementById('early-restore-style');
+        if (early && early.parentNode) early.parentNode.removeChild(early);
+        document.documentElement.classList.remove('restore-open');
+      } catch (_) {}
+
+      restoredOnLoad = true;
+    } catch (_) {}
+  })();
 
   // Helper: wait for a transition on specific properties (with timeout fallback)
   function waitForTransition(el, props, timeoutMs, cb) {
@@ -443,7 +505,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   hideAllSubCategories();
 
-  asideEl.style.display = 'none';
-  sidebarCategoriesSection.style.display = 'none';
-  subCategoryContainer.style.display = 'none';
+  // Only hide the sidebar scaffolding if we did not just restore it
+  if (!restoredOnLoad) {
+    asideEl.style.display = 'none';
+    sidebarCategoriesSection.style.display = 'none';
+    subCategoryContainer.style.display = 'none';
+  }
 });
