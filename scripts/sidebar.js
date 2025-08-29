@@ -7,6 +7,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   cleanupTransitionPanels();
 
+  // If a sub-page captured its content before navigating back, retrieve it
+  let returnFramePayload = null;
+  try {
+    const raw = sessionStorage.getItem('ISOv8__returnFrameHTML');
+    if (raw) returnFramePayload = JSON.parse(raw);
+  } catch (_) {
+    returnFramePayload = null;
+  }
+  let returnPagePath = null;
+  try {
+    returnPagePath = sessionStorage.getItem('ISOv8__returnPagePath') || null;
+  } catch (_) {
+    returnPagePath = null;
+  }
+
+  // If we arrived here via a sidebar return anchor, show categories
+  let showCategoriesOnLoad = false;
+  try {
+    showCategoriesOnLoad = sessionStorage.getItem('ISOv8__returnShowCategories') === '1';
+  } catch (_) {
+    // Ignore storage access failures
+  }
+
   const categoryLinks = document.querySelectorAll(
     '#sidebar-navigation-categories .sidebar-navigation-text'
   );
@@ -28,65 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let subCloseFinalized = false;   // idempotent guard for close finalize
   let subCloseTimer = null;        // timeout fallback for transform end
 
-  // If we set a restore flag before navigating away, rebuild the "both open" state on return (via Back/Forward)
-  const RESTORE_KEY = 'ISOv8_restore_both_open';
-  const RESTORE_SLUG_KEY = 'ISOv8_restore_slug';
+  // Persist the last clicked sub-link for styling only
   const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
 
   const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
+  // On BFCache return, just cleanup any leftover transition panels
   window.addEventListener('pageshow', () => {
-    // Clean up any transition panel left from a prior navigation
     cleanupTransitionPanels();
-    if (sessionStorage.getItem(RESTORE_KEY) === '1') {
-      sessionStorage.removeItem(RESTORE_KEY);
-      const slug = sessionStorage.getItem(RESTORE_SLUG_KEY);
-      if (slug) sessionStorage.removeItem(RESTORE_SLUG_KEY);
-
-      // Re-open the sidebar with both panels visible
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-      heroFlexbox.style.position = 'fixed';
-
-      overlay.style.display = 'block';
-      overlay.style.opacity = '1';
-
-      asideEl.style.display = 'flex';
-      asideEl.style.transform = 'translateX(0)';
-
-      sidebarCategoriesSection.style.display = 'block';
-      subCategoryContainer.style.display = 'flex';
-      subCategoryContainer.style.overflowY = 'auto';
-
-      // Show the previously active category's sub group, if known
-      if (slug) {
-        categoryLinks.forEach(l => {
-          if (slugify(l.textContent) === slug) {
-            l.classList.add('active');
-          } else {
-            l.classList.remove('active');
-          }
-        });
-        hideAllSubCategories();
-        const target = subCategoryContainer.querySelector(`.${slug}`);
-        if (target) target.style.display = 'block';
-      }
-
-      sidebarCategoriesSection.style.transform = 'translateX(0)';
-      subCategoryContainer.style.transform = 'translateX(0)';
-
-      // Purge only sub-link active states on return; keep the category active
-      try { sessionStorage.removeItem(SUB_ACTIVE_KEY); } catch (_) {}
-      document
-        .querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text')
-        .forEach(l => l.classList.remove('active'));
-
-      // Drop any early-restore CSS so subsequent animations work normally
-      try {
-        const early = document.getElementById('early-restore-style');
-        if (early && early.parentNode) early.parentNode.removeChild(early);
-        document.documentElement.classList.remove('restore-open');
-      } catch (_) {}
-    }
   });
 
   const slugify = (str) =>
@@ -288,6 +259,43 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const subNavLinks = document.querySelectorAll('#sidebar-navigation-sub-categories .sidebar-sub-navigation-text');
 
+  // Determine if we're on the home page (index)
+  const isHomePage = (() => {
+    try {
+      const p = window.location && typeof window.location.pathname === 'string'
+        ? window.location.pathname
+        : '';
+      return p === '/' || /\/index\.html?$/.test(p) || /\/$/.test(p);
+    } catch (_) {
+      return false;
+    }
+  })();
+
+  if (isHomePage) {
+    // Reset any stored/visual active state for sub-menu on the home page
+    try { sessionStorage.removeItem(SUB_ACTIVE_KEY); } catch (_) {}
+    if (subNavLinks && subNavLinks.length) {
+      subNavLinks.forEach((l) => l.classList.remove('active'));
+    }
+  } else {
+    // On non-home pages, restore the previously active sub-link (if any)
+    try {
+      const storedActive = sessionStorage.getItem(SUB_ACTIVE_KEY);
+      if (storedActive && subNavLinks && subNavLinks.length) {
+        subNavLinks.forEach((l) => l.classList.remove('active'));
+        subNavLinks.forEach((l) => {
+          try {
+            if (normaliseLabel(l.textContent) === storedActive) {
+              l.classList.add('active');
+            }
+          } catch (_) {}
+        });
+      }
+    } catch (_) {
+      // Ignore storage access failures
+    }
+  }
+
   const TRANSITION_SECONDS = 0.9; 
 
   // Create a left-to-right sliding panel that displays the target page (via iframe)
@@ -300,9 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.style.width = Math.max(0, window.innerWidth - left) + 'px';
     panel.style.height = '100dvh';
     panel.style.transform = 'translateX(-100%)';
-    panel.style.transition = `transform ${TRANSITION_SECONDS}s ease`;
-    // Below <aside> (100000), above overlay (99999), above main.
-    panel.style.zIndex = '99999';
+    panel.style.transition = `transform ${TRANSITION_SECONDS}s ease-in-out`;
+    panel.style.willChange = 'transform';
+    // Above <aside> (100000) so it remains visible while sliding out
+    // and above overlay (99998), but below any future modals.
+    panel.style.zIndex = '100001';
     panel.style.background = 'white';
     panel.style.position = 'fixed';
     panel.style.top = '0';
@@ -329,6 +339,91 @@ document.addEventListener('DOMContentLoaded', () => {
     return panel;
   }
 
+  // Create a rightward sliding panel that shows captured HTML in an iframe, then slides out
+  function createOutgoingFramePanel(startLeftPx, payload, pagePath) {
+    const panel = document.createElement('div');
+    panel.className = 'page-transition-panel';
+    const left = Math.max(0, Math.floor(startLeftPx));
+    panel.style.left = left + 'px';
+    panel.style.width = Math.max(0, window.innerWidth - left) + 'px';
+    panel.style.height = '100dvh';
+    panel.style.transform = 'translateX(0)';
+    panel.style.transition = `transform ${TRANSITION_SECONDS}s ease-in-out`;
+    panel.style.willChange = 'transform';
+    // Below <aside> (100000), above overlay (99999), above main.
+    panel.style.zIndex = '99999';
+    panel.style.background = 'white';
+    panel.style.position = 'fixed';
+    panel.style.top = '0';
+    panel.style.overflow = 'hidden';
+    panel.style.pointerEvents = 'none';
+
+    const iframe = document.createElement('iframe');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = '0';
+    iframe.style.display = 'block';
+    panel.appendChild(iframe);
+
+    document.body.appendChild(panel);
+
+    const startSlide = () => {
+      requestAnimationFrame(() => {
+        void panel.offsetWidth;
+        panel.style.transform = 'translateX(100%)';
+      });
+    };
+
+    if (pagePath) {
+      // Prefer loading the actual page and extracting its .content reliably
+      iframe.src = pagePath;
+      iframe.addEventListener('load', () => {
+        try {
+          const doc = iframe.contentWindow && iframe.contentWindow.document;
+          if (doc) {
+            const c = doc.querySelector('.content');
+            if (c) {
+              doc.body.innerHTML = c.outerHTML;
+            }
+          }
+        } catch (_) {
+          // Cross-origin or other access issues: fall back to sliding anyway
+        }
+        startSlide();
+      });
+    } else if (payload && payload.html) {
+      // Fallback to injecting captured HTML via srcdoc for maximum compatibility
+      const cssLinks = Array.isArray(payload.css) ? payload.css : [];
+      const cssTags = cssLinks
+        .map((href) => `<link rel="stylesheet" href="${href}">`)
+        .join('\n');
+      const docHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n<link rel="stylesheet" href="https://use.typekit.net/xjz3mil.css">\n${cssTags}\n<style>html,body{margin:0;padding:0;background:#fff;}</style></head><body>\n${payload.html}\n</body></html>`;
+      try {
+        iframe.srcdoc = docHtml;
+        // Start slide after one frame to allow layout
+        startSlide();
+      } catch (_) {
+        // As a last resort, write into the iframe
+        try {
+          const doc = iframe.contentWindow && iframe.contentWindow.document;
+          if (doc) {
+            doc.open();
+            doc.write(docHtml);
+            doc.close();
+          }
+        } catch (_) {}
+        startSlide();
+      }
+    } else {
+      // No content available; slide anyway
+      startSlide();
+    }
+
+    return panel;
+  }
+
+  
+
   subNavLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -347,16 +442,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const onCategoriesEnd = (ev) => {
         if (ev.propertyName !== 'transform') return;
         sidebarCategoriesSection.removeEventListener('transitionend', onCategoriesEnd);
-
-        // Record a request to restore "both open" state when this page is shown again (e.g., user taps Back)
-        try {
-          sessionStorage.setItem(RESTORE_KEY, '1');
-          const activeCat = sidebarCategoriesSection.querySelector('.sidebar-navigation-text.active');
-          if (activeCat) {
-            const slug = slugify(activeCat.textContent);
-            sessionStorage.setItem(RESTORE_SLUG_KEY, slug);
-          }
-        } catch (_) {}
 
         // After collapse, use the now-current left edge of the sub-categories
         // area (typically 0) so the panel feels like it emerges from that edge.
@@ -446,4 +531,87 @@ document.addEventListener('DOMContentLoaded', () => {
   asideEl.style.display = 'none';
   sidebarCategoriesSection.style.display = 'none';
   subCategoryContainer.style.display = 'none';
+
+  // After initial state set, optionally open the sidebar with sub-menu instantly visible
+  if (showCategoriesOnLoad) {
+    try { sessionStorage.removeItem('ISOv8__returnShowCategories'); } catch (_) {}
+    // Prepare base sidebar state (same as openSidebar, but without hiding sub-categories)
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    if (heroFlexbox) heroFlexbox.style.position = 'fixed';
+    if (overlay) {
+      overlay.style.display = 'block';
+      overlay.style.zIndex = '99999';
+      overlay.style.opacity = '0';
+    }
+    asideEl.style.display = 'flex';
+    sidebarCategoriesSection.style.display = 'block';
+
+    // Show the sub-categories panel fully open (no animations/clip-path)
+    // and display the 'blueprint-files' group.
+    const desiredLabel = 'Blueprint Files';
+    // Remove any animation classes and disable transitions for an instant state set
+    subCategoryContainer.classList.remove('closing', 'reveal-band', 'reveal-open');
+    const prevTransition = subCategoryContainer.style.transition;
+    subCategoryContainer.style.transition = 'none';
+    subCategoryContainer.style.clipPath = 'none';
+    subCategoryContainer.style.webkitClipPath = 'none';
+
+    // Make the panel visible and in its final on-screen position
+    subCategoryContainer.style.display = 'flex';
+    subCategoryContainer.style.transform = 'translateX(0)';
+    subCategoryContainer.style.overflowY = 'auto';
+
+    // Show only the Blueprint Files group
+    hideAllSubCategories();
+    const blueprint = subCategoryContainer.querySelector('.blueprint-files');
+    if (blueprint) blueprint.style.display = 'block';
+
+    // Highlight the matching top-level category link
+    categoryLinks.forEach((l) => l.classList.remove('active'));
+    categoryLinks.forEach((l) => {
+      try {
+        if (normaliseLabel(l.textContent) === desiredLabel) l.classList.add('active');
+      } catch (_) {}
+    });
+
+    // Position the aside so the sub-menu is already onscreen: shift left by the
+    // categories panel width, then animate the aside to 0 to reveal categories.
+    const catWidth = sidebarCategoriesSection.offsetWidth || 0;
+    const prevAsideTransition = asideEl.style.transition;
+    asideEl.style.transition = 'none';
+    asideEl.style.transform = `translateX(-${catWidth}px)`;
+    void asideEl.offsetWidth; // reflow to commit initial position without animation
+
+    // If we have captured content, place it to the right of the visible sub-menu and slide it out
+    let exitPanel = null;
+    if ((returnPagePath && typeof returnPagePath === 'string') || (returnFramePayload && returnFramePayload.html)) {
+      const subWidth = subCategoryContainer.offsetWidth || 0;
+      exitPanel = createOutgoingFramePanel(subWidth, returnFramePayload, returnPagePath);
+      if (exitPanel) {
+        exitPanel.addEventListener('transitionend', function handler(e) {
+          if (e.propertyName !== 'transform') return;
+          exitPanel.removeEventListener('transitionend', handler);
+          try { sessionStorage.removeItem('ISOv8__returnFrameHTML'); } catch (_) {}
+          try { sessionStorage.removeItem('ISOv8__returnPagePath'); } catch (_) {}
+          try { exitPanel.remove(); } catch (_) {}
+        });
+      }
+    }
+
+    // Next frame: animate the aside and overlay in (force transition recognition)
+    requestAnimationFrame(() => {
+      // Ensure we have an explicit transition so the move animates
+      asideEl.style.transition = `transform ${TRANSITION_SECONDS}s ease-in-out`;
+      // Reflow so the browser acknowledges the transition change
+      void asideEl.offsetWidth;
+      // Start the slide-in
+      asideEl.style.transform = 'translateX(0)';
+      if (overlay) overlay.style.opacity = '1';
+      // Restore transitions for future user-initiated sub-menu animations
+      subCategoryContainer.style.transition = prevTransition || '';
+    });
+  }
+
+  
 });
