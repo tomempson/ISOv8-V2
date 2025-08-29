@@ -39,6 +39,15 @@
     // Only run this behavior on sub pages (home has #sidebar-navigation-categories)
     if (document.getElementById('sidebar-navigation-categories')) return;
 
+    // Proactively record the current sub category so Home can restore
+    try {
+      var initSlug = getCurrentCategorySlug();
+      if (initSlug) {
+        sessionStorage.setItem(RESTORE_KEY, '1');
+        sessionStorage.setItem(RESTORE_SLUG_KEY, initSlug);
+      }
+    } catch (_) {}
+
     var btn = document.querySelector('.sidebar-return-button');
     if (btn) {
       btn.addEventListener('click', function (e) {
@@ -65,6 +74,15 @@
         e.stopPropagation();
         redirectHomeWithRestore();
       }, { capture: true });
+    });
+
+    // Also set flags on pagehide so browser Back (BFCache) is covered
+    window.addEventListener('pagehide', function () {
+      try {
+        var slug = getCurrentCategorySlug();
+        sessionStorage.setItem(RESTORE_KEY, '1');
+        if (slug) sessionStorage.setItem(RESTORE_SLUG_KEY, slug);
+      } catch (_) {}
     });
   }
 
