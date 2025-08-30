@@ -2,7 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Remove any lingering transition panels/iframes when this page loads/restores
   function cleanupTransitionPanels() {
     try {
-      document.querySelectorAll('.page-transition-panel').forEach((p) => p.remove());
+      document.querySelectorAll('.page-transition-panel').forEach((p) => {
+        try {
+          if (p && p.getAttribute('data-persistent') === 'true') return;
+          p.remove();
+        } catch (_) {}
+      });
     } catch (_) {}
   }
   cleanupTransitionPanels();
@@ -302,6 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function createTransitionPanel(startLeftPx, targetHref) {
     const panel = document.createElement('div');
     panel.className = 'page-transition-panel';
+    panel.setAttribute('data-persistent', 'true');
     // Size and position so it appears from behind the sub-category column
     const left = Math.max(0, Math.floor(startLeftPx));
     panel.style.left = left + 'px';
@@ -338,19 +344,21 @@ document.addEventListener('DOMContentLoaded', () => {
     return panel;
   }
 
-  // Create a rightward sliding panel that shows captured HTML in an iframe, then slides out
-  function createOutgoingFramePanel(startLeftPx, payload, pagePath) {
+  // Create a static panel that shows the prior page in an iframe and remains visible
+  function createStaticReturnPanel(startLeftPx, payload, pagePath) {
     const panel = document.createElement('div');
     panel.className = 'page-transition-panel';
+    panel.setAttribute('data-persistent', 'true');
+    panel.setAttribute('data-return-panel', 'true');
     const left = Math.max(0, Math.floor(startLeftPx));
     panel.style.left = left + 'px';
     panel.style.width = Math.max(0, window.innerWidth - left) + 'px';
     panel.style.height = '100dvh';
+    // Keep static and visible; no slide-out
     panel.style.transform = 'translateX(0)';
-    panel.style.transition = `transform ${TRANSITION_SECONDS}s ease-in-out`;
-    panel.style.willChange = 'transform';
-    // Below <aside> (100000), above overlay (99999), above main.
-    panel.style.zIndex = '99999';
+    panel.style.transition = 'none';
+    // Above <aside> (100000) and overlay (99999) so it never gets covered
+    panel.style.zIndex = '100001';
     panel.style.background = 'white';
     panel.style.position = 'fixed';
     panel.style.top = '0';
@@ -365,13 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.appendChild(iframe);
 
     document.body.appendChild(panel);
-
-    const startSlide = () => {
-      requestAnimationFrame(() => {
-        void panel.offsetWidth;
-        panel.style.transform = 'translateX(100%)';
-      });
-    };
 
     if (pagePath) {
       // Prefer loading the actual page and extracting its .content reliably
@@ -388,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (_) {
           // Cross-origin or other access issues: fall back to sliding anyway
         }
-        startSlide();
+        // Keep visible; no further animation
       });
     } else if (payload && payload.html) {
       // Fallback to injecting captured HTML via srcdoc for maximum compatibility
@@ -399,8 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const docHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n<link rel="stylesheet" href="https://use.typekit.net/xjz3mil.css">\n${cssTags}\n<style>html,body{margin:0;padding:0;background:#fff;}</style></head><body>\n${payload.html}\n</body></html>`;
       try {
         iframe.srcdoc = docHtml;
-        // Start slide after one frame to allow layout
-        startSlide();
+        // Keep visible; no further animation
       } catch (_) {
         // As a last resort, write into the iframe
         try {
@@ -411,14 +411,25 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.close();
           }
         } catch (_) {}
-        startSlide();
       }
     } else {
-      // No content available; slide anyway
-      startSlide();
+      // No content available; panel still remains (blank)
     }
 
     return panel;
+  }
+
+  // Keep a return panel aligned with the right edge of the sub-categories
+  function repositionReturnPanel() {
+    try {
+      const panel = document.querySelector('.page-transition-panel[data-return-panel="true"]');
+      if (!panel) return;
+      // Measure the live position of the sub-categories container
+      const rect = subCategoryContainer.getBoundingClientRect();
+      const left = Math.max(0, Math.floor(rect.right));
+      panel.style.left = left + 'px';
+      panel.style.width = Math.max(0, window.innerWidth - left) + 'px';
+    } catch (_) {}
   }
 
   
@@ -586,23 +597,21 @@ document.addEventListener('DOMContentLoaded', () => {
     asideEl.style.transform = `translateX(-${catWidth}px)`;
     void asideEl.offsetWidth; // reflow to commit initial position without animation
 
-    // If we have captured content, place it to the right of the visible sub-menu and slide it out
+    // If we have a previous page, place it to the right of the visible sub-menu and keep it visible
     let exitPanel = null;
     if ((returnPagePath && typeof returnPagePath === 'string') || (returnFramePayload && returnFramePayload.html)) {
       // Ensure sub-menu has a sensible width; fallback to 350px (CSS sets 350px)
       void subCategoryContainer.offsetWidth;
       const measuredSub = subCategoryContainer.offsetWidth || 0;
       const subWidth = measuredSub > 0 ? measuredSub : 350;
-      exitPanel = createOutgoingFramePanel(subWidth, returnFramePayload, returnPagePath);
-      if (exitPanel) {
-        exitPanel.addEventListener('transitionend', function handler(e) {
-          if (e.propertyName !== 'transform') return;
-          exitPanel.removeEventListener('transitionend', handler);
-          try { sessionStorage.removeItem('ISOv8__returnFrameHTML'); } catch (_) {}
-          try { sessionStorage.removeItem('ISOv8__returnPagePath'); } catch (_) {}
-          try { exitPanel.remove(); } catch (_) {}
-        });
-      }
+      exitPanel = createStaticReturnPanel(subWidth, returnFramePayload, returnPagePath);
+      // Keep the panel correctly aligned during initial paint and subsequent layout
+      repositionReturnPanel();
+      requestAnimationFrame(repositionReturnPanel);
+      window.addEventListener('resize', repositionReturnPanel);
+      // Clear flags immediately so this only happens on first return
+      try { sessionStorage.removeItem('ISOv8__returnFrameHTML'); } catch (_) {}
+      try { sessionStorage.removeItem('ISOv8__returnPagePath'); } catch (_) {}
     }
 
     // Next frame: animate the aside and overlay in (force transition recognition)
@@ -616,6 +625,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (overlay) overlay.style.opacity = '1';
       // Restore transitions for future user-initiated sub-menu animations
       subCategoryContainer.style.transition = prevTransition || '';
+      // When the aside finishes its slide, re-align the return panel
+      if (exitPanel) {
+        const onAsideEnd = (e) => {
+          if (e.propertyName !== 'transform') return;
+          asideEl.removeEventListener('transitionend', onAsideEnd);
+          requestAnimationFrame(repositionReturnPanel);
+        };
+        asideEl.addEventListener('transitionend', onAsideEnd);
+      }
     });
   }
 
