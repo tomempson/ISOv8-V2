@@ -9,13 +9,30 @@ header {
   box-sizing: border-box;
   flex: 1;
 
-  height: 109px;
+  position: absolute;
+
+  width: 100%;
 
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
 
-  padding: 20px 40px;
+  padding: 20px 0 20px 0;
 
   z-index: 1;
+}
+
+.header-wrapper {
+  width: 100%;
+
+  margin: 0 40px 0 40px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
 }
 
 .hamburger-menu-container {
@@ -139,13 +156,11 @@ header {
   color: white;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 640px) {
   .header-links-about-us {
     display: none;
   }
-}
 
-@media (max-width: 750px) {
   .hamburger-menu-text {
     display: none;
   }
@@ -153,9 +168,13 @@ header {
   .header-links-container {
     display: none;
   }
+
+  .header-logo-container {
+    justify-content: center;
+  }
 }
 
-@media (max-width: 492px) {
+@media (max-width: 400px) {
   .regular-logo {
     display: none;
   }

@@ -24,6 +24,10 @@ footer hr {
   flex-direction: column;
 }
 
+.footer-heading-wrapper {
+  padding: 0 80px 0 80px;
+}
+
 .footer-heading-flexbox {
   display: flex;
 
@@ -32,7 +36,11 @@ footer hr {
   justify-content: space-between;
   align-items: center;
 
-  padding: 40px 80px;
+  padding: 40px 0 40px 0;
+
+  max-width: 1600px;
+
+  margin: auto;
 }
 
 .footer-logo {
@@ -48,8 +56,16 @@ footer hr {
   margin: 0;
 }
 
+.footer-sitemap-wrapper {
+  padding: 0 80px 0 80px;
+}
+
 .footer-sitemap {
-  padding: 40px 80px;
+  max-width: 1600px;
+
+  margin: auto;
+
+  padding: 40px 0 40px 0;
 }
 
 .footer-sitemap-grid {
@@ -165,6 +181,10 @@ footer hr {
   transform: rotate(-45deg);
 }
 
+.footer-legal-flexbox-wrapper {
+  padding: 0 80px 0 80px;
+}
+
 .footer-legal-flexbox {
   display: flex;
 
@@ -175,7 +195,11 @@ footer hr {
 
   text-align: center;
 
-  padding: 40px 80px;
+  padding: 40px 0 40px 0;
+
+  max-width: 1600px;
+
+  margin: auto;
 }
 
 .footer-legal-copyright-disclaimer, .footer-legal-links {
