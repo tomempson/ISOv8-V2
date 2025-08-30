@@ -53,7 +53,17 @@
       anchors.forEach((a) => {
         a.addEventListener('click', () => {
           try {
+            // Signal destination to open categories immediately
             sessionStorage.setItem('ISOv8__returnShowCategories', '1');
+          } catch (_) {}
+          try {
+            // Record the current page so destination can show it in an iframe
+            const loc = window.location || {};
+            const rel =
+              (loc.pathname || '') + (loc.search || '') + (loc.hash || '');
+            if (rel && typeof rel === 'string') {
+              sessionStorage.setItem('ISOv8__returnPagePath', rel);
+            }
           } catch (_) {
             // Fail silently if storage is unavailable
           }

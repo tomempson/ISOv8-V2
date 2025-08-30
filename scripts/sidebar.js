@@ -302,6 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const TRANSITION_SECONDS = 0.9; 
+  // Slower duration specifically for the outgoing return iframe panel
+  const RETURN_PANEL_SECONDS = 1.6;
 
   // Create a left-to-right sliding panel that displays the target page (via iframe)
   function createTransitionPanel(startLeftPx, targetHref) {
@@ -357,8 +359,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Keep static and visible; no slide-out
     panel.style.transform = 'translateX(0)';
     panel.style.transition = 'none';
-    // Above <aside> (100000) and overlay (99999) so it never gets covered
-    panel.style.zIndex = '100001';
+    // Below <aside> (100000) but above overlay (99998 in this flow)
+    panel.style.zIndex = '99999';
     panel.style.background = 'white';
     panel.style.position = 'fixed';
     panel.style.top = '0';
@@ -524,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
       800,
       () => {
         // Stage B: slide out to the left (animate transform)
-        subCategoryContainer.style.transition = 'transform 0.9s ease';
+        subCategoryContainer.style.transition = `transform ${TRANSITION_SECONDS}s ease`;
         subCategoryContainer.addEventListener('transitionend', handleSubCategoriesTransitionEnd);
         // force reflow to apply the new transition before changing transform
         void subCategoryContainer.offsetWidth;
@@ -622,6 +624,36 @@ document.addEventListener('DOMContentLoaded', () => {
       void asideEl.offsetWidth;
       // Start the slide-in
       asideEl.style.transform = 'translateX(0)';
+      // In unison, slide the return panel left, underneath the sidebar
+      if (exitPanel) {
+        try {
+          // Ensure the panel will animate transform
+          exitPanel.style.transition = `transform ${RETURN_PANEL_SECONDS}s ease-in-out`;
+          exitPanel.style.willChange = 'transform';
+          // Move fully off the left edge of the viewport
+          const offX = Math.ceil(window.innerWidth + 2);
+          // Reflow before changing transform so the transition applies
+          void exitPanel.offsetWidth;
+          exitPanel.style.transform = `translateX(-${offX}px)`;
+
+          // After the panel finishes sliding, remove it from the DOM
+          let cleaned = false;
+          const cleanupPanel = () => {
+            if (cleaned) return;
+            cleaned = true;
+            try { exitPanel.removeEventListener('transitionend', onPanelEnd); } catch (_) {}
+            try { window.removeEventListener('resize', repositionReturnPanel); } catch (_) {}
+            try { exitPanel.remove(); } catch (_) {}
+          };
+          const onPanelEnd = (pe) => {
+            if (pe.propertyName !== 'transform') return;
+            cleanupPanel();
+          };
+          exitPanel.addEventListener('transitionend', onPanelEnd);
+          // Fallback in case the transitionend event is missed
+          setTimeout(cleanupPanel, Math.ceil((RETURN_PANEL_SECONDS * 1000) + 200));
+        } catch (_) {}
+      }
       if (overlay) overlay.style.opacity = '1';
       // Restore transitions for future user-initiated sub-menu animations
       subCategoryContainer.style.transition = prevTransition || '';
