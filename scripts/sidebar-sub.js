@@ -72,5 +72,89 @@
     } catch (_) {
       // No-op if DOM/query fails
     }
+
+    try {
+      // 4) Sub-page sidebar open/close mirroring main behavior
+      const toggleBtn = document.querySelector('.js-sub-menu-toggle');
+      const bodyFlex = document.querySelector('.body-flexbox');
+      const sidebarWrap = document.querySelector('.sidebar');
+      const aside = document.querySelector('.sidebar aside, .sidebar > aside, aside');
+      const overlay = document.getElementById('sidebar-overlay');
+
+      function openSubSidebar() {
+        if (!bodyFlex || !sidebarWrap || !aside) return;
+        // Disable flex layout to prevent content reflow conflicts
+        try { bodyFlex.style.display = 'block'; } catch (_) {}
+
+        // Prepare overlay
+        if (overlay) {
+          overlay.style.display = 'block';
+          overlay.style.opacity = '0';
+        }
+
+        // Make wrapper overlay the page content
+        sidebarWrap.style.display = 'block';
+        sidebarWrap.style.position = 'absolute';
+        sidebarWrap.style.top = '0';
+        sidebarWrap.style.left = '0';
+        sidebarWrap.style.zIndex = '100001';
+
+        // Slide the aside in from the left
+        aside.style.display = 'flex';
+        aside.style.transform = 'translateX(-100%)';
+        // Next frame, animate to onscreen
+        requestAnimationFrame(() => {
+          if (overlay) overlay.style.opacity = '1';
+          aside.style.transform = 'translateX(0)';
+        });
+      }
+
+      function closeSubSidebar() {
+        if (!bodyFlex || !sidebarWrap || !aside) return;
+        // Slide out
+        aside.style.transform = 'translateX(-100%)';
+        // Fade overlay
+        if (overlay) overlay.style.opacity = '0';
+        // After transition, cleanup
+        const onEnd = (e) => {
+          if (e.propertyName !== 'transform') return;
+          try { aside.removeEventListener('transitionend', onEnd); } catch (_) {}
+          if (overlay) overlay.style.display = 'none';
+          // Restore layout defaults
+          bodyFlex.style.display = '';
+          sidebarWrap.style.display = '';
+          sidebarWrap.style.position = '';
+          sidebarWrap.style.top = '';
+          sidebarWrap.style.left = '';
+          sidebarWrap.style.zIndex = '';
+          aside.style.display = '';
+          aside.style.transform = '';
+        };
+        try { aside.addEventListener('transitionend', onEnd); } catch (_) { onEnd({ propertyName: 'transform' }); }
+      }
+
+      if (toggleBtn && bodyFlex && sidebarWrap && aside) {
+        // Capture and stop other handlers (from scripts/sidebar.js)
+        toggleBtn.addEventListener(
+          'click',
+          (e) => {
+            try { e.preventDefault(); e.stopImmediatePropagation(); } catch (_) {}
+            openSubSidebar();
+          },
+          { capture: true }
+        );
+      }
+      if (overlay) {
+        overlay.addEventListener('click', closeSubSidebar);
+      }
+      // Optional: ESC to close
+      try {
+        document.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Escape') closeSubSidebar();
+        });
+      } catch (_) {}
+    } catch (_) {
+      // Fail silently if DOM/query fails
+    }
   }
 })();
