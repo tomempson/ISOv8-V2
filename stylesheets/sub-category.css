@@ -54,6 +54,11 @@ article {
   margin-bottom: 100px;
 }
 
+article section {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
 article a {
   color: black;
 }

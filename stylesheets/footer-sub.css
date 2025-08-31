@@ -246,13 +246,13 @@ footer hr {
   }
 }
 
-@media (max-width: 1350px) {
+@media (max-width: 1450px) {
   .footer-sitemap-grid {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1250px) {
   .footer-sitemap-grid {
     grid-template-columns: 1fr 1fr 1fr;
   }

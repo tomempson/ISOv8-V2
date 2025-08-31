@@ -36,7 +36,7 @@ header {
 }
 
 .hamburger-menu-container {
-  display: flex;
+  display: none;
 
   flex-direction: row;
 
@@ -156,16 +156,8 @@ header {
   color: white;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 950px) {
   .header-links-about-us {
-    display: none;
-  }
-
-  .hamburger-menu-text {
-    display: none;
-  }
-
-  .header-links-container {
     display: none;
   }
 
@@ -174,7 +166,13 @@ header {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 700px) {
+  .header-links-container {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
   .regular-logo {
     display: none;
   }
@@ -185,5 +183,11 @@ header {
 
   .header-logo-container {
     justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hamburger-menu-container {
+    display: flex;
   }
 }
