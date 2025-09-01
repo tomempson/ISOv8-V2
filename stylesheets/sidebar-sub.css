@@ -11,6 +11,7 @@ aside {
   overflow: hidden;        /* hide sliding panel as width shrinks */
   transition: width 0.9s ease; /* keep in sync with aside's transform */
   background-color: white;
+  z-index: 100000;
 }
 
 @media (max-width: 650px) {
