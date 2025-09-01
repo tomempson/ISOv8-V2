@@ -16,7 +16,7 @@ aside {
 
 @media (max-width: 650px) {
   .sidebar {
-    width: 100vw;          /* full width on small screens */
+    width: 100vw;
   }
 }
 
