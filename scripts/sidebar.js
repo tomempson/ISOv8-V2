@@ -655,10 +655,15 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
   };
-  returnButtons.forEach(btn => btn.addEventListener('click', () => {
-    if (isAnimating) { pendingAction = () => btn.click(); return; }
-    closeSubCategories();
-  }));
+  // Only attach return-button behavior on the home page.
+  if (isHomePage) {
+    returnButtons.forEach(btn => btn.addEventListener('click', (e) => {
+      if (isAnimating) { pendingAction = () => btn.click(); return; }
+      // Prevent any other same-target listeners from running competing logic
+      try { e.stopImmediatePropagation(); } catch (_) {}
+      closeSubCategories();
+    }));
+  }
 
   hideAllSubCategories();
 

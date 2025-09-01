@@ -2,26 +2,92 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>ISOv8&reg; &VerticalLine; Sub Category Page</title>
+
+    <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg">
+    <link rel="shortcut icon" href="favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+    <link rel="manifest" href="favicons/site.webmanifest">
 
     <link rel="stylesheet" href="https://use.typekit.net/xjz3mil.css">
 
+    <link rel="stylesheet" href="stylesheets/contact-modal.css">
+    <link rel="stylesheet" href="stylesheets/cookie-consent.css">
     <link rel="stylesheet" href="stylesheets/sub-category.css">
-
     <link rel="stylesheet" href="stylesheets/general.css">
-
     <link rel="stylesheet" href="stylesheets/sidebar-sub.css">
-
     <link rel="stylesheet" href="stylesheets/header-sub.css">
-
     <link rel="stylesheet" href="stylesheets/hero-sub.css">
-
     <link rel="stylesheet" href="stylesheets/footer-sub.css">
-
     <link rel="stylesheet" href="stylesheets/sub-category.css">
   </head>
-  <body style="background-color:  lightcoral;">
+  <body>
+    <section id="cookie-consent">
+      <div class="cookie-consent-flexbox">
+        <div class="cookie-consent-heading-flexbox">
+          <div class="cookie-consent-heading-container"></div>
+
+          <span class="cookie-consent-heading cookie-consent-heading-container">Manage Consent</span>
+
+          <div class="cookie-consent-heading-container cookie-consent-close-flexbox">
+            <button onclick="handleCookieConsent('close');" class="cookie-consent-close-button">
+              <div class="cookie-consent-close"></div>
+            </button>
+          </div>
+        </div>
+        
+        <p class="cookie-consent-info">To provide the best experiences, we use technologies like cookies to store and/or access device information. Consenting to these technologies will allow us to process data such as browsing behaviour or unique IDs on this site. Not consenting or withdrawing consent, may adversely affect certain features and functions.</p>
+
+        <div class="cookie-consent-choice-flexbox">
+          <button onclick="handleCookieConsent('close');" class="cookie-consent-button accept">Accept</button>
+          <button onclick="handleCookieConsent('close');" class="cookie-consent-button deny">Deny</button>
+          <button class="cookie-consent-button view-preferences">View Preferences</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact-modal">
+      <div class="contact-modal-wrapper-flexbox">
+        <img class="contact-modal-background" src="graphics/contact-modal-background.svg">
+        <div class="contact-modal-container">
+          <button class="contact-modal-close-button">
+            <div class="contact-modal-close"></div>
+          </button>
+          <div class="contact-modal-content-flexbox">
+            <div class="contact-modal-heading-flexbox">
+              <div class="contact-modal-heading-slogan-flexbox">
+                <span class="contact-modal-heading">
+                  Just As
+                </span>
+
+                <img class="contact-modal-heading-logo" src="graphics/container-king-logo-mark-colour.svg">
+              </div>
+
+              <span class="contact-modal-phone-number">01724 870000</span>
+            </div>
+
+            <input class="contact-modal-input contact-modal-name-field" type="text" placeholder="Name">
+
+            <input class="contact-modal-input contact-modal-email-field" type="email" placeholder="Email Address">
+
+            <input class="contact-modal-input contact-modal-tel-field" type="tel" placeholder="Telephone Number">
+
+            <input class="contact-modal-input contact-modal-business-name-field" type="text" placeholder="Business Name">
+
+            <textarea class="contact-modal-input contact-modal-details-field" type="text" placeholder="Enquiry Details"></textarea>
+
+            <button class="contact-modal-submit-button">Submit</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="body-flexbox">
 
       <div class="sidebar">
@@ -41,15 +107,15 @@
 
             <nav class="sidebar-navigation-container">
               <ul class="sidebar-navigation-grid">
-                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">Do I Need Planning Permission for a Container?</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-2.html">Planning Permission vs Building Regulations - What's the Difference?</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-3.html">Permitted Development and Container Conversions</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-4.html">Can I Run a Business from a Container on My Land?</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-5.html">What Counts as a Permanent Building?</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-6.html">The Rules Around Residential Use</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-7.html">Fire Safety, Access &amp; Other Rules, Nobody Tells You</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-8.html">Designing Your Ideal Container Conversion</a></li>
-                <li><a class="sidebar-sub-navigation-text" href="sub-category-9.html">Do I Need an Architect for My Container Project?</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="do-i-need-planning-permission.html">Do I Need Planning Permission for a Container?</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="planning-permission-vs-building-regulations.html">Planning Permission vs Building Regulations - What's the Difference?</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">Permitted Development and Container Conversions</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">Can I Run a Business from a Container on My Land?</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">What Counts as a Permanent Building?</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">The Rules Around Residential Use</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">Fire Safety, Access &amp; Other Rules, Nobody Tells You</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">Designing Your Ideal Container Conversion</a></li>
+                <li><a class="sidebar-sub-navigation-text" href="sub-category.html">Do I Need an Architect for My Container Project?</a></li>
                 <li><a class="sidebar-sub-navigation-text" href="sub-category.html">How Big Can I Go?</a></li>
                 <li><a class="sidebar-sub-navigation-text" href="sub-category.html">The Rules Around Residential Use</a></li>
                 <li><a class="sidebar-sub-navigation-text" href="sub-category.html">Can I Stack Containers? - Rules & Safety Considerations</a></li>
@@ -97,9 +163,9 @@
           </div>
 
           <div class="hero-heading-flexbox">
-            <h3>Blueprint Files: Document 1</h3>
-            <h1 style="margin: 20px 0 20px 0;">Do I Need Planning Permission for a Container?</h1>
-            <h2><em>- IsoV8® by ContainerKing® - When your container crosses into planning territory</em></h2>
+            <h3>Blueprint Files: Document</h3>
+            <h1 style="margin: 20px 0 20px 0;">Sub Category Page</h1>
+            <h2><em>- IsoV8® by ContainerKing®</em></h2>
           </div>
 
           <button class="hero-cta-circle-button">

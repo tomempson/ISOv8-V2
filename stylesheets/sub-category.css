@@ -16,6 +16,8 @@
 .content {
   display: block;
 
+  background-color: white;
+
   flex: 1;
 
   overflow-y: auto;

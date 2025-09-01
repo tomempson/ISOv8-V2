@@ -9,7 +9,10 @@
   }
 
   function init() {
-    const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text';
+    // Use sub-pages specific keys so a background home iframe doesn't clear them
+    const SUB_ACTIVE_KEY = 'ISOv8_sub_active_text'; // legacy/home usage
+    const SUB_ACTIVE_KEY_SUB = 'ISOv8_sub_active_text_sub';
+    const SUB_ACTIVE_HREF_KEY = 'ISOv8_sub_active_href_sub';
     const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
     const TRANSITION_SECONDS = 0.9;
     let isAnimating = false;
@@ -46,12 +49,8 @@
       panel.style.pointerEvents = 'none';
       panel.style.overflow = 'hidden';
 
-      // Derive the home URL from any return button, else fallback
-      let homeHref = '/index.html';
-      try {
-        const ret = document.querySelector('a.sidebar-return-button[href]');
-        if (ret && ret.getAttribute('href')) homeHref = ret.getAttribute('href');
-      } catch (_) {}
+      // Use root as home for now (explicit request)
+      let homeHref = '/';
 
       const iframe = document.createElement('iframe');
       iframe.src = homeHref;
@@ -125,32 +124,71 @@
 
     try {
       // 1) Mark the stored active sub-link on load
-      const stored = sessionStorage.getItem(SUB_ACTIVE_KEY);
-      if (stored) {
-        const subLinks = document.querySelectorAll('.sidebar-sub-navigation-text');
-        subLinks.forEach((l) => l.classList.remove('active'));
-        subLinks.forEach((l) => {
-          try {
-            if (normaliseLabel(l.textContent) === stored) {
-              l.classList.add('active');
-            }
-          } catch (_) {}
-        });
+      const subLinks = document.querySelectorAll('.sidebar-sub-navigation-text');
+      const clearAll = () => subLinks.forEach((l) => l.classList.remove('active'));
+      const safePath = (p) => {
+        if (!p) return '';
+        try { return new URL(p, document.baseURI).pathname.replace(/\/+$/, ''); } catch (_) { return String(p); }
+      };
+      const linkPath = (el) => {
+        try { return safePath(el.href || el.getAttribute('href')); } catch (_) { return ''; }
+      };
+      const baseName = (p) => {
+        try { const s = p.split('?')[0]; const m = s.match(/[^\/]+$/); return m ? m[0] : ''; } catch (_) { return ''; }
+      };
+
+      clearAll();
+
+      // Build normalized paths once
+      const currentPath = safePath((window.location && window.location.href) || (window.location && window.location.pathname) || '');
+      const currentBase = baseName(currentPath);
+      const linksWithPaths = Array.from(subLinks).map((l) => ({ el: l, path: linkPath(l), base: null }));
+      linksWithPaths.forEach((o) => { o.base = baseName(o.path); });
+
+      let matched = false;
+
+      // 1) Prefer the actual current page path
+      if (currentPath) {
+        for (const o of linksWithPaths) {
+          if (o.path === currentPath) { o.el.classList.add('active'); matched = true; break; }
+        }
+      }
+
+      // 2) If still not matched, use basename match (handles different parent dirs)
+      if (!matched && currentBase) {
+        for (const o of linksWithPaths) {
+          if (o.base && o.base === currentBase) { o.el.classList.add('active'); matched = true; break; }
+        }
+      }
+
+      // 3) Next, use stored href path (from previous interactions)
+      if (!matched) {
+        let storedHref = null;
+        try { storedHref = sessionStorage.getItem(SUB_ACTIVE_HREF_KEY); } catch (_) {}
+        const storedPath = safePath(storedHref);
+        if (storedPath) {
+          for (const o of linksWithPaths) {
+            if (o.path === storedPath) { o.el.classList.add('active'); matched = true; break; }
+          }
+        }
+      }
+
+      // 4) Last resort: label match
+      if (!matched) {
+        let storedLabel = null;
+        try { storedLabel = sessionStorage.getItem(SUB_ACTIVE_KEY_SUB) || sessionStorage.getItem(SUB_ACTIVE_KEY); } catch (_) {}
+        if (storedLabel) {
+          const s = normaliseLabel(storedLabel);
+          for (const o of linksWithPaths) {
+            try { if (normaliseLabel(o.el.textContent) === s) { o.el.classList.add('active'); matched = true; break; } } catch (_) {}
+          }
+        }
       }
     } catch (_) {
-      // Ignore storage access failures
+      // Ignore failures
     }
 
-    // Preload the home background iframe so it is visible during transitions
-    try {
-      const { iframe } = createHomeBackgroundPanel();
-      // No-op listener to mark readiness if needed later
-      if (iframe) {
-        iframe.addEventListener('load', () => {
-          try { iframe.setAttribute('data-loaded', 'true'); } catch (_) {}
-        }, { once: true });
-      }
-    } catch (_) {}
+    // Do not preload the home background iframe; only create during transitions
 
     // Ensure only the `.content` element is shown inside a loaded iframe
     function reduceIframeToOnlyContent(iframe) {
@@ -179,15 +217,23 @@
           isAnimating = true;
           const href = l.getAttribute('href');
           // Persist active state immediately
-          try { sessionStorage.setItem(SUB_ACTIVE_KEY, normaliseLabel(l.textContent)); } catch (_) {}
+          try {
+            const value = normaliseLabel(l.textContent);
+            const href = l.getAttribute('href') || '';
+            const path = href ? new URL(href, document.baseURI).pathname : '';
+            sessionStorage.setItem(SUB_ACTIVE_KEY_SUB, value);
+            // Also write legacy key for any other code paths that still use it
+            sessionStorage.setItem(SUB_ACTIVE_KEY, value);
+            if (path) sessionStorage.setItem(SUB_ACTIVE_HREF_KEY, path);
+          } catch (_) {}
           subLinks.forEach((n) => n.classList.remove('active'));
           l.classList.add('active');
 
           // Prevent default and run the transition
           if (href) e.preventDefault();
 
-          // Ensure home is visible beneath during content slide-out (preloaded on init)
-          createHomeBackgroundPanel();
+          // Create home background only for the duration of this transition
+          const homeBg = createHomeBackgroundPanel();
 
           // Step 1: slide current content off-screen left
           slideContentOut(() => {
@@ -205,6 +251,8 @@
               const onPanelEnd = (ev) => {
                 if (ev.propertyName !== 'transform') return;
                 panel.removeEventListener('transitionend', onPanelEnd);
+                // Remove the temporary home background before navigating away
+                try { if (homeBg && homeBg.panel) homeBg.panel.remove(); } catch (_) {}
                 // Navigate for real so address bar updates and history is correct
                 window.location.href = href;
               };
@@ -224,44 +272,18 @@
       const anchors = document.querySelectorAll('a.sidebar-return-button');
       anchors.forEach((a) => {
         a.addEventListener('click', (e) => {
-          if (isAnimating) { e.preventDefault(); return; }
-          isAnimating = true;
-          const href = a.getAttribute('href') || '/';
-          // Signal destination to open categories immediately
+          // No transition on sub pages for return; let the browser navigate normally
+          try { e.stopImmediatePropagation(); } catch (_) {}
+          // Set flags so home can optionally adjust its initial view
           try { sessionStorage.setItem('ISOv8__returnShowCategories', '1'); } catch (_) {}
           try {
-            // Record the current page so destination can show it in an iframe
             const loc = window.location || {};
             const rel = (loc.pathname || '') + (loc.search || '') + (loc.hash || '');
             if (rel && typeof rel === 'string') {
               sessionStorage.setItem('ISOv8__returnPagePath', rel);
             }
           } catch (_) {}
-
-          // Prevent default navigation and animate out/in
-          e.preventDefault();
-
-          // Ensure home is visible beneath while content moves out (preloaded on init)
-          createHomeBackgroundPanel();
-
-          slideContentOut(() => {
-            const startLeft = getSidebarRightEdge();
-            const { panel, iframe } = createSlidingPanel(href, startLeft);
-            const onLoaded = () => {
-              iframe.removeEventListener('load', onLoaded);
-              // Show only the target page's .content inside the iframe
-              reduceIframeToOnlyContent(iframe);
-              void panel.offsetWidth;
-              panel.style.transform = 'translateX(0)';
-              const onPanelEnd = (ev) => {
-                if (ev.propertyName !== 'transform') return;
-                panel.removeEventListener('transitionend', onPanelEnd);
-                window.location.href = href;
-              };
-              panel.addEventListener('transitionend', onPanelEnd);
-            };
-            iframe.addEventListener('load', onLoaded);
-          });
+          // Do NOT preventDefault; allow anchor href to take effect immediately
         });
       });
     } catch (_) {
