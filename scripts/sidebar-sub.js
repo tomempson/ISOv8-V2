@@ -49,8 +49,8 @@
       panel.style.pointerEvents = 'none';
       panel.style.overflow = 'hidden';
 
-      // Use root as home for now (explicit request)
-      let homeHref = '/';
+      // Use repo root path for home iframe
+      let homeHref = '/ISOv8-V2/';
 
       const iframe = document.createElement('iframe');
       iframe.src = homeHref;
