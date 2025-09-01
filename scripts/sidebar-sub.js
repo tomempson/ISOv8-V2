@@ -14,7 +14,7 @@
     const SUB_ACTIVE_KEY_SUB = 'ISOv8_sub_active_text_sub';
     const SUB_ACTIVE_HREF_KEY = 'ISOv8_sub_active_href_sub';
     const normaliseLabel = (s) => (s || '').replace(/\s+/g, ' ').trim();
-    const TRANSITION_SECONDS = 0.9;
+    const TRANSITION_SECONDS = 1.5;
     let isAnimating = false;
 
     // Helpers for transition panels on sub pages
