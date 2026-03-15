@@ -1,5 +1,399 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const conversionImages = [
+  {
+    src: "airbnb-pod.webp",
+    title: "Airbnb Pods",
+    description: "Stand out and earn more. Our bespoke container Airbnb pods can be styled for wow-factor—compact, comfortable, and unforgettable. Ideal for short stays, guest retreats, or off-grid escapes. Eye-catching, insulated and made to impress - ready to explore high-impact pods with serious rental appeal."
+  },
+  {
+    src: "art-studio.webp",
+    title: "Arts, Crafts, Hobbyists Studios",
+    description: "Space to focus, freedom to create. Our bespoke container studios can be designed for artists, makers and hobbyists who need room to think and time to make. Bright, secure and insulated for year-round comfort. Whether it's painting, sewing, or sculpting: ready to create your own custom craft space?"
+  },
+  {
+    src: "play-room.webp",
+    title: "BDSM Play Rooms",
+    description: "Privacy. Control. Atmosphere. Our bespoke container conversions can be transformed into fully private BDSM playrooms: sound-insulated, secure, and built to your preferences. Create a space that feels safe, personal, and entirely yours - ready to explore discreet, made-to-measure playroom options?"
+  },
+  {
+    src: "canteen.webp",
+    title: "Canteens",
+    description: "Break time, built better. Our canteen and mess cabin conversions can be fitted out for comfort and durability - bright, easy to clean and ready for site life. Ideal for staff meals, rest breaks or shelter from the weather. Built tough, finished smart - uncover ready-to-use break room solutions."
+  },
+  {
+    src: "cinema-room.webp",
+    title: "Cinema Rooms",
+    description: "Bring the big screen home. Our container cinema rooms can be crafted for pure escapism - dark, quiet and acoustically treated. Perfect for film buffs, directors, or anyone who takes movie nights seriously. Designed for atmosphere, built for comfort - find more details on your bespoke private cinema room."
+  },
+  {
+    src: "classroom.webp",
+    title: "Classrooms",
+    description: "Teach in peace. Our container classrooms can be designed for calm, focused learning - quiet, warm and free from outside distractions: ideal for one-to-one tuition, small groups or online learning. A smarter, faster alternative to traditional builds - delve into bespoke classroom spaces that work."
+  },
+  {
+    src: "craft-studio.webp",
+    title: "Craft Studios",
+    description: "Create without compromise. Our container craft studios can be tailored to your flow - bright, warm and distraction-free. Whether you're painting, stitching, sculpting or designing, this is your dedicated space to focus and flourish. Inspiring, secure and built around you. Navigate to your made-to-measure studio now."
+  },
+  {
+    src: "gaming-room.webp",
+    title: "Gaming Rooms",
+    description: "Level up your setup. Our container gaming rooms can be styled for total immersion - dark walls, ambient lighting and zero distractions. Built for streamers, creators and serious players who want their own private world. Bold, atmospheric, and made to order. Discover your custom-built game zone now."
+  },
+  {
+    src: "garden-room.webp",
+    title: "Garden Rooms",
+    description: "Not your average garden room. Our container conversions blend modern design with practical performance - think clean lines, sleek finishes and fully insulated comfort. Ideal for creative spaces, studios or home offices. Made to impress, made to last - investigate our designer garden rooms now."
+  },
+  {
+    src: "gym.webp",
+    title: "Gyms",
+    description: "Train hard. Build smart. Our bespoke steel gym buildings and container gym conversions are built to take a beating - just like you. Fully insulated, ventilated and ready for kit. Ideal for PTs, sports clubs or home setups. Durable, relocatable and made to spec - why not examine your gym built the industrial way?"
+  },
+  {
+    src: "insulated-storage.webp",
+    title: "Insulated Storage",
+    description: "Need more than just a basic box? Our lined and insulated storage containers offer dry, secure and temperature-stable space all year round. Perfect for tools, stock, equipment or sensitive items. Clean, ready-to-use and customisable. Discover a smarter way to store - tick box, explore our range now."
+  },
+  {
+    src: "bar.webp",
+    title: "Luxury Bars & Lounges",
+    description: "Designed to impress. Built to perform. Our luxury container bars and lounges can be styled with fitted bars, ambient lighting, luxe finishes and serious atmosphere. Ideal for bold private builds or standout brand launches - tune in & cheque out our high-spec spaces that turn heads."
+  },
+  {
+    src: "office.webp",
+    title: "Luxury Offices",
+    description: "Portable prestige. Built to impress. Our luxury container offices can be tailored with premium finishes, smart layouts and executive detail. Designed for entrepreneurs, directors and decision-makers who want more than just a workspace. Built to command respect from day one. Make it yours now."
+  },
+  {
+    src: "home.webp",
+    title: "Man Caves",
+    description: "Your space. Your rules. Our bespoke man cave container conversions can be tailored for downtime, hobbies or serious-big screen time. Dark, bold, built around you: whether it's music, motors, gambling or just relaxing. Hard drinks, harder playlists. Peruse the ultimate retreat on your terms now."
+  },
+  {
+    src: "meeting-room.webp",
+    title: "Meeting Rooms",
+    description: "Boardroom brains in a Box. Why settle for noise, glare or distraction? ISOv8® meeting rooms are acoustically treated, soundproofed and made for high-focus thinking. Perfect for strategy, deals or zoom meetings that matter. We build bespoke, relocatable meeting spaces that perform - and impress - smart, private: built for serious business."
+  },
+  {
+    src: "motorsport-garage.webp",
+    title: "Motorsport Garages",
+    description: "Smart garages for petrolheads. Your own pit lane in a box. Space for classics, karts or just track-day toys: plus room to work and for benches, cabinets and spares. IsoV8® builds wide-body anti-vandal workshops with grease, grit and gearstick glory. Space to polish, tinker and enjoy. Made for weekends, wheel nuts and winners. built with dream team energy."
+  },
+  {
+    src: "retail-popup-shop.webp",
+    title: "Retail Pop-Up Shops",
+    description: "Pop-Up shops that scream style. Bold, branded and impossible to ignore - these container conversions aren't just shops, they're show-stoppers. From artisan espresso bars to streetwear temples, we build mobile spaces that demand attention. Perfect for festivals, high streets, markets and brand pioneers. you bring the vision — we'll build the buzz."
+  },
+  {
+    src: "she-shed.webp",
+    title: "She Sheds",
+    description: "A Containerised She Shed! Girl power in a box: and no, he's not invited. Fully-insulated, electrified and 100% yours. She Shed container conversions built for peace, pampering or plotting your empire. Art studio? Yoga pod? Wine & whinge den? You choose. Built your way, delivered UK-wide. No men - no boys!"
+  },
+  {
+    src: "site-office.webp",
+    title: "Site Offices",
+    description: "Steel-built, site-ready, lined & insulated offices: anti-vandal, secure, portable and made for serious work. We convert shipping containers and fabricate steel site offices, to order. You choose electrics, heating, lighting, layout and internal finishes. Ideal for construction, logistics, manufacturing, and remote teams. Built to your spec - delivered nationwide."
+  },
+  {
+    src: "workshop.webp",
+    title: "Workshops",
+    description: "Workshops that mean business. Steel-built, badged-up and ready to graft. From greasy spanners to sparks and sawdust, these converted container workshops are made to take the hits and keep working. Fit them with benches, racks, power, light and grit. Built for mechanics, makers, engineers and repair crews - bespoke customised relocatable: all yours."
+  }
+];
 ---
 
-<BaseLayout title=" " description=" " />
+<BaseLayout title=" " description=" ">
+  <main>
+    <section class="relative h-screen overflow-hidden">
+      <header class="absolute inset-x-0 top-0 z-30">
+        <a
+          href="/"
+          aria-label="ISO V8 home"
+          class="absolute right-8 top-[15px] lg:hidden"
+        >
+          <img
+            src="/assets/images/isov8-logo-mark.svg"
+            alt="ISO V8"
+            class="w-16"
+          />
+        </a>
+
+        <a
+          href="/"
+          aria-label="ISO V8 home"
+          class="absolute left-1/2 top-[15px] hidden -translate-x-1/2 lg:block"
+        >
+          <img
+            src="/assets/images/isov8-logo.svg"
+            alt="ISO V8"
+            class="w-[300px] max-w-none"
+          />
+        </a>
+
+        <div class="flex items-center justify-between gap-6 px-8 py-8 text-[20px] font-medium text-white lg:px-12 lg:py-10">
+          <button
+            id="menu-toggle"
+            type="button"
+            aria-controls="menu-panel"
+            aria-expanded="false"
+            class="flex cursor-pointer items-center gap-4 text-white transition-colors duration-300"
+          >
+            <span class="flex w-10 flex-col gap-3" aria-hidden="true">
+              <span class="h-0.5 w-full bg-current"></span>
+              <span class="h-0.5 w-7 bg-current"></span>
+              <span class="h-0.5 w-4 bg-current"></span>
+            </span>
+            <span class="hidden lg:inline">MENU</span>
+          </button>
+
+          <nav aria-label="Primary" class="hidden items-center gap-6 lg:flex lg:gap-10">
+            <a href="#about-us">ABOUT US</a>
+            <a href="#inside-v8">INSIDE V8</a>
+          </nav>
+        </div>
+      </header>
+
+      <div
+        id="menu-overlay"
+        class="pointer-events-none fixed inset-0 z-[35] bg-black/50 opacity-0 transition-opacity ease-out"
+        aria-hidden="true"
+        style="transition-duration: 1000ms;"
+      ></div>
+
+      <div
+        id="menu-panel"
+        class="pointer-events-none fixed inset-y-0 left-0 z-40 h-dvh w-[250px] overflow-y-auto overscroll-contain -translate-x-full bg-white shadow-none transition-transform ease-out max-[640px]:w-dvw"
+        aria-hidden="true"
+        style="transition-duration: 1000ms;"
+      >
+        <button
+          id="menu-close"
+          type="button"
+          aria-controls="menu-panel"
+          aria-expanded="false"
+          class="absolute left-8 top-8 flex cursor-pointer items-center gap-4 text-[20px] font-medium text-black lg:left-12 lg:top-10"
+        >
+          <span class="relative flex h-10 w-10 items-center justify-center" aria-hidden="true">
+            <span class="absolute h-0.5 w-full rotate-45 bg-current"></span>
+            <span class="absolute h-0.5 w-full -rotate-45 bg-current"></span>
+          </span>
+          <span>CLOSE</span>
+        </button>
+      </div>
+
+      <video
+        class="absolute inset-0 h-full w-full object-cover"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      >
+        <source src="/assets/images/banner.mp4" type="video/mp4" />
+      </video>
+
+      <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/65 via-black/20 to-transparent lg:h-36"></div>
+
+      <h1
+        class="absolute bottom-8 left-8 z-20 text-[35px] font-[600] leading-[1.1] text-white lg:bottom-12 lg:left-12"
+      >
+        <span class="flex items-start gap-3">
+          <img
+            src="/assets/images/bullet-point.webp"
+            alt=""
+            aria-hidden="true"
+            class="mt-1 h-7 w-auto shrink-0 object-contain"
+          />
+          <span>Shipping Container Conversions</span>
+        </span>
+        <span class="mt-1 flex items-start gap-3">
+          <img
+            src="/assets/images/bullet-point.webp"
+            alt=""
+            aria-hidden="true"
+            class="mt-1 h-7 w-auto shrink-0 object-contain"
+          />
+          <span>Anti-Vandal Buildings</span>
+        </span>
+      </h1>
+    </section>
+
+    <section
+      class="bg-cover bg-center bg-no-repeat px-6 py-12 lg:px-12"
+      style="background-image: url('/assets/images/showcase-background.webp');"
+    >
+      <h2 class="text-center text-[35px] font-[600]">
+        ISO Shipping Container Conversions for Businesses, Creatives &
+        Commercial Sectors Across the UK
+      </h2>
+
+      <div class="mx-auto mt-10 grid w-[calc(100%-40px)] gap-x-4 gap-y-10 xl:w-[calc(100%-150px)] xl:grid-cols-2 xl:gap-y-6 xl:gap-x-6">
+        {
+          conversionImages.map((image) => (
+            <article class="flex flex-col items-start gap-4 min-[679px]:flex-row">
+              <img
+                src={`/assets/images/${image.src}`}
+                alt={image.title}
+                class="h-auto w-[250px] shrink-0"
+                loading="lazy"
+              />
+
+              <div class="flex-1">
+                <h3 class="text-left text-[24px] font-[600] leading-tight text-[#1f1f1f]">
+                  {image.title}
+                </h3>
+                <p class="mt-3 text-[16px] leading-[1.6] text-[#4b4b4b]">
+                  {image.description}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <footer class="bg-white">
+      <div class="border-y border-gray-300 px-6 py-14 lg:px-12 lg:py-12">
+        <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:justify-center max-[1024px]:gap-10">
+          <img
+            src="/assets/images/isov8-logo-colour.svg"
+            alt="ISO V8"
+            class="h-auto w-[300px] max-w-full"
+          />
+
+          <p class="text-right text-[30px] font-[400] italic leading-none text-black max-[1024px]:text-center">
+            without doubt&reg;
+          </p>
+        </div>
+      </div>
+
+      <div class="border-b border-gray-300 px-6 py-8 lg:px-12">
+        <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:items-center max-[1024px]:gap-10">
+          <p class="text-[16px] leading-none text-[#6f6f6f] max-[1024px]:text-center">
+            &copy; 2025 ContainerKing&reg;. All rights reserved.
+          </p>
+
+          <nav aria-label="Footer policies" class="flex items-center gap-8 max-[1024px]:flex-row max-[1024px]:justify-center max-[1024px]:gap-8">
+            <a href="/cookie-policy" class="text-[16px] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
+              Cookie Policy
+            </a>
+            <a href="/privacy-policy" class="text-[16px] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
+              Privacy Policy
+            </a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script is:inline>
+    const menuToggle = document.getElementById("menu-toggle");
+    const menuOverlay = document.getElementById("menu-overlay");
+    const menuPanel = document.getElementById("menu-panel");
+    const menuClose = document.getElementById("menu-close");
+
+    if (menuToggle && menuOverlay && menuPanel && menuClose) {
+      let isAnimating = false;
+      let animationTimer;
+      let lockedScrollY = 0;
+
+      const getTransitionDuration = () => {
+        const durationSeconds = Number.parseFloat(
+          window.getComputedStyle(menuPanel).transitionDuration
+        );
+
+        return Number.isNaN(durationSeconds) ? 0 : durationSeconds * 1000;
+      };
+
+      const lockPageScroll = () => {
+        lockedScrollY = window.scrollY;
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${lockedScrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.width = "100%";
+        document.body.style.overflow = "hidden";
+      };
+
+      const unlockPageScroll = () => {
+        document.documentElement.style.removeProperty("overflow");
+        document.body.style.removeProperty("position");
+        document.body.style.removeProperty("top");
+        document.body.style.removeProperty("left");
+        document.body.style.removeProperty("right");
+        document.body.style.removeProperty("width");
+        document.body.style.removeProperty("overflow");
+        window.scrollTo(0, lockedScrollY);
+      };
+
+      const setMenuState = (isOpen) => {
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuClose.setAttribute("aria-expanded", String(isOpen));
+        menuOverlay.setAttribute("aria-hidden", String(!isOpen));
+        menuPanel.setAttribute("aria-hidden", String(!isOpen));
+        menuOverlay.classList.toggle("opacity-0", !isOpen);
+        menuOverlay.classList.toggle("opacity-100", isOpen);
+        menuPanel.classList.toggle("-translate-x-full", !isOpen);
+        menuPanel.classList.toggle("translate-x-0", isOpen);
+        menuPanel.classList.toggle("shadow-none", !isOpen);
+        menuPanel.classList.toggle("shadow-2xl", isOpen);
+        menuPanel.classList.toggle("pointer-events-none", !isOpen);
+        menuPanel.classList.toggle("pointer-events-auto", isOpen);
+      };
+
+      const finishMenuTransition = () => {
+        isAnimating = false;
+        menuToggle.disabled = false;
+        menuClose.disabled = false;
+        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+        menuOverlay.classList.toggle("pointer-events-none", !isOpen);
+        menuOverlay.classList.toggle("pointer-events-auto", isOpen);
+        if (!isOpen) {
+          unlockPageScroll();
+        }
+        window.clearTimeout(animationTimer);
+      };
+
+      const requestMenuState = (nextIsOpen) => {
+        const currentIsOpen = menuToggle.getAttribute("aria-expanded") === "true";
+        if (isAnimating || currentIsOpen === nextIsOpen) {
+          return;
+        }
+
+        isAnimating = true;
+        menuToggle.disabled = true;
+        menuClose.disabled = true;
+        menuOverlay.classList.remove("pointer-events-none");
+        menuOverlay.classList.add("pointer-events-auto");
+        if (nextIsOpen) {
+          lockPageScroll();
+        }
+        setMenuState(nextIsOpen);
+
+        animationTimer = window.setTimeout(finishMenuTransition, getTransitionDuration() + 50);
+      };
+
+      menuToggle.addEventListener("click", () => {
+        requestMenuState(true);
+      });
+
+      menuClose.addEventListener("click", () => {
+        requestMenuState(false);
+      });
+
+      menuOverlay.addEventListener("click", () => {
+        requestMenuState(false);
+      });
+
+      menuPanel.addEventListener("transitionend", (event) => {
+        if (event.propertyName === "transform") {
+          finishMenuTransition();
+        }
+      });
+    }
+  </script>
+</BaseLayout>
