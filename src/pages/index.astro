@@ -105,7 +105,7 @@ const conversionImages = [
 ];
 ---
 
-<BaseLayout title=" " description=" ">
+<BaseLayout title="ISOv8®" description=" ">
   <main>
     <button
       id="engage-button"
@@ -184,11 +184,13 @@ const conversionImages = [
             <div class="mb-7 flex items-center justify-between gap-6">
               <div class="flex items-center gap-3">
                 <h3 class="text-[40px] font-[600] leading-none text-black">Just As</h3>
-                <img
-                  src="/assets/images/container-king-logo-mark-colour.svg"
-                  alt="Container King"
-                  class="-ml-1 h-9 w-auto"
-                />
+                <a href="/" aria-label="ISO V8 home">
+                  <img
+                    src="/assets/images/container-king-logo-mark-colour.svg"
+                    alt="Container King"
+                    class="-ml-1 h-9 w-auto"
+                  />
+                </a>
               </div>
 
               <a
@@ -341,24 +343,92 @@ const conversionImages = [
       ></div>
 
       <div
-        id="menu-panel"
-        class="pointer-events-none fixed inset-y-0 left-0 z-40 h-dvh w-[250px] overflow-y-auto overscroll-contain -translate-x-full bg-white shadow-none transition-transform ease-out max-[640px]:w-dvw"
-        aria-hidden="true"
-        style="transition-duration: 1000ms;"
+        id="menu-shell"
+        class="pointer-events-none fixed inset-y-0 left-0 z-40 flex h-dvh transition-transform ease-out"
+        style="transform: translateX(-100%); transition-duration: 1000ms;"
       >
-        <button
-          id="menu-close"
-          type="button"
-          aria-controls="menu-panel"
-          aria-expanded="false"
-          class="absolute left-8 top-8 flex cursor-pointer items-center gap-4 text-[20px] font-medium text-black lg:left-12 lg:top-10"
+        <div
+          id="menu-panel"
+          class="relative z-10 h-dvh w-[250px] overflow-y-auto overscroll-contain border-r border-gray-300 bg-white max-[678px]:w-dvw"
+          aria-hidden="true"
         >
-          <span class="relative flex h-10 w-10 items-center justify-center" aria-hidden="true">
-            <span class="absolute h-0.5 w-full rotate-45 bg-current"></span>
-            <span class="absolute h-0.5 w-full -rotate-45 bg-current"></span>
-          </span>
-          <span>CLOSE</span>
-        </button>
+          <button
+            id="menu-close"
+            type="button"
+            aria-controls="menu-panel"
+            aria-expanded="false"
+            class="absolute left-8 top-8 flex cursor-pointer items-center gap-4 text-[20px] font-medium text-black lg:left-12 lg:top-10"
+          >
+            <span class="relative flex h-10 w-10 items-center justify-center" aria-hidden="true">
+              <span class="absolute h-0.5 w-full rotate-45 bg-current"></span>
+              <span class="absolute h-0.5 w-full -rotate-45 bg-current"></span>
+            </span>
+            <span>CLOSE</span>
+          </button>
+
+          <div class="px-8 pt-28 lg:px-12 lg:pt-32">
+            <button
+              id="menu-base-platforms-trigger"
+              type="button"
+              aria-controls="menu-base-platforms-panel"
+              aria-expanded="false"
+              class="menu-base-platforms-trigger inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
+            >
+              Base Platforms &amp; Structural Principles
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="menu-base-platforms-panel"
+          class="pointer-events-none relative z-0 hidden h-dvh w-[350px] shrink-0 border-r border-gray-300 bg-white transition-transform ease-out max-[678px]:absolute max-[678px]:inset-y-0 max-[678px]:left-0 max-[678px]:z-20 max-[678px]:w-dvw"
+          aria-hidden="true"
+          style="transform: translateX(-100%); transition-duration: 1000ms;"
+        >
+          <img
+            src="/assets/images/sidebar-placeholder.webp"
+            alt=""
+            aria-hidden="true"
+            class="block w-full"
+          />
+
+          <div class="mt-[50px] flex items-center gap-4 px-[45px]">
+            <button
+              id="menu-base-platforms-back"
+              type="button"
+              aria-controls="menu-base-platforms-panel"
+              aria-label="Back to primary menu"
+              class="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black"
+            >
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M13 4L7 10L13 16"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <p class="text-[20px] font-[500] leading-tight text-black">
+              Base Platforms &amp; Structural Principles
+            </p>
+          </div>
+
+          <a
+            id="menu-structural-hub-link"
+            href="/structural-platforms-hub"
+            class="menu-secondary-link mt-[60px] inline-block cursor-pointer px-[45px] text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
+          >
+            Hub Page - Understanding the Structural Platforms Behind Container Conversions and Steel Anti-Vandal Buildings
+          </a>
+        </div>
       </div>
 
       <video
@@ -435,11 +505,13 @@ const conversionImages = [
     <footer class="bg-[#f5f3ee]">
       <div class="border-y border-gray-300 px-6 py-14 lg:px-12 lg:py-12">
         <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:justify-center max-[1024px]:gap-10">
-          <img
-            src="/assets/images/isov8-logo-colour.svg"
-            alt="ISO V8"
-            class="h-auto w-[300px] max-w-full"
-          />
+          <a href="/" aria-label="ISO V8 home">
+            <img
+              src="/assets/images/isov8-logo-colour.svg"
+              alt="ISO V8"
+              class="h-auto w-[300px] max-w-full"
+            />
+          </a>
 
           <p class="text-right text-[30px] font-[400] italic leading-none text-black max-[1024px]:text-center">
             without doubt&reg;
@@ -505,6 +577,21 @@ const conversionImages = [
         opacity 0ms linear 0ms,
         stroke-dashoffset 900ms ease-in-out;
     }
+
+    .menu-base-platforms-trigger.is-pressed {
+      color: #088cbc;
+      text-decoration: underline;
+    }
+
+    .menu-base-platforms-trigger[aria-expanded="true"] {
+      color: #088cbc;
+      text-decoration: underline;
+    }
+
+    .menu-secondary-link.is-pressed {
+      color: #088cbc;
+      text-decoration: underline;
+    }
   </style>
 
   <script is:inline>
@@ -515,8 +602,13 @@ const conversionImages = [
     const contactForm = document.getElementById("contact-form");
     const menuToggle = document.getElementById("menu-toggle");
     const menuOverlay = document.getElementById("menu-overlay");
+    const menuShell = document.getElementById("menu-shell");
     const menuPanel = document.getElementById("menu-panel");
     const menuClose = document.getElementById("menu-close");
+    const menuBasePlatformsTrigger = document.getElementById("menu-base-platforms-trigger");
+    const menuBasePlatformsBack = document.getElementById("menu-base-platforms-back");
+    const menuBasePlatformsPanel = document.getElementById("menu-base-platforms-panel");
+    const menuStructuralHubLink = document.getElementById("menu-structural-hub-link");
 
     let lockedScrollY = 0;
     let pageLockCount = 0;
@@ -728,9 +820,103 @@ const conversionImages = [
       });
     }
 
-    if (menuToggle && menuOverlay && menuPanel && menuClose) {
-      let isAnimating = false;
+    if (menuToggle && menuOverlay && menuShell && menuPanel && menuClose) {
+      let isMenuAnimating = false;
+      let isBasePlatformsAnimating = false;
       let animationTimer;
+      let basePlatformsAnimationTimer;
+
+      const isMenuOpen = () => menuToggle.getAttribute("aria-expanded") === "true";
+      const isBasePlatformsPanelOpen = () =>
+        menuBasePlatformsTrigger?.getAttribute("aria-expanded") === "true";
+
+      const syncMenuInteractivity = () => {
+        const menuIsOpen = isMenuOpen();
+        menuShell.style.pointerEvents = menuIsOpen ? "auto" : "none";
+      };
+
+      const setMenuShellTransform = (isOpen) => {
+        if (!isOpen) {
+          menuShell.style.transform = "translateX(-100%)";
+          return;
+        }
+
+        menuShell.style.transform = "translateX(0)";
+      };
+
+      const resetBasePlatformsPanelState = () => {
+        if (!menuBasePlatformsTrigger || !menuBasePlatformsPanel) {
+          return;
+        }
+
+        menuBasePlatformsTrigger.setAttribute("aria-expanded", "false");
+        menuBasePlatformsPanel.setAttribute("aria-hidden", "true");
+        menuBasePlatformsPanel.classList.add("hidden");
+        menuBasePlatformsPanel.classList.add("pointer-events-none");
+        menuBasePlatformsPanel.classList.remove("pointer-events-auto");
+        menuBasePlatformsPanel.style.transform = "translateX(-100%)";
+      };
+
+      const finishBasePlatformsTransition = () => {
+        if (!isBasePlatformsAnimating) {
+          return;
+        }
+
+        isBasePlatformsAnimating = false;
+
+        if (menuBasePlatformsPanel?.getAttribute("aria-hidden") === "true") {
+          menuBasePlatformsPanel.classList.add("hidden");
+        }
+
+        window.clearTimeout(basePlatformsAnimationTimer);
+        syncMenuInteractivity();
+      };
+
+      const setBasePlatformsPanelState = (isOpen) => {
+        if (!menuBasePlatformsTrigger || !menuBasePlatformsPanel) {
+          return;
+        }
+
+        const currentIsOpen = isBasePlatformsPanelOpen();
+        if (isMenuAnimating || isBasePlatformsAnimating || currentIsOpen === isOpen) {
+          return;
+        }
+
+        isBasePlatformsAnimating = true;
+        menuBasePlatformsTrigger.setAttribute("aria-expanded", String(isOpen));
+        menuBasePlatformsPanel.setAttribute("aria-hidden", String(!isOpen));
+        syncMenuInteractivity();
+        window.clearTimeout(basePlatformsAnimationTimer);
+
+        basePlatformsAnimationTimer = window.setTimeout(
+          finishBasePlatformsTransition,
+          getTransitionDuration(menuBasePlatformsPanel) + 50
+        );
+
+        if (isOpen) {
+          menuBasePlatformsPanel.style.transform = "translateX(-100%)";
+          menuBasePlatformsPanel.classList.remove("hidden");
+
+          window.requestAnimationFrame(() => {
+            menuBasePlatformsPanel.classList.remove("pointer-events-none");
+            menuBasePlatformsPanel.classList.add("pointer-events-auto");
+            menuBasePlatformsPanel.style.transform = "translateX(0)";
+            if (menuToggle.getAttribute("aria-expanded") === "true") {
+              setMenuShellTransform(true);
+            }
+          });
+
+          return;
+        }
+
+        menuBasePlatformsPanel.classList.add("pointer-events-none");
+        menuBasePlatformsPanel.classList.remove("pointer-events-auto");
+        menuBasePlatformsPanel.style.transform = "translateX(-100%)";
+
+        if (menuToggle.getAttribute("aria-expanded") === "true") {
+          setMenuShellTransform(true);
+        }
+      };
 
       const setMenuState = (isOpen) => {
         menuToggle.setAttribute("aria-expanded", String(isOpen));
@@ -739,36 +925,41 @@ const conversionImages = [
         menuPanel.setAttribute("aria-hidden", String(!isOpen));
         menuOverlay.classList.toggle("opacity-0", !isOpen);
         menuOverlay.classList.toggle("opacity-100", isOpen);
-        menuPanel.classList.toggle("-translate-x-full", !isOpen);
-        menuPanel.classList.toggle("translate-x-0", isOpen);
-        menuPanel.classList.toggle("shadow-none", !isOpen);
-        menuPanel.classList.toggle("shadow-2xl", isOpen);
-        menuPanel.classList.toggle("pointer-events-none", !isOpen);
-        menuPanel.classList.toggle("pointer-events-auto", isOpen);
+        setMenuShellTransform(isOpen);
+
+        if (!isOpen) {
+          menuBasePlatformsTrigger?.setAttribute("aria-expanded", "false");
+          menuBasePlatformsPanel?.classList.add("pointer-events-none");
+          menuBasePlatformsPanel?.classList.remove("pointer-events-auto");
+        }
+
+        syncMenuInteractivity();
       };
 
       const finishMenuTransition = () => {
-        isAnimating = false;
-        menuToggle.disabled = false;
-        menuClose.disabled = false;
-        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-        menuOverlay.classList.toggle("pointer-events-none", !isOpen);
-        menuOverlay.classList.toggle("pointer-events-auto", isOpen);
-        if (!isOpen) {
-          unlockPageScroll();
-        }
-        window.clearTimeout(animationTimer);
-      };
-
-      const requestMenuState = (nextIsOpen) => {
-        const currentIsOpen = menuToggle.getAttribute("aria-expanded") === "true";
-        if (isAnimating || currentIsOpen === nextIsOpen) {
+        if (!isMenuAnimating) {
           return;
         }
 
-        isAnimating = true;
-        menuToggle.disabled = true;
-        menuClose.disabled = true;
+        isMenuAnimating = false;
+        const isOpen = isMenuOpen();
+        menuOverlay.classList.toggle("pointer-events-none", !isOpen);
+        menuOverlay.classList.toggle("pointer-events-auto", isOpen);
+        if (!isOpen) {
+          resetBasePlatformsPanelState();
+          unlockPageScroll();
+        }
+        window.clearTimeout(animationTimer);
+        syncMenuInteractivity();
+      };
+
+      const requestMenuState = (nextIsOpen) => {
+        const currentIsOpen = isMenuOpen();
+        if (isMenuAnimating || isBasePlatformsAnimating || currentIsOpen === nextIsOpen) {
+          return;
+        }
+
+        isMenuAnimating = true;
         menuOverlay.classList.remove("pointer-events-none");
         menuOverlay.classList.add("pointer-events-auto");
         if (nextIsOpen) {
@@ -778,7 +969,7 @@ const conversionImages = [
 
         animationTimer = window.setTimeout(
           finishMenuTransition,
-          getTransitionDuration(menuPanel) + 50
+          getTransitionDuration(menuShell) + 50
         );
       };
 
@@ -794,11 +985,103 @@ const conversionImages = [
         requestMenuState(false);
       });
 
-      menuPanel.addEventListener("transitionend", (event) => {
-        if (event.propertyName === "transform") {
+      if (menuBasePlatformsTrigger && menuBasePlatformsPanel) {
+        const activateBasePlatformsTriggerPressState = () => {
+          menuBasePlatformsTrigger.classList.add("is-pressed");
+        };
+
+        const clearBasePlatformsTriggerPressState = () => {
+          menuBasePlatformsTrigger.classList.remove("is-pressed");
+        };
+
+        menuBasePlatformsTrigger.addEventListener("pointerdown", () => {
+          activateBasePlatformsTriggerPressState();
+        });
+
+        menuBasePlatformsTrigger.addEventListener("pointerup", () => {
+          clearBasePlatformsTriggerPressState();
+        });
+
+        menuBasePlatformsTrigger.addEventListener("pointercancel", () => {
+          clearBasePlatformsTriggerPressState();
+        });
+
+        menuBasePlatformsTrigger.addEventListener("pointerleave", () => {
+          clearBasePlatformsTriggerPressState();
+        });
+
+        menuBasePlatformsTrigger.addEventListener("blur", () => {
+          clearBasePlatformsTriggerPressState();
+        });
+
+        menuBasePlatformsTrigger.addEventListener("click", () => {
+          clearBasePlatformsTriggerPressState();
+          const isOpen =
+            menuBasePlatformsTrigger.getAttribute("aria-expanded") === "true";
+
+          setBasePlatformsPanelState(!isOpen);
+        });
+      }
+
+      if (menuBasePlatformsBack) {
+        menuBasePlatformsBack.addEventListener("click", () => {
+          setBasePlatformsPanelState(false);
+        });
+      }
+
+      if (menuStructuralHubLink) {
+        const activateStructuralHubLinkPressState = () => {
+          menuStructuralHubLink.classList.add("is-pressed");
+        };
+
+        const clearStructuralHubLinkPressState = () => {
+          menuStructuralHubLink.classList.remove("is-pressed");
+        };
+
+        menuStructuralHubLink.addEventListener("pointerdown", () => {
+          activateStructuralHubLinkPressState();
+        });
+
+        menuStructuralHubLink.addEventListener("pointerup", () => {
+          clearStructuralHubLinkPressState();
+        });
+
+        menuStructuralHubLink.addEventListener("pointercancel", () => {
+          clearStructuralHubLinkPressState();
+        });
+
+        menuStructuralHubLink.addEventListener("pointerleave", () => {
+          clearStructuralHubLinkPressState();
+        });
+
+        menuStructuralHubLink.addEventListener("blur", () => {
+          clearStructuralHubLinkPressState();
+        });
+
+        menuStructuralHubLink.addEventListener("click", () => {
+          clearStructuralHubLinkPressState();
+        });
+      }
+
+      menuShell.addEventListener("transitionend", (event) => {
+        if (event.propertyName === "transform" && isMenuAnimating) {
           finishMenuTransition();
         }
       });
+
+      if (menuBasePlatformsPanel) {
+        menuBasePlatformsPanel.addEventListener("transitionend", (event) => {
+          if (event.propertyName === "transform" && isBasePlatformsAnimating) {
+            finishBasePlatformsTransition();
+          }
+        });
+      }
+
+      window.addEventListener("resize", () => {
+        const isOpen = isMenuOpen();
+        setMenuShellTransform(isOpen);
+      });
+
     }
   </script>
 </BaseLayout>
