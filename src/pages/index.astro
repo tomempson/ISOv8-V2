@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
 
 const conversionImages = [
   {
@@ -184,13 +185,11 @@ const conversionImages = [
             <div class="mb-7 flex items-center justify-between gap-6">
               <div class="flex items-center gap-3">
                 <h3 class="text-[40px] font-[600] leading-none text-black">Just As</h3>
-                <a href="/" aria-label="ISO V8 home">
-                  <img
-                    src="/assets/images/container-king-logo-mark-colour.svg"
-                    alt="Container King"
-                    class="-ml-1 h-9 w-auto"
-                  />
-                </a>
+                <img
+                  src="/assets/images/container-king-logo-mark-colour.svg"
+                  alt="Container King"
+                  class="-ml-1 h-9 w-auto"
+                />
               </div>
 
               <a
@@ -381,7 +380,7 @@ const conversionImages = [
 
         <div
           id="menu-base-platforms-panel"
-          class="pointer-events-none relative z-0 hidden h-dvh w-[350px] shrink-0 border-r border-gray-300 bg-white transition-transform ease-out max-[678px]:absolute max-[678px]:inset-y-0 max-[678px]:left-0 max-[678px]:z-20 max-[678px]:w-dvw"
+          class="pointer-events-none relative z-0 hidden h-dvh w-[350px] shrink-0 overflow-y-auto overscroll-contain border-r border-gray-300 bg-white transition-transform ease-out max-[678px]:absolute max-[678px]:inset-y-0 max-[678px]:left-0 max-[678px]:z-20 max-[678px]:w-dvw"
           aria-hidden="true"
           style="transform: translateX(-100%); transition-duration: 1000ms;"
         >
@@ -421,13 +420,18 @@ const conversionImages = [
             </p>
           </div>
 
-          <a
-            id="menu-structural-hub-link"
-            href="/structural-platforms-hub"
-            class="menu-secondary-link mt-[60px] inline-block cursor-pointer px-[45px] text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
-          >
-            Hub Page - Understanding the Structural Platforms Behind Container Conversions and Steel Anti-Vandal Buildings
-          </a>
+          <div class="mt-[60px] flex flex-col gap-6 px-[45px]">
+            {
+              structuralSidebarLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class="menu-secondary-link inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
+                >
+                  {link.label}
+                </a>
+              ))
+            }
+          </div>
         </div>
       </div>
 
@@ -545,7 +549,7 @@ const conversionImages = [
     }
 
     .engage-button__ring {
-      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.28));
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
     }
 
     .engage-button__ring-base,
@@ -608,7 +612,9 @@ const conversionImages = [
     const menuBasePlatformsTrigger = document.getElementById("menu-base-platforms-trigger");
     const menuBasePlatformsBack = document.getElementById("menu-base-platforms-back");
     const menuBasePlatformsPanel = document.getElementById("menu-base-platforms-panel");
-    const menuStructuralHubLink = document.getElementById("menu-structural-hub-link");
+    const menuSecondaryLinks = Array.from(
+      document.querySelectorAll(".menu-secondary-link")
+    );
 
     let lockedScrollY = 0;
     let pageLockCount = 0;
@@ -1029,39 +1035,39 @@ const conversionImages = [
         });
       }
 
-      if (menuStructuralHubLink) {
-        const activateStructuralHubLinkPressState = () => {
-          menuStructuralHubLink.classList.add("is-pressed");
+      menuSecondaryLinks.forEach((link) => {
+        const activateSecondaryLinkPressState = () => {
+          link.classList.add("is-pressed");
         };
 
-        const clearStructuralHubLinkPressState = () => {
-          menuStructuralHubLink.classList.remove("is-pressed");
+        const clearSecondaryLinkPressState = () => {
+          link.classList.remove("is-pressed");
         };
 
-        menuStructuralHubLink.addEventListener("pointerdown", () => {
-          activateStructuralHubLinkPressState();
+        link.addEventListener("pointerdown", () => {
+          activateSecondaryLinkPressState();
         });
 
-        menuStructuralHubLink.addEventListener("pointerup", () => {
-          clearStructuralHubLinkPressState();
+        link.addEventListener("pointerup", () => {
+          clearSecondaryLinkPressState();
         });
 
-        menuStructuralHubLink.addEventListener("pointercancel", () => {
-          clearStructuralHubLinkPressState();
+        link.addEventListener("pointercancel", () => {
+          clearSecondaryLinkPressState();
         });
 
-        menuStructuralHubLink.addEventListener("pointerleave", () => {
-          clearStructuralHubLinkPressState();
+        link.addEventListener("pointerleave", () => {
+          clearSecondaryLinkPressState();
         });
 
-        menuStructuralHubLink.addEventListener("blur", () => {
-          clearStructuralHubLinkPressState();
+        link.addEventListener("blur", () => {
+          clearSecondaryLinkPressState();
         });
 
-        menuStructuralHubLink.addEventListener("click", () => {
-          clearStructuralHubLinkPressState();
+        link.addEventListener("click", () => {
+          clearSecondaryLinkPressState();
         });
-      }
+      });
 
       menuShell.addEventListener("transitionend", (event) => {
         if (event.propertyName === "transform" && isMenuAnimating) {

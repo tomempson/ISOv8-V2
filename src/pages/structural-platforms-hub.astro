@@ -1,7 +1,102 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import EngageContact from "../components/EngageContact.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
 ---
 
-<BaseLayout title="Structural Platforms Hub" description="Placeholder page">
-  <main class="min-h-screen bg-white"></main>
+<BaseLayout
+  title="ISOv8® | Structural Platforms Hub"
+  description="Understanding the structural platforms behind container conversions and steel anti-vandal buildings."
+>
+  <div class="min-h-screen bg-white text-[#111111] lg:pl-[350px]">
+    <aside
+      class="hidden border-b border-gray-300 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:block lg:w-[350px] lg:overflow-y-auto lg:border-b-0 lg:border-r"
+    >
+      <img
+        src="/assets/images/sidebar-placeholder.webp"
+        alt=""
+        aria-hidden="true"
+        class="block w-full"
+      />
+
+      <div class="flex items-center gap-4 px-[30px] py-8 lg:mt-[18px] lg:px-[45px]">
+        <a
+          href="/"
+          aria-label="Back to home"
+          class="flex h-5 w-5 shrink-0 items-center justify-center text-black transition-colors hover:text-[#088cbc]"
+        >
+          <svg
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M13 4L7 10L13 16"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+
+        <p class="text-[20px] font-[500] leading-tight text-black">
+          Base Platforms &amp; Structural Principles
+        </p>
+      </div>
+
+      <div class="px-[30px] pb-10 lg:px-[45px]">
+        <div class="flex flex-col gap-6">
+          {
+            structuralSidebarLinks.map((link) => (
+              <a
+                href={link.href}
+                aria-current={link.isCurrentPageLink ? "page" : undefined}
+                class:list={[
+                  "inline-block text-left text-[18px] font-[400] leading-tight transition-colors",
+                  link.isCurrentPageLink
+                    ? "text-[#088cbc] underline decoration-1 underline-offset-4"
+                    : "text-black hover:text-[#088cbc] hover:underline"
+                ]}
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </aside>
+
+    <main class="min-h-screen bg-white">
+      <EngageContact />
+      <SiteHeader />
+      <div class="bg-white px-8 py-10 lg:px-12 lg:py-12">
+        <img
+          src="/assets/images/isov8-logo.png"
+          alt="ISOv8"
+          class="block w-full"
+        />
+
+        <section class="mt-12 border-t border-gray-200 pt-8 text-[#111111]">
+          <div class="space-y-3">
+            <p class="text-[18px] font-[600] leading-tight">Legal Disclaimer</p>
+            <p class="text-[15px] leading-[1.8] text-[#4b5563]">
+              The content provided in this document is for general information purposes only and is not intended to constitute legal, planning, building control, health and safety, or professional advice. Regulations and site-specific requirements vary widely across the UK. IsoV8&reg; by ContainerKing&reg; does not accept liability for actions taken, losses incurred, or decisions made based on the information provided. Always consult your local authority, planning department, building inspector, legal adviser, or relevant professional before starting any container project. Use of this document is entirely at your own risk.
+            </p>
+          </div>
+
+          <div class="mt-8 space-y-3">
+            <p class="text-[18px] font-[600] leading-tight">Copyright Notice</p>
+            <p class="text-[15px] leading-[1.8] text-[#4b5563]">
+              &copy; 2025 IsoV8&reg; by ContainerKing&reg;. All rights reserved. You are welcome to link to this page or share brief excerpts for commentary, review, or non-commercial purposes, provided proper credit is given to IsoV8&reg; by ContainerKing&reg;. No part of this document may be reproduced, distributed, or transmitted in full in any form or by any means without prior written permission from IsoV8&reg; by ContainerKing&reg;.
+            </p>
+          </div>
+        </section>
+      </div>
+      <SiteFooter />
+    </main>
+  </div>
 </BaseLayout>
