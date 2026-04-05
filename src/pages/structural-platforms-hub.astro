@@ -4,6 +4,22 @@ import EngageContact from "../components/EngageContact.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
+
+const tocItems = [
+  { id: "summary", label: "Summary" },
+  { id: "where-this-page-sits", label: "Where this Page Sits in ISOv8®" },
+  { id: "understanding-the-structural-starting-point", label: "Understanding the Structural Starting Point" },
+  { id: "why-the-structural-starting-platform-matters", label: "Why the Structural Starting Platform Matters" },
+  { id: "what-an-iso-shipping-container-was-originally-designed-for", label: "What an ISO Shipping Container Was Originally Designed For" },
+  { id: "what-steel-anti-vandal-buildings-are-designed-to-do", label: "What Steel Anti-Vandal Buildings Are Designed to Do" },
+  { id: "common-misunderstandings", label: "Common Misunderstandings" },
+  { id: "long-term-performance", label: "Long-Term Performance" },
+  { id: "design-intent-vs-constraints", label: "Design Intent vs Structural Constraints" },
+  { id: "uk-building-regulations", label: "UK Building Regulations" },
+  { id: "what-platform-choice-determines", label: "What Platform Choice Determines" },
+  { id: "why-early-discussion-prevents-cost-escalation", label: "Why Early Discussion Prevents Cost Escalation" },
+  { id: "frequently-asked-questions", label: "Frequently Asked Questions" }
+];
 ---
 
 <BaseLayout
@@ -74,24 +90,484 @@ import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
       <EngageContact />
       <SiteHeader />
       <div class="bg-white px-8 py-10 lg:px-12 lg:py-12">
-        <img
-          src="/assets/images/isov8-logo.png"
-          alt="ISOv8"
-          class="block w-full"
-        />
+        <section class="relative overflow-hidden">
+          <img
+            src="/assets/images/isov8-logo.png"
+            alt="Base Platforms & Structural Principles"
+            class="block w-full"
+          />
 
-        <section class="mt-12 border-t border-gray-200 pt-8 text-[#111111]">
+          <div class="absolute inset-0 pl-[48px] pr-8 text-left text-black">
+            <div class="absolute left-[48px] top-1/2 max-w-5xl -translate-y-1/2">
+              <h1 class="max-w-4xl text-[26px] font-[600] leading-[1.08] lg:text-[42px]">
+                Base Platforms &amp; Structural Principles
+              </h1>
+
+              <h2 class="mt-10 max-w-5xl text-[16px] font-[400] leading-[1.5] lg:mt-12 lg:text-[21px]">
+                Hub Page - Understanding the Structural Platforms Behind Container Conversions and Steel Anti-Vandal Buildings
+              </h2>
+
+              <h3 class="mt-10 max-w-4xl text-[16px] font-[400] leading-[1.5] lg:mt-12 lg:text-[21px]">
+                The structural starting platforms behind container conversions and steel anti-vandal buildings.
+              </h3>
+            </div>
+          </div>
+        </section>
+
+        <div id="toc-region" class="mt-12 lg:relative lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
+          <div
+            class="pointer-events-none absolute bottom-0 right-[304px] top-0 hidden w-px bg-gray-200 lg:block"
+            aria-hidden="true"
+          ></div>
+
+          <div>
+        <section id="summary" class="scroll-mt-36 max-w-4xl text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Summary
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Shipping container conversions and steel anti-vandal units are two of the most widely used forms of stand-alone steel and modular workshop, office and portable accommodation buildings used across the UK. Businesses comparing options can often assume they are structurally similar because both are fabricated from steel. In reality, a shipping container conversion vs steel anti-vandal building comparison reveals two very different engineering starting points.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Shipping containers were originally designed for global freight transport, lifting weight and stacking during international shipping. Steel anti-vandal buildings are designed from the outset for static occupation and long-term site use.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Understanding those starting assumptions is essential before commissioning a container conversion project or specifying a steel anti-vandal building in the UK. The structural platform determines modification tolerance and dimensional constraints, which in turn shape how a shipping container can be adapted and how a steel anti-vandal building is specified and used over time.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            This page introduces the structural principles that influence every shipping container conversion and steel anti-vandal building project and directs you to the pages in this section that examine them in detail.
+          </p>
+        </section>
+
+        <section id="where-this-page-sits" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Where this Page Sits in ISOv8&reg;
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            <em>Phase 1 — Project Foundations</em><br />
+            <em>Section P1.1 — Base Platforms &amp; Structural Principles</em>
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Phase 1 of ISOv8&reg; explains the structural and environmental fundamentals that determine how shipping container conversions and steel anti-vandal buildings perform in real-world use.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Before specification, pricing or fabrication decisions are made, it is important to understand:
+          </p>
+
+          <ul class="mt-4 space-y-2 text-[18px] leading-[1.8] text-[#4b5563]">
+            <li>• The structural starting platform</li>
+            <li>• Modification tolerance within container shells</li>
+            <li>• Environmental behaviour within insulated steel buildings</li>
+            <li>• Stacking and linking limitations</li>
+            <li>• Corrosion, condensation and durability considerations</li>
+          </ul>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            These topics establish the technical foundation for container conversion and anti-vandal building projects across the UK.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            This hub page introduces the base platform principles that influence every design decision that follows.
+          </p>
+        </section>
+
+        <section id="understanding-the-structural-starting-point" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Understanding the Structural Starting Point
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Businesses comparing shipping container conversions and steel anti-vandal buildings in the UK often focus on a shared material: steel.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Whether mild steel or Corten steel is used, material alone does not determine performance.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            An ISO Corten steel shipping container is engineered for international freight transport.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            A mild steel anti-vandal building is engineered for occupation, modification and long-term static use.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Those different starting assumptions influence structural tolerance, insulation strategy, load behaviour, compliance exposure and long-term commercial flexibility.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            At ISOv8&reg;, most avoidable cost escalation in UK container conversion projects does not arise from fabrication quality. It arises from misunderstanding the structural starting point.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Clarity before commissioning protects proportion, usability and long-term value.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Shipping Containers are transport structures that can be adapted for buildings.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Steel anti-vandal units are buildings that are engineered for occupation from the outset.
+          </p>
+        </section>
+
+        <section id="why-the-structural-starting-platform-matters" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Why the Structural Starting Platform Matters
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            At first glance, a container conversion and a steel anti-vandal building can appear broadly similar once installed on site. Both are fabricated in workshops, delivered by road transport and craned into position as complete or near-complete units. Both can be insulated, lined and secured for occupation.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            The difference becomes apparent once structural modification begins.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            When openings are introduced, insulation is added and services are installed, the original engineering intent begins to influence how the structure behaves. A structure designed to transport cargo behaves differently from one designed to house people.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Once alteration begins, structural tolerance is either supporting the project brief or resisting it.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Understanding this distinction early helps ensure the chosen platform aligns with the project brief, reducing unnecessary reinforcement, redesign and avoidable cost.
+          </p>
+        </section>
+
+        <section id="what-an-iso-shipping-container-was-originally-designed-for" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            What an ISO Shipping Container Was Originally Designed For
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            An ISO shipping container forms part of the global freight infrastructure. It was engineered to lift and move goods efficiently and predictably across ships, trains and road vehicles.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Its load transfer logic is concentrated within the corner castings and perimeter frame. The corrugated side panels and roof contribute stiffness but were never designed to function as flexible building elements.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Within that transport environment, containers perform exceptionally well.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            However, they were not originally designed around:
+          </p>
+
+          <ul class="mt-4 space-y-2 text-[18px] leading-[1.8] text-[#4b5563]">
+            <li>&bull; Long-term static occupation</li>
+            <li>&bull; Integrated insulation systems</li>
+            <li>&bull; Service routing within lined cavities</li>
+            <li>&bull; UK Building Regulations compliance</li>
+          </ul>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            This does not make container conversion inappropriate. It means structural modification must be carefully controlled and proportionate to the shell&rsquo;s original structural behaviour.
+          </p>
+        </section>
+
+        <section id="what-steel-anti-vandal-buildings-are-designed-to-do" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            What Steel Anti-Vandal Buildings Are Designed to Do
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            A steel anti-vandal building is designed from the outset as a structure intended for site use and regular occupation.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            It assumes insulation layers, door and window openings, service penetrations and regulatory compliance as part of normal building specification.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Load paths are configured around occupation and operational use rather than transport. Wall and roof systems are designed to accommodate internal linings, insulation and services without undermining structural logic.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            In practical terms, it begins as a building platform rather than becoming one through later adaptation.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            That distinction affects how easily the structure accommodates openings, services and internal build-up during specification and installation.
+          </p>
+        </section>
+
+        <section id="common-misunderstandings" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Common Misunderstandings About Container Conversions and Steel Buildings
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            One of the most common misunderstandings in this sector is the assumption that shipping container conversions and steel anti-vandal buildings are structurally interchangeable simply because both are fabricated from steel.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            In reality, the two systems begin from very different engineering assumptions.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            A shipping container is a transport structure designed to carry cargo, resist handling forces and transfer load through its corner posts during lifting and stacking. When used as a building, the container must be adapted so that openings, insulation and services can be introduced without compromising structural behaviour.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            A steel anti-vandal building begins as a structure designed for occupation and site use. Openings, internal linings, insulation and service routes are expected as part of the building specification rather than introduced as alterations to a transport shell.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Because both systems can appear visually similar once installed, these differences are often overlooked during early project discussions.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            The consequence is not structural failure. It is usually inefficiency where increasing modification is required to make the starting structure support the intended brief.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Understanding the distinction between a transport platform and a building platform helps ensure the chosen structure supports the project rather than resisting it.
+          </p>
+        </section>
+
+        <section id="long-term-performance" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            What Determines Long-Term Performance in Container and Steel Buildings
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Once occupied, long-term performance depends on more than initial structural strength.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Steel buildings behave differently once insulation and internal linings are introduced. Because steel conducts heat easily, poorly detailed insulation can allow cold surfaces to form, which increases the risk of condensation inside the building.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Structural alterations also matter. When openings are cut into container shells, reinforcement must maintain predictable load paths so the structure continues to behave as intended.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Long-term performance is also influenced by how the building is used. Floor loading, ventilation provision and ongoing compliance with building regulations all affect how reliably the structure performs over time.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Whether a container conversion or steel anti-vandal building remains a dependable asset depends on how carefully these factors are considered during platform selection, specification, fit out and installation.
+          </p>
+        </section>
+
+        <section id="design-intent-vs-constraints" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Design Intent vs Structural Constraints in Container Conversions
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            The key difference between a container conversion and a purpose-designed steel anti-vandal building is not the steel itself.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            It is the starting geometry of the structure.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Shipping containers carry fixed ISO dimensions that were defined for transport. Steel anti-vandal buildings can be dimensioned around the intended use from the outset.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            As a result, container conversions require additional structural work to introduce openings, accommodate services or achieve layouts that move beyond the original container form.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            That does not make container conversions unsuitable. It simply means the design must work within the container&rsquo;s geometry rather than starting with a building footprint defined by the project brief.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Recognising that distinction early helps ensure the chosen platform supports the project efficiently rather than requiring increasing correction later.
+          </p>
+        </section>
+
+        <section id="uk-building-regulations" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Do Shipping Container Conversions Meet UK Building Regulations?
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            An ISO shipping container complies with international transport standards until it is converted.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Transport compliance does not equate to:
+          </p>
+
+          <ul class="mt-4 space-y-2 text-[18px] leading-[1.8] text-[#4b5563]">
+            <li>&bull; UK Building Regulations</li>
+            <li>&bull; Workplace safety requirements</li>
+            <li>&bull; Planning consent obligations</li>
+            <li>&bull; Electrical certification standards</li>
+          </ul>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Once a container is modified for occupation, it must comply with the regulatory framework that applies to buildings rather than transport equipment.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Professional container conversion projects therefore address these requirements during design and specification so the finished structure meets the standards expected for its intended use.
+          </p>
+        </section>
+
+        <section id="what-platform-choice-determines" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            What Platform Choice Determines for Your Project
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            The structural starting point influences decisions about:
+          </p>
+
+          <ul class="mt-4 space-y-2 text-[18px] leading-[1.8] text-[#4b5563]">
+            <li>&bull; New versus used container selection</li>
+            <li>&bull; Standard height versus high cube</li>
+            <li>&bull; Insulation depth strategy</li>
+            <li>&bull; Aperture configuration</li>
+            <li>&bull; Reinforcement scope</li>
+            <li>&bull; Long-term adaptability</li>
+            <li>&bull; Capital value retention</li>
+          </ul>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Each of these topics is explored further in the pages that follow within Phase 1 of ISOv8&reg;.
+          </p>
+        </section>
+
+        <section id="why-early-discussion-prevents-cost-escalation" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Why Early Discussion Prevents Cost Escalation
+          </h2>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            At ISOv8&reg;, the choice between a container conversion and a steel anti-vandal building is treated as a design decision, not simply a purchasing choice.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            The starting platform defines the structural framework within which the project must operate.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            If the platform aligns with the intended use, openings, insulation, services and internal layouts can usually be introduced without significant structural correction.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            When the brief begins to move beyond what the starting structure supports naturally, additional reinforcement, structural alteration or layout compromise may be required.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            This is not a failure of the structure. It is simply the result of asking a transport-derived module to behave like a purpose-designed building.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            For businesses commissioning container conversions or steel anti-vandal buildings in the UK, early discussion about the intended use, layout and future expansion helps ensure the chosen platform supports the project efficiently from the outset.
+          </p>
+
+          <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+            Clarity at this stage reduces corrective engineering and helps keep the project proportionate to its purpose.
+          </p>
+        </section>
+
+        <section id="frequently-asked-questions" class="mt-14 max-w-4xl scroll-mt-36 text-[#111111]">
+          <h2 class="text-[28px] font-[600] leading-tight text-black lg:text-[36px]">
+            Frequently Asked Questions About Container Conversions and Anti-Vandal Buildings
+          </h2>
+
+          <div class="mt-6 space-y-8">
+            <div>
+              <h3 class="text-[22px] font-[600] leading-tight text-black lg:text-[26px]">
+                What is the difference between a shipping container conversion and a steel anti-vandal building?
+              </h3>
+              <p class="mt-3 text-[18px] leading-[1.8] text-[#4b5563]">
+                A container conversion adapts a transport unit engineered for lifting, stacking and movement of goods.
+              </p>
+              <p class="mt-3 text-[18px] leading-[1.8] text-[#4b5563]">
+                A steel anti-vandal building is engineered from the outset as a building structure for static occupation and site use.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-[22px] font-[600] leading-tight text-black lg:text-[26px]">
+                Are shipping container conversions and anti-vandal buildings interchangeable for commercial projects?
+              </h3>
+              <p class="mt-3 text-[18px] leading-[1.8] text-[#4b5563]">
+                No. Their structural load paths, dimensional logic and modification tolerance differ significantly. Suitability depends on the intended use and the level of alteration required.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-[22px] font-[600] leading-tight text-black lg:text-[26px]">
+                Does the starting platform affect project cost later?
+              </h3>
+              <p class="mt-3 text-[18px] leading-[1.8] text-[#4b5563]">
+                Yes. When the structural starting platform aligns with the project brief, specification remains proportionate and predictable. When the brief begins to move beyond what the starting platform supports efficiently, additional reinforcement, redesign and coordination can increase project cost.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-[22px] font-[600] leading-tight text-black lg:text-[26px]">
+                Why does ISOv8&reg; focus on the base platform first?
+              </h3>
+              <p class="mt-3 text-[18px] leading-[1.8] text-[#4b5563]">
+                Because the structural starting platform determines modification tolerance, thermal and moisture behaviour, and compliance requirements before any fabrication or conversion work begins.
+              </p>
+            </div>
+          </div>
+        </section>
+          </div>
+
+          <aside id="toc-rail" class="mt-12 lg:relative lg:mt-0 lg:self-stretch lg:justify-self-end lg:w-full lg:max-w-[280px] lg:pl-6">
+            <div id="toc-panel" class="p-0">
+              <p class="text-[20px] font-[600] leading-tight text-black">
+                Table of Contents
+              </p>
+
+              <nav aria-label="Table of contents" class="mt-5">
+                <ul class="space-y-3 text-left">
+                  {
+                    tocItems.map((item) => (
+                      <li>
+                        <a
+                          href={`#${item.id}`}
+                          class="text-[17px] leading-[1.5] text-[#4b5563] transition-colors hover:text-[#088cbc] hover:underline"
+                        >
+                          {item.label}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+
+        <section id="page-legal" class="mt-12 border-t border-gray-200 pt-8 text-[#111111]">
           <div class="space-y-3">
             <p class="text-[18px] font-[600] leading-tight">Legal Disclaimer</p>
             <p class="text-[15px] leading-[1.8] text-[#4b5563]">
-              The content provided in this document is for general information purposes only and is not intended to constitute legal, planning, building control, health and safety, or professional advice. Regulations and site-specific requirements vary widely across the UK. IsoV8&reg; by ContainerKing&reg; does not accept liability for actions taken, losses incurred, or decisions made based on the information provided. Always consult your local authority, planning department, building inspector, legal adviser, or relevant professional before starting any container project. Use of this document is entirely at your own risk.
+              The content provided in this document is for general information purposes only and is not intended to constitute legal, planning, building control, health and safety, or professional advice. Regulations and site-specific requirements vary widely across the UK. ISOv8&reg; by ContainerKing&reg; does not accept liability for actions taken, losses incurred, or decisions made based on the information provided. Always consult your local authority, planning department, building inspector, legal adviser, or relevant professional before starting any container project. Use of this document is entirely at your own risk.
             </p>
           </div>
 
           <div class="mt-8 space-y-3">
             <p class="text-[18px] font-[600] leading-tight">Copyright Notice</p>
             <p class="text-[15px] leading-[1.8] text-[#4b5563]">
-              &copy; 2025 IsoV8&reg; by ContainerKing&reg;. All rights reserved. You are welcome to link to this page or share brief excerpts for commentary, review, or non-commercial purposes, provided proper credit is given to IsoV8&reg; by ContainerKing&reg;. No part of this document may be reproduced, distributed, or transmitted in full in any form or by any means without prior written permission from IsoV8&reg; by ContainerKing&reg;.
+              &copy; 2025 ISOv8&reg; by ContainerKing&reg;. All rights reserved. You are welcome to link to this page or share brief excerpts for commentary, review, or non-commercial purposes, provided proper credit is given to ISOv8&reg; by ContainerKing&reg;. No part of this document may be reproduced, distributed, or transmitted in full in any form or by any means without prior written permission from ISOv8&reg; by ContainerKing&reg;.
             </p>
           </div>
         </section>
@@ -99,4 +575,68 @@ import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
       <SiteFooter />
     </main>
   </div>
+
+  <script is:inline>
+    const tocRail = document.getElementById("toc-rail");
+    const tocPanel = document.getElementById("toc-panel");
+    const tocRegion = document.getElementById("toc-region");
+    const desktopMq = window.matchMedia("(min-width: 1024px)");
+
+    const resetTocPanel = () => {
+      if (!tocPanel) {
+        return;
+      }
+
+      tocPanel.style.removeProperty("position");
+      tocPanel.style.removeProperty("top");
+      tocPanel.style.removeProperty("left");
+      tocPanel.style.removeProperty("right");
+      tocPanel.style.removeProperty("width");
+    };
+
+    const updateTocPanel = () => {
+      if (!tocRail || !tocPanel || !tocRegion || !desktopMq.matches) {
+        resetTocPanel();
+        return;
+      }
+
+      const railRect = tocRail.getBoundingClientRect();
+      const regionRect = tocRegion.getBoundingClientRect();
+      const panelRect = tocPanel.getBoundingClientRect();
+      const railTop = railRect.top + window.scrollY;
+      const regionBottom = regionRect.bottom + window.scrollY;
+      const panelNaturalLeft = panelRect.left;
+      const panelNaturalWidth = panelRect.width;
+      const panelOffsetWithinRail = panelNaturalLeft - railRect.left;
+      const currentScroll = window.scrollY;
+      const fixedTop = 24;
+      const startPoint = railTop - fixedTop;
+      const stopPoint = regionBottom - tocPanel.offsetHeight - fixedTop;
+
+      if (currentScroll <= startPoint) {
+        resetTocPanel();
+        return;
+      }
+
+      if (currentScroll >= stopPoint) {
+        tocPanel.style.position = "absolute";
+        tocPanel.style.top = `${Math.max(regionBottom - railTop - tocPanel.offsetHeight, 0)}px`;
+        tocPanel.style.left = `${panelOffsetWithinRail}px`;
+        tocPanel.style.right = "auto";
+        tocPanel.style.width = `${panelNaturalWidth}px`;
+        return;
+      }
+
+      tocPanel.style.position = "fixed";
+      tocPanel.style.top = `${fixedTop}px`;
+      tocPanel.style.left = `${panelNaturalLeft}px`;
+      tocPanel.style.right = "auto";
+      tocPanel.style.width = `${panelNaturalWidth}px`;
+    };
+
+    updateTocPanel();
+    window.addEventListener("scroll", updateTocPanel, { passive: true });
+    window.addEventListener("resize", updateTocPanel);
+    desktopMq.addEventListener("change", updateTocPanel);
+  </script>
 </BaseLayout>
