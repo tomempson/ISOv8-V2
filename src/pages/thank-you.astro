@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="Thank You | ISOv8"
+  description="Thank you for getting in touch with ISOv8."
+>
+  <main class="flex min-h-screen flex-col bg-white text-[#111111]">
+    <section class="flex flex-1 items-center justify-center px-8 py-20 lg:px-12">
+      <div class="flex flex-col items-center text-center">
+        <h1
+          class="font-[900] leading-none text-black"
+          style="font-size: clamp(54px, 7vw, 88px); letter-spacing: 0.04em; text-shadow: 0.6px 0 currentColor, -0.6px 0 currentColor;"
+        >
+          THANK YOU
+        </h1>
+
+        <a
+          href="/"
+          class="mt-10 inline-flex items-center justify-center text-white transition-colors duration-200"
+          style="padding: 14px 30px; border-radius: 6px; background: linear-gradient(135deg, #0677a2 0%, #088cbc 55%, #18a3d4 100%); font-size: clamp(17px, 2.2vw, 22px); font-weight: 700; letter-spacing: 0.08em;"
+          onmouseover="this.style.background='linear-gradient(135deg, #2f95bd 0%, #42aeda 55%, #64c2ea 100%)'"
+          onmouseout="this.style.background='linear-gradient(135deg, #0677a2 0%, #088cbc 55%, #18a3d4 100%)'"
+        >
+          RETURN HOME
+        </a>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+</BaseLayout>
