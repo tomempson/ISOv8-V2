@@ -68,9 +68,21 @@
 
     <form
       id="contact-form"
+      name="engage-contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
       novalidate
       class="absolute inset-0 flex items-center justify-center px-8 py-8 text-black lg:px-20 lg:py-10"
     >
+      <input type="hidden" name="form-name" value="engage-contact" />
+      <p class="hidden" aria-hidden="true">
+        <label>
+          Don&apos;t fill this out if you&apos;re human:
+          <input type="text" name="bot-field" tabindex="-1" autocomplete="off" />
+        </label>
+      </p>
+
       <div class="w-full max-w-[760px]">
         <div class="mb-7 flex items-center justify-between gap-6">
           <div class="flex items-center gap-3">
@@ -229,218 +241,219 @@
 </style>
 
 <script is:inline>
-  const engageButton = document.getElementById("engage-button");
-  const contactOverlay = document.getElementById("contact-overlay");
-  const contactModal = document.getElementById("contact-modal");
-  const contactClose = document.getElementById("contact-close");
-  const contactForm = document.getElementById("contact-form");
+  (() => {
+    const engageButton = document.getElementById("engage-button");
+    const contactOverlay = document.getElementById("contact-overlay");
+    const contactModal = document.getElementById("contact-modal");
+    const contactClose = document.getElementById("contact-close");
+    const contactForm = document.getElementById("contact-form");
 
-  let lockedScrollY = 0;
-  let pageLockCount = 0;
+    let lockedScrollY = 0;
+    let pageLockCount = 0;
 
-  const getTransitionDuration = (element) => {
-    const durationSeconds = Number.parseFloat(
-      window.getComputedStyle(element).transitionDuration
-    );
+    const getTransitionDuration = (element) => {
+      const durationSeconds = Number.parseFloat(
+        window.getComputedStyle(element).transitionDuration
+      );
 
-    return Number.isNaN(durationSeconds) ? 0 : durationSeconds * 1000;
-  };
-
-  const lockPageScroll = () => {
-    if (pageLockCount === 0) {
-      lockedScrollY = window.scrollY;
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${lockedScrollY}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
-    }
-
-    pageLockCount += 1;
-  };
-
-  const unlockPageScroll = () => {
-    if (pageLockCount === 0) {
-      return;
-    }
-
-    pageLockCount -= 1;
-
-    if (pageLockCount > 0) {
-      return;
-    }
-
-    document.documentElement.style.removeProperty("overflow");
-    document.body.style.removeProperty("position");
-    document.body.style.removeProperty("top");
-    document.body.style.removeProperty("left");
-    document.body.style.removeProperty("right");
-    document.body.style.removeProperty("width");
-    document.body.style.removeProperty("overflow");
-    window.scrollTo(0, lockedScrollY);
-  };
-
-  if (engageButton && contactOverlay && contactModal && contactClose) {
-    let isContactAnimating = false;
-    let contactAnimationTimer;
-
-    const setContactState = (isOpen) => {
-      engageButton.setAttribute("aria-expanded", String(isOpen));
-      contactClose.setAttribute("aria-expanded", String(isOpen));
-      engageButton.classList.toggle("is-active", isOpen);
-      contactOverlay.setAttribute("aria-hidden", String(!isOpen));
-      contactModal.setAttribute("aria-hidden", String(!isOpen));
-      contactOverlay.classList.toggle("opacity-0", !isOpen);
-      contactOverlay.classList.toggle("opacity-100", isOpen);
-      contactModal.classList.toggle("opacity-0", !isOpen);
-      contactModal.classList.toggle("opacity-100", isOpen);
-      contactOverlay.classList.toggle("pointer-events-none", !isOpen);
-      contactOverlay.classList.toggle("pointer-events-auto", isOpen);
-      contactModal.classList.toggle("pointer-events-none", !isOpen);
-      contactModal.classList.toggle("pointer-events-auto", isOpen);
+      return Number.isNaN(durationSeconds) ? 0 : durationSeconds * 1000;
     };
 
-    const finishContactTransition = () => {
-      isContactAnimating = false;
-      engageButton.disabled = false;
-      contactClose.disabled = false;
-      const isOpen = engageButton.getAttribute("aria-expanded") === "true";
-      if (!isOpen) {
-        unlockPageScroll();
+    const lockPageScroll = () => {
+      if (pageLockCount === 0) {
+        lockedScrollY = window.scrollY;
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${lockedScrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.width = "100%";
+        document.body.style.overflow = "hidden";
       }
-      window.clearTimeout(contactAnimationTimer);
+
+      pageLockCount += 1;
     };
 
-    const requestContactState = (nextIsOpen) => {
-      const currentIsOpen = engageButton.getAttribute("aria-expanded") === "true";
-      if (isContactAnimating || currentIsOpen === nextIsOpen) {
+    const unlockPageScroll = () => {
+      if (pageLockCount === 0) {
         return;
       }
 
-      isContactAnimating = true;
-      engageButton.disabled = true;
-      contactClose.disabled = true;
-      if (nextIsOpen) {
-        lockPageScroll();
-      }
-      setContactState(nextIsOpen);
+      pageLockCount -= 1;
 
-      contactAnimationTimer = window.setTimeout(
-        finishContactTransition,
-        getTransitionDuration(contactModal) + 50
-      );
+      if (pageLockCount > 0) {
+        return;
+      }
+
+      document.documentElement.style.removeProperty("overflow");
+      document.body.style.removeProperty("position");
+      document.body.style.removeProperty("top");
+      document.body.style.removeProperty("left");
+      document.body.style.removeProperty("right");
+      document.body.style.removeProperty("width");
+      document.body.style.removeProperty("overflow");
+      window.scrollTo(0, lockedScrollY);
     };
 
-    engageButton.addEventListener("click", () => {
-      requestContactState(true);
-    });
+    if (engageButton && contactOverlay && contactModal && contactClose) {
+      let isContactAnimating = false;
+      let contactAnimationTimer;
 
-    contactClose.addEventListener("click", () => {
-      requestContactState(false);
-    });
+      const setContactState = (isOpen) => {
+        engageButton.setAttribute("aria-expanded", String(isOpen));
+        contactClose.setAttribute("aria-expanded", String(isOpen));
+        engageButton.classList.toggle("is-active", isOpen);
+        contactOverlay.setAttribute("aria-hidden", String(!isOpen));
+        contactModal.setAttribute("aria-hidden", String(!isOpen));
+        contactOverlay.classList.toggle("opacity-0", !isOpen);
+        contactOverlay.classList.toggle("opacity-100", isOpen);
+        contactModal.classList.toggle("opacity-0", !isOpen);
+        contactModal.classList.toggle("opacity-100", isOpen);
+        contactOverlay.classList.toggle("pointer-events-none", !isOpen);
+        contactOverlay.classList.toggle("pointer-events-auto", isOpen);
+        contactModal.classList.toggle("pointer-events-none", !isOpen);
+        contactModal.classList.toggle("pointer-events-auto", isOpen);
+      };
 
-    contactOverlay.addEventListener("click", () => {
-      requestContactState(false);
-    });
+      const finishContactTransition = () => {
+        isContactAnimating = false;
+        engageButton.disabled = false;
+        contactClose.disabled = false;
+        const isOpen = engageButton.getAttribute("aria-expanded") === "true";
+        if (!isOpen) {
+          unlockPageScroll();
+        }
+        window.clearTimeout(contactAnimationTimer);
+      };
 
-    contactModal.addEventListener("transitionend", (event) => {
-      if (event.target === contactModal && event.propertyName === "opacity") {
-        finishContactTransition();
-      }
-    });
+      const requestContactState = (nextIsOpen) => {
+        const currentIsOpen = engageButton.getAttribute("aria-expanded") === "true";
+        if (isContactAnimating || currentIsOpen === nextIsOpen) {
+          return;
+        }
 
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
+        isContactAnimating = true;
+        engageButton.disabled = true;
+        contactClose.disabled = true;
+        if (nextIsOpen) {
+          lockPageScroll();
+        }
+        setContactState(nextIsOpen);
+
+        contactAnimationTimer = window.setTimeout(
+          finishContactTransition,
+          getTransitionDuration(contactModal) + 50
+        );
+      };
+
+      engageButton.addEventListener("click", () => {
+        requestContactState(true);
+      });
+
+      contactClose.addEventListener("click", () => {
         requestContactState(false);
-      }
-    });
-  }
+      });
 
-  if (contactForm) {
-    const contactInputs = Array.from(
-      contactForm.querySelectorAll("[data-contact-input]")
-    );
+      contactOverlay.addEventListener("click", () => {
+        requestContactState(false);
+      });
 
-    const validationMessages = {
-      name: {
-        valueMissing: "Please enter your name."
-      },
-      telephone: {
-        valueMissing: "Please enter your telephone number.",
-        patternMismatch: "Telephone number must contain 7 to 15 digits only."
-      },
-      "business-name": {
-        valueMissing: "Please enter your business name."
-      },
-      "enquiry-details": {
-        valueMissing: "Please enter your enquiry details."
-      }
-    };
+      contactModal.addEventListener("transitionend", (event) => {
+        if (event.target === contactModal && event.propertyName === "opacity") {
+          finishContactTransition();
+        }
+      });
 
-    const getErrorMessage = (input) => {
-      const fieldMessages = validationMessages[input.name] ?? {};
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          requestContactState(false);
+        }
+      });
+    }
 
-      if (input.validity.valueMissing) {
-        return fieldMessages.valueMissing ?? "This field is required.";
-      }
-
-      if (input.validity.tooShort) {
-        return fieldMessages.tooShort ?? "Please enter a little more information.";
-      }
-
-      if (input.validity.patternMismatch) {
-        return fieldMessages.patternMismatch ?? "Please enter a valid value.";
-      }
-
-      return "";
-    };
-
-    const setFieldErrorState = (input) => {
-      const errorElement = contactForm.querySelector(
-        `[data-error-for="${input.name}"]`
+    if (contactForm) {
+      const contactInputs = Array.from(
+        contactForm.querySelectorAll("[data-contact-input]")
       );
-      const errorMessage = getErrorMessage(input);
-      const hasError = errorMessage.length > 0;
 
-      input.setAttribute("aria-invalid", String(hasError));
-      input.classList.toggle("border-[#c53d32]", hasError);
-      input.classList.toggle("focus:border-[#c53d32]", hasError);
-      input.classList.toggle("border-gray-300", !hasError);
-      input.classList.toggle("focus:border-[#088cbc]", !hasError);
+      const validationMessages = {
+        name: {
+          valueMissing: "Please enter your name."
+        },
+        telephone: {
+          valueMissing: "Please enter your telephone number.",
+          patternMismatch: "Telephone number must contain 7 to 15 digits only."
+        },
+        "business-name": {
+          valueMissing: "Please enter your business name."
+        },
+        "enquiry-details": {
+          valueMissing: "Please enter your enquiry details."
+        }
+      };
 
-      if (errorElement) {
-        errorElement.textContent = errorMessage;
-      }
+      const getErrorMessage = (input) => {
+        const fieldMessages = validationMessages[input.name] ?? {};
 
-      return !hasError;
-    };
-
-    contactInputs.forEach((input) => {
-      input.addEventListener("blur", () => {
-        setFieldErrorState(input);
-      });
-
-      input.addEventListener("input", () => {
-        if (input.name === "telephone") {
-          input.value = input.value.replace(/\D+/g, "");
+        if (input.validity.valueMissing) {
+          return fieldMessages.valueMissing ?? "This field is required.";
         }
 
-        if (input.getAttribute("aria-invalid") === "true") {
+        if (input.validity.tooShort) {
+          return fieldMessages.tooShort ?? "Please enter a little more information.";
+        }
+
+        if (input.validity.patternMismatch) {
+          return fieldMessages.patternMismatch ?? "Please enter a valid value.";
+        }
+
+        return "";
+      };
+
+      const setFieldErrorState = (input) => {
+        const errorElement = contactForm.querySelector(
+          `[data-error-for="${input.name}"]`
+        );
+        const errorMessage = getErrorMessage(input);
+        const hasError = errorMessage.length > 0;
+
+        input.setAttribute("aria-invalid", String(hasError));
+        input.classList.toggle("border-[#c53d32]", hasError);
+        input.classList.toggle("focus:border-[#c53d32]", hasError);
+        input.classList.toggle("border-gray-300", !hasError);
+        input.classList.toggle("focus:border-[#088cbc]", !hasError);
+
+        if (errorElement) {
+          errorElement.textContent = errorMessage;
+        }
+
+        return !hasError;
+      };
+
+      contactInputs.forEach((input) => {
+        input.addEventListener("blur", () => {
           setFieldErrorState(input);
+        });
+
+        input.addEventListener("input", () => {
+          if (input.name === "telephone") {
+            input.value = input.value.replace(/\D+/g, "");
+          }
+
+          if (input.getAttribute("aria-invalid") === "true") {
+            setFieldErrorState(input);
+          }
+        });
+      });
+
+      contactForm.addEventListener("submit", (event) => {
+        const firstInvalidInput = contactInputs.find((input) => !setFieldErrorState(input));
+
+        if (firstInvalidInput) {
+          event.preventDefault();
+          firstInvalidInput.focus();
         }
       });
-    });
-
-    contactForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const firstInvalidInput = contactInputs.find((input) => !setFieldErrorState(input));
-
-      if (firstInvalidInput) {
-        firstInvalidInput.focus();
-      }
-    });
-  }
+    }
+  })();
 </script>
