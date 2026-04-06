@@ -1,7 +1,7 @@
 <button
   id="engage-button"
   type="button"
-  class="engage-button fixed bottom-6 right-6 z-30 flex h-[125px] w-[125px] cursor-pointer items-center justify-center rounded-full bg-transparent p-0 max-[768px]:hidden max-[640px]:bottom-4 max-[640px]:right-4"
+  class="engage-button fixed bottom-6 right-6 z-30 flex h-[125px] w-[125px] cursor-pointer items-center justify-center rounded-full bg-transparent p-0"
   aria-controls="contact-modal"
   aria-expanded="false"
 >
@@ -357,6 +357,10 @@
       };
 
       engageButton.addEventListener("click", () => {
+        if (window.innerWidth < 1280) {
+          window.location.href = "/contact/";
+          return;
+        }
         requestContactState(true);
       });
 
@@ -377,6 +381,16 @@
       window.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
           requestContactState(false);
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth < 1280) {
+          const isOpen = engageButton.getAttribute("aria-expanded") === "true";
+          if (isOpen) {
+            isContactAnimating = false;
+            requestContactState(false);
+          }
         }
       });
     }
