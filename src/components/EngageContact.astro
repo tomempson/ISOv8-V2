@@ -252,6 +252,10 @@
     let lockedScrollY = 0;
     let pageLockCount = 0;
 
+    const warnBeforeUnload = (event) => {
+      event.preventDefault();
+    };
+
     const getTransitionDuration = (element) => {
       const durationSeconds = Number.parseFloat(
         window.getComputedStyle(element).transitionDuration
@@ -301,6 +305,11 @@
       let contactAnimationTimer;
 
       const setContactState = (isOpen) => {
+        if (isOpen) {
+          window.addEventListener("beforeunload", warnBeforeUnload);
+        } else {
+          window.removeEventListener("beforeunload", warnBeforeUnload);
+        }
         engageButton.setAttribute("aria-expanded", String(isOpen));
         contactClose.setAttribute("aria-expanded", String(isOpen));
         engageButton.classList.toggle("is-active", isOpen);
@@ -448,12 +457,37 @@
       });
 
       contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
         const firstInvalidInput = contactInputs.find((input) => !setFieldErrorState(input));
 
         if (firstInvalidInput) {
-          event.preventDefault();
           firstInvalidInput.focus();
+          return;
         }
+
+        try {
+          const summaryData = {};
+          contactInputs.forEach((input) => {
+            summaryData[input.name] = input.value;
+          });
+          sessionStorage.setItem("engage-contact-data", JSON.stringify(summaryData));
+        } catch (_) {}
+
+        const formData = new FormData(contactForm);
+        window.removeEventListener("beforeunload", warnBeforeUnload);
+
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
+        })
+          .then(() => {
+            window.location.href = "/thank-you/";
+          })
+          .catch(() => {
+            window.location.href = "/thank-you/";
+          });
       });
     }
   })();

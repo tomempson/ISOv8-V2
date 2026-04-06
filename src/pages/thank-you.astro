@@ -7,28 +7,77 @@ import SiteFooter from "../components/SiteFooter.astro";
   title="Thank You | ISOv8"
   description="Thank you for getting in touch with ISOv8."
 >
-  <main class="flex min-h-screen flex-col bg-white text-[#111111]">
-    <section class="flex flex-1 items-center justify-center px-8 py-20 lg:px-12">
-      <div class="flex flex-col items-center text-center">
-        <h1
-          class="font-[900] leading-none text-black"
-          style="font-size: clamp(54px, 7vw, 88px); letter-spacing: 0.04em; text-shadow: 0.6px 0 currentColor, -0.6px 0 currentColor;"
-        >
-          THANK YOU
-        </h1>
+  <div class="flex min-h-screen flex-col bg-white text-[#111111]">
+    <main class="flex flex-1 flex-col items-center justify-center px-6 py-16">
+      <h1
+        class="text-center text-[60px] font-[700] uppercase leading-[1] tracking-tight text-[#1f1f1f] md:text-[90px] lg:text-[120px]"
+      >
+        Thank You
+      </h1>
 
-        <a
-          href="/"
-          class="mt-10 inline-flex items-center justify-center text-white transition-colors duration-200"
-          style="padding: 14px 30px; border-radius: 6px; background: linear-gradient(135deg, #0677a2 0%, #088cbc 55%, #18a3d4 100%); font-size: clamp(17px, 2.2vw, 22px); font-weight: 700; letter-spacing: 0.08em;"
-          onmouseover="this.style.background='linear-gradient(135deg, #2f95bd 0%, #42aeda 55%, #64c2ea 100%)'"
-          onmouseout="this.style.background='linear-gradient(135deg, #0677a2 0%, #088cbc 55%, #18a3d4 100%)'"
-        >
-          RETURN HOME
-        </a>
+      <p class="mt-5 max-w-lg text-center text-[18px] font-[400] leading-[1.8] text-[#6f6f6f]">
+        We've received your enquiry and will be in touch shortly.
+      </p>
+
+      <a
+        href="/"
+        class="mt-10 inline-block rounded-md px-14 py-5 text-[20px] font-[500] uppercase tracking-[0.05em] text-white transition-opacity duration-300 hover:opacity-85"
+        style="background: linear-gradient(to right, #008eba, #00a9d3);"
+      >
+        Return Home
+      </a>
+
+      <div id="submission-summary" class="mt-12 hidden w-full max-w-4xl">
+        <p class="mb-4 text-left text-[14px] font-[500] uppercase text-[#6f6f6f]">
+          Your Submission
+        </p>
+        <div class="rounded-[6px] border border-gray-300 bg-[#fafafa] px-6 py-5">
+          <dl id="submission-fields" class="flex flex-col gap-2 text-[16px]"></dl>
+        </div>
       </div>
-    </section>
+    </main>
 
     <SiteFooter />
-  </main>
+  </div>
+
+  <script is:inline>
+    (() => {
+      try {
+        const raw = sessionStorage.getItem("engage-contact-data");
+        if (!raw) return;
+
+        const data = JSON.parse(raw);
+        sessionStorage.removeItem("engage-contact-data");
+
+        const labels = {
+          name: "Name",
+          telephone: "Telephone",
+          "business-name": "Business Name",
+          "enquiry-details": "Enquiry Details"
+        };
+
+        const container = document.getElementById("submission-fields");
+        const wrapper = document.getElementById("submission-summary");
+        if (!container || !wrapper) return;
+
+        Object.entries(labels).forEach(([key, label]) => {
+          const value = data[key];
+          if (!value) return;
+
+          const dt = document.createElement("dt");
+          dt.className = "text-[16px] font-[500] text-[#6f6f6f]";
+          dt.textContent = label;
+
+          const dd = document.createElement("dd");
+          dd.className = "mt-0.5 mb-4 text-[16px] leading-[1.6] text-[#1f1f1f]";
+          dd.textContent = value;
+
+          container.appendChild(dt);
+          container.appendChild(dd);
+        });
+
+        wrapper.classList.remove("hidden");
+      } catch (_) {}
+    })();
+  </script>
 </BaseLayout>
