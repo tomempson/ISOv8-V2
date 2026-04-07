@@ -191,7 +191,7 @@ const conversionImages = [
             <span>CLOSE</span>
           </button>
 
-          <div class="px-8 pt-28 lg:px-12 lg:pt-32">
+          <div class="flex flex-col gap-6 px-8 pt-28 lg:px-12 lg:pt-32">
             <button
               id="menu-base-platforms-trigger"
               type="button"
@@ -199,8 +199,20 @@ const conversionImages = [
               aria-expanded="false"
               class="menu-base-platforms-trigger inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
             >
-              Base Platforms &amp; Structural Principles
+              Phase 1 - Understand
             </button>
+            <span class="inline-block text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline cursor-pointer">
+              Phase 2 - Define
+            </span>
+            <span class="inline-block text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline cursor-pointer">
+              Phase 3 - See
+            </span>
+            <span class="inline-block text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline cursor-pointer">
+              Phase 4 - Perform
+            </span>
+            <span class="inline-block text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline cursor-pointer">
+              Phase 5 - Align
+            </span>
           </div>
         </div>
 
@@ -211,10 +223,10 @@ const conversionImages = [
           style="transform: translateX(-100%); transition-duration: 1000ms;"
         >
           <img
-            src="/assets/images/sidebar-placeholder.webp"
+            src="/assets/images/phase-1.jpg"
             alt=""
             aria-hidden="true"
-            class="block w-full"
+            class="mx-auto block h-[250px] w-[350px] object-cover max-[678px]:w-full"
           />
 
           <div class="mt-[50px] flex items-center gap-4 px-[45px]">
@@ -242,16 +254,64 @@ const conversionImages = [
             </button>
 
             <p class="text-[20px] font-[500] leading-tight text-black">
-              Base Platforms &amp; Structural Principles
+              Phase 1 - Understand
             </p>
           </div>
 
-          <div class="mt-[60px] flex flex-col gap-6 px-[45px]">
+          <div class="mt-[60px] px-[45px] pb-12">
+            <button
+              id="menu-articles-trigger"
+              type="button"
+              aria-controls="menu-articles-panel"
+              aria-expanded="false"
+              class="menu-articles-trigger inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
+            >
+              Section 1
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="menu-articles-panel"
+          class="pointer-events-none relative -z-10 hidden h-dvh w-[350px] shrink-0 overflow-y-auto overscroll-contain border-r border-gray-300 bg-white transition-transform ease-out max-[678px]:absolute max-[678px]:inset-y-0 max-[678px]:left-0 max-[678px]:z-30 max-[678px]:w-dvw"
+          aria-hidden="true"
+          style="transform: translateX(-100%); transition-duration: 1000ms;"
+        >
+          <div class="mt-[50px] flex items-center gap-4 px-[45px]">
+            <button
+              id="menu-articles-back"
+              type="button"
+              aria-controls="menu-articles-panel"
+              aria-label="Back to Phase 1 panel"
+              class="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black"
+            >
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M13 4L7 10L13 16"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <p class="text-[20px] font-[500] leading-tight text-black">
+              Section 1
+            </p>
+          </div>
+
+          <div class="mt-[60px] flex flex-col gap-6 px-[45px] pb-12">
             {
               structuralSidebarLinks.map((link) => (
                 <a
                   href={link.href}
-                  class="menu-secondary-link inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
+                  class="menu-tertiary-link inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline active:text-[#088cbc] active:underline"
                 >
                   {link.label}
                 </a>
@@ -369,17 +429,24 @@ const conversionImages = [
   </main>
 
   <style is:inline>
-    .menu-base-platforms-trigger.is-pressed {
-      color: #088cbc;
-      text-decoration: underline;
-    }
-
+    .menu-base-platforms-trigger:active,
+    .menu-base-platforms-trigger.is-pressed,
     .menu-base-platforms-trigger[aria-expanded="true"] {
       color: #088cbc;
       text-decoration: underline;
     }
 
-    .menu-secondary-link.is-pressed {
+    .menu-articles-trigger:active,
+    .menu-articles-trigger.is-pressed,
+    .menu-articles-trigger[aria-expanded="true"] {
+      color: #088cbc;
+      text-decoration: underline;
+    }
+
+    .menu-secondary-link:active,
+    .menu-secondary-link.is-pressed,
+    .menu-tertiary-link:active,
+    .menu-tertiary-link.is-pressed {
       color: #088cbc;
       text-decoration: underline;
     }
@@ -394,20 +461,9 @@ const conversionImages = [
     const menuBasePlatformsTrigger = document.getElementById("menu-base-platforms-trigger");
     const menuBasePlatformsBack = document.getElementById("menu-base-platforms-back");
     const menuBasePlatformsPanel = document.getElementById("menu-base-platforms-panel");
-    const menuSecondaryLinks = Array.from(
-      document.querySelectorAll(".menu-secondary-link")
-    );
 
     let lockedScrollY = 0;
     let pageLockCount = 0;
-
-    const getTransitionDuration = (element) => {
-      const durationSeconds = Number.parseFloat(
-        window.getComputedStyle(element).transitionDuration
-      );
-
-      return Number.isNaN(durationSeconds) ? 0 : durationSeconds * 1000;
-    };
 
     const lockPageScroll = () => {
       if (pageLockCount === 0) {
@@ -435,25 +491,30 @@ const conversionImages = [
         return;
       }
 
-        document.documentElement.style.removeProperty("overflow");
-        document.body.style.removeProperty("position");
-        document.body.style.removeProperty("top");
-        document.body.style.removeProperty("left");
-        document.body.style.removeProperty("right");
-        document.body.style.removeProperty("width");
-        document.body.style.removeProperty("overflow");
-        window.scrollTo(0, lockedScrollY);
+      document.documentElement.style.removeProperty("overflow");
+      document.body.style.removeProperty("position");
+      document.body.style.removeProperty("top");
+      document.body.style.removeProperty("left");
+      document.body.style.removeProperty("right");
+      document.body.style.removeProperty("width");
+      document.body.style.removeProperty("overflow");
+      window.scrollTo(0, lockedScrollY);
     };
+
+    const menuArticlesTrigger = document.getElementById("menu-articles-trigger");
+    const menuArticlesBack = document.getElementById("menu-articles-back");
+    const menuArticlesPanel = document.getElementById("menu-articles-panel");
 
     if (menuToggle && menuOverlay && menuShell && menuPanel && menuClose) {
       let isMenuAnimating = false;
       let isBasePlatformsAnimating = false;
-      let animationTimer;
-      let basePlatformsAnimationTimer;
+      let isArticlesAnimating = false;
 
       const isMenuOpen = () => menuToggle.getAttribute("aria-expanded") === "true";
       const isBasePlatformsPanelOpen = () =>
         menuBasePlatformsTrigger?.getAttribute("aria-expanded") === "true";
+      const isArticlesPanelOpen = () =>
+        menuArticlesTrigger?.getAttribute("aria-expanded") === "true";
 
       const syncMenuInteractivity = () => {
         const menuIsOpen = isMenuOpen();
@@ -461,12 +522,20 @@ const conversionImages = [
       };
 
       const setMenuShellTransform = (isOpen) => {
-        if (!isOpen) {
-          menuShell.style.transform = "translateX(-100%)";
+        menuShell.style.transform = isOpen ? "translateX(0)" : "translateX(-100%)";
+      };
+
+      const resetArticlesPanelState = () => {
+        if (!menuArticlesTrigger || !menuArticlesPanel) {
           return;
         }
 
-        menuShell.style.transform = "translateX(0)";
+        menuArticlesTrigger.setAttribute("aria-expanded", "false");
+        menuArticlesPanel.setAttribute("aria-hidden", "true");
+        menuArticlesPanel.classList.add("hidden");
+        menuArticlesPanel.classList.add("pointer-events-none");
+        menuArticlesPanel.classList.remove("pointer-events-auto");
+        menuArticlesPanel.style.transform = "translateX(-100%)";
       };
 
       const resetBasePlatformsPanelState = () => {
@@ -480,6 +549,21 @@ const conversionImages = [
         menuBasePlatformsPanel.classList.add("pointer-events-none");
         menuBasePlatformsPanel.classList.remove("pointer-events-auto");
         menuBasePlatformsPanel.style.transform = "translateX(-100%)";
+        resetArticlesPanelState();
+      };
+
+      const finishArticlesTransition = () => {
+        if (!isArticlesAnimating) {
+          return;
+        }
+
+        isArticlesAnimating = false;
+
+        if (menuArticlesPanel?.getAttribute("aria-hidden") === "true") {
+          menuArticlesPanel.classList.add("hidden");
+        }
+
+        syncMenuInteractivity();
       };
 
       const finishBasePlatformsTransition = () => {
@@ -493,8 +577,47 @@ const conversionImages = [
           menuBasePlatformsPanel.classList.add("hidden");
         }
 
-        window.clearTimeout(basePlatformsAnimationTimer);
         syncMenuInteractivity();
+      };
+
+      const setArticlesPanelState = (isOpen) => {
+        if (!menuArticlesTrigger || !menuArticlesPanel) {
+          return;
+        }
+
+        const currentIsOpen = isArticlesPanelOpen();
+        if (isMenuAnimating || isBasePlatformsAnimating || isArticlesAnimating || currentIsOpen === isOpen) {
+          return;
+        }
+
+        isArticlesAnimating = true;
+        menuArticlesTrigger.setAttribute("aria-expanded", String(isOpen));
+        menuArticlesPanel.setAttribute("aria-hidden", String(!isOpen));
+        syncMenuInteractivity();
+
+        if (isOpen) {
+          menuArticlesPanel.style.transform = "translateX(-100%)";
+          menuArticlesPanel.classList.remove("hidden");
+
+          window.requestAnimationFrame(() => {
+            menuArticlesPanel.classList.remove("pointer-events-none");
+            menuArticlesPanel.classList.add("pointer-events-auto");
+            menuArticlesPanel.style.transform = "translateX(0)";
+            if (menuToggle.getAttribute("aria-expanded") === "true") {
+              setMenuShellTransform(true);
+            }
+          });
+
+          return;
+        }
+
+        menuArticlesPanel.classList.add("pointer-events-none");
+        menuArticlesPanel.classList.remove("pointer-events-auto");
+        menuArticlesPanel.style.transform = "translateX(-100%)";
+
+        if (menuToggle.getAttribute("aria-expanded") === "true") {
+          setMenuShellTransform(true);
+        }
       };
 
       const setBasePlatformsPanelState = (isOpen) => {
@@ -503,7 +626,7 @@ const conversionImages = [
         }
 
         const currentIsOpen = isBasePlatformsPanelOpen();
-        if (isMenuAnimating || isBasePlatformsAnimating || currentIsOpen === isOpen) {
+        if (isMenuAnimating || isBasePlatformsAnimating || isArticlesAnimating || currentIsOpen === isOpen) {
           return;
         }
 
@@ -511,12 +634,6 @@ const conversionImages = [
         menuBasePlatformsTrigger.setAttribute("aria-expanded", String(isOpen));
         menuBasePlatformsPanel.setAttribute("aria-hidden", String(!isOpen));
         syncMenuInteractivity();
-        window.clearTimeout(basePlatformsAnimationTimer);
-
-        basePlatformsAnimationTimer = window.setTimeout(
-          finishBasePlatformsTransition,
-          getTransitionDuration(menuBasePlatformsPanel) + 50
-        );
 
         if (isOpen) {
           menuBasePlatformsPanel.style.transform = "translateX(-100%)";
@@ -574,13 +691,12 @@ const conversionImages = [
           resetBasePlatformsPanelState();
           unlockPageScroll();
         }
-        window.clearTimeout(animationTimer);
         syncMenuInteractivity();
       };
 
       const requestMenuState = (nextIsOpen) => {
         const currentIsOpen = isMenuOpen();
-        if (isMenuAnimating || isBasePlatformsAnimating || currentIsOpen === nextIsOpen) {
+        if (isMenuAnimating || isBasePlatformsAnimating || isArticlesAnimating || currentIsOpen === nextIsOpen) {
           return;
         }
 
@@ -591,56 +707,77 @@ const conversionImages = [
           lockPageScroll();
         }
         setMenuState(nextIsOpen);
+      };
 
-        animationTimer = window.setTimeout(
-          finishMenuTransition,
-          getTransitionDuration(menuShell) + 50
+      const trapFocus = (event) => {
+        let activePanel;
+        if (isArticlesPanelOpen()) {
+          activePanel = menuArticlesPanel;
+        } else if (isBasePlatformsPanelOpen()) {
+          activePanel = menuBasePlatformsPanel;
+        } else {
+          activePanel = menuPanel;
+        }
+
+        const focusableElements = activePanel.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
+
+        if (focusableElements.length === 0) {
+          return;
+        }
+
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstFocusable) {
+          event.preventDefault();
+          lastFocusable.focus();
+        } else if (!event.shiftKey && document.activeElement === lastFocusable) {
+          event.preventDefault();
+          firstFocusable.focus();
+        }
       };
 
       menuToggle.addEventListener("click", () => {
         requestMenuState(true);
+        menuClose.focus();
       });
 
       menuClose.addEventListener("click", () => {
         requestMenuState(false);
+        menuToggle.focus();
       });
 
       menuOverlay.addEventListener("click", () => {
         requestMenuState(false);
+        menuToggle.focus();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!isMenuOpen()) {
+          return;
+        }
+
+        if (event.key === "Escape") {
+          event.preventDefault();
+          if (isArticlesPanelOpen()) {
+            setArticlesPanelState(false);
+          } else if (isBasePlatformsPanelOpen()) {
+            setBasePlatformsPanelState(false);
+          } else {
+            requestMenuState(false);
+            menuToggle.focus();
+          }
+        }
+
+        if (event.key === "Tab") {
+          trapFocus(event);
+        }
       });
 
       if (menuBasePlatformsTrigger && menuBasePlatformsPanel) {
-        const activateBasePlatformsTriggerPressState = () => {
-          menuBasePlatformsTrigger.classList.add("is-pressed");
-        };
-
-        const clearBasePlatformsTriggerPressState = () => {
-          menuBasePlatformsTrigger.classList.remove("is-pressed");
-        };
-
-        menuBasePlatformsTrigger.addEventListener("pointerdown", () => {
-          activateBasePlatformsTriggerPressState();
-        });
-
-        menuBasePlatformsTrigger.addEventListener("pointerup", () => {
-          clearBasePlatformsTriggerPressState();
-        });
-
-        menuBasePlatformsTrigger.addEventListener("pointercancel", () => {
-          clearBasePlatformsTriggerPressState();
-        });
-
-        menuBasePlatformsTrigger.addEventListener("pointerleave", () => {
-          clearBasePlatformsTriggerPressState();
-        });
-
-        menuBasePlatformsTrigger.addEventListener("blur", () => {
-          clearBasePlatformsTriggerPressState();
-        });
-
         menuBasePlatformsTrigger.addEventListener("click", () => {
-          clearBasePlatformsTriggerPressState();
           const isOpen =
             menuBasePlatformsTrigger.getAttribute("aria-expanded") === "true";
 
@@ -654,39 +791,38 @@ const conversionImages = [
         });
       }
 
-      menuSecondaryLinks.forEach((link) => {
-        const activateSecondaryLinkPressState = () => {
-          link.classList.add("is-pressed");
-        };
+      if (menuArticlesTrigger && menuArticlesPanel) {
+        menuArticlesTrigger.addEventListener("click", () => {
+          const isOpen =
+            menuArticlesTrigger.getAttribute("aria-expanded") === "true";
 
-        const clearSecondaryLinkPressState = () => {
-          link.classList.remove("is-pressed");
-        };
+          setArticlesPanelState(!isOpen);
+        });
+      }
 
-        link.addEventListener("pointerdown", () => {
-          activateSecondaryLinkPressState();
+      if (menuArticlesBack) {
+        menuArticlesBack.addEventListener("click", () => {
+          setArticlesPanelState(false);
+        });
+      }
+
+      const addTouchFeedback = (element) => {
+        element.addEventListener("touchstart", () => {
+          element.classList.add("is-pressed");
+        }, { passive: true });
+
+        element.addEventListener("touchend", () => {
+          element.classList.remove("is-pressed");
         });
 
-        link.addEventListener("pointerup", () => {
-          clearSecondaryLinkPressState();
+        element.addEventListener("touchcancel", () => {
+          element.classList.remove("is-pressed");
         });
+      };
 
-        link.addEventListener("pointercancel", () => {
-          clearSecondaryLinkPressState();
-        });
-
-        link.addEventListener("pointerleave", () => {
-          clearSecondaryLinkPressState();
-        });
-
-        link.addEventListener("blur", () => {
-          clearSecondaryLinkPressState();
-        });
-
-        link.addEventListener("click", () => {
-          clearSecondaryLinkPressState();
-        });
-      });
+      if (menuBasePlatformsTrigger) addTouchFeedback(menuBasePlatformsTrigger);
+      if (menuArticlesTrigger) addTouchFeedback(menuArticlesTrigger);
+      document.querySelectorAll(".menu-secondary-link, .menu-tertiary-link").forEach(addTouchFeedback);
 
       menuShell.addEventListener("transitionend", (event) => {
         if (event.propertyName === "transform" && isMenuAnimating) {
@@ -702,11 +838,13 @@ const conversionImages = [
         });
       }
 
-      window.addEventListener("resize", () => {
-        const isOpen = isMenuOpen();
-        setMenuShellTransform(isOpen);
-      });
-
+      if (menuArticlesPanel) {
+        menuArticlesPanel.addEventListener("transitionend", (event) => {
+          if (event.propertyName === "transform" && isArticlesAnimating) {
+            finishArticlesTransition();
+          }
+        });
+      }
     }
   </script>
 </BaseLayout>
