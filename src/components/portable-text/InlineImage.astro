@@ -1,0 +1,41 @@
+---
+import { urlFor } from "../../utils/sanity";
+
+interface Props {
+  node: {
+    asset: any;
+    alt: string;
+    caption?: string;
+    alignment?: "left" | "center" | "right" | "full-width";
+  };
+}
+
+const { node } = Astro.props;
+const { asset, alt, caption, alignment = "center" } = node;
+
+const imageUrl = urlFor(asset).width(800).auto("format").url();
+
+const alignmentClasses: Record<string, string> = {
+  left: "mr-auto",
+  center: "mx-auto",
+  right: "ml-auto",
+  "full-width": "w-full",
+};
+
+const figureClass = alignmentClasses[alignment] ?? "mx-auto";
+---
+
+<figure class:list={["my-8", figureClass, alignment !== "full-width" && "max-w-md"]}>
+  <img
+    src={imageUrl}
+    alt={alt}
+    class="block w-full rounded"
+    loading="lazy"
+    decoding="async"
+  />
+  {caption && (
+    <figcaption class="mt-2 text-center text-[15px] text-[#6f6f6f]">
+      {caption}
+    </figcaption>
+  )}
+</figure>

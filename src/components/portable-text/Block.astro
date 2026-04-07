@@ -1,0 +1,38 @@
+---
+import type { Props as BlockProps } from "astro-portabletext/types";
+
+type Props = BlockProps;
+
+const { node } = Astro.props;
+const style = node.style || "normal";
+---
+
+{style === "h2" && (
+  <h2 class="mt-14 text-[36px] font-[600] leading-tight text-black first:mt-0">
+    <slot />
+  </h2>
+)}
+
+{style === "h3" && (
+  <h3 class="mt-10 text-[28px] font-[600] leading-tight text-black">
+    <slot />
+  </h3>
+)}
+
+{style === "h4" && (
+  <h4 class="mt-8 text-[22px] font-[600] leading-tight text-black">
+    <slot />
+  </h4>
+)}
+
+{style === "normal" && (
+  <p class="mt-6 text-[18px] leading-[1.8] text-[#4b5563]">
+    <slot />
+  </p>
+)}
+
+{style === "blockquote" && (
+  <blockquote class="mt-6 border-l-4 border-[#088cbc] pl-6 text-[18px] italic leading-[1.8] text-[#4b5563]">
+    <slot />
+  </blockquote>
+)}

@@ -1,0 +1,1 @@
+- [Sanity Integration Brief](project_sanity_integration.md) — CMS integration plan: Sanity + Astro SSG, page schema, Portable Text, webhook rebuilds

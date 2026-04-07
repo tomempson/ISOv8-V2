@@ -1,0 +1,34 @@
+---
+import { PortableText } from "astro-portabletext";
+import InlineImage from "./InlineImage.astro";
+import Block from "./Block.astro";
+import Link from "./Link.astro";
+
+interface Props {
+  value: any[];
+}
+
+const { value } = Astro.props;
+
+const components = {
+  type: {
+    inlineImage: InlineImage,
+  },
+  block: {
+    h2: Block,
+    h3: Block,
+    h4: Block,
+    normal: Block,
+    blockquote: Block,
+  },
+  mark: {
+    link: Link,
+  },
+};
+---
+
+{value && value.length > 0 && (
+  <div class="max-w-4xl">
+    <PortableText value={value} components={components} />
+  </div>
+)}
