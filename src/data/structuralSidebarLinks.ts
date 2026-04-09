@@ -1,6 +1,6 @@
 export const structuralSidebarLinks = [
   {
-    href: "/shipping-container-conversions-vs-steel-anti-vandal-buildings-uk",
+    href: "/understand/base-platforms-and-structural-principles/shipping-container-conversions-vs-steel-anti-vandal-buildings-uk",
     label:
       "Hub Page - Understanding the Structural Platforms Behind Container Conversions and Steel Anti-Vandal Buildings",
     isCurrentPageLink: true

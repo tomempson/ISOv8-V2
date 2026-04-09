@@ -9,6 +9,8 @@ export function urlFor(source: any) {
 
 const PAGES_QUERY = `*[_type == "page" && defined(slug.current)]{
   _id,
+  phase,
+  section,
   metaTitle,
   metaDescription,
   metaKeywords,
@@ -32,6 +34,8 @@ export async function getAllPages() {
 
 const PAGE_BY_SLUG_QUERY = `*[_type == "page" && slug.current == $slug][0]{
   _id,
+  phase,
+  section,
   metaTitle,
   metaDescription,
   metaKeywords,

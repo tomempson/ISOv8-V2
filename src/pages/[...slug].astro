@@ -11,15 +11,21 @@ import { extractH2s } from "../utils/portable-text";
 export async function getStaticPaths() {
   const pages = await getAllPages();
 
-  return pages.map((page: any) => ({
-    params: { slug: page.slug },
-    props: { page },
-  }));
+  return pages.map((page: any) => {
+    const fullSlug = page.phase && page.section
+      ? `${page.phase}/${page.section}/${page.slug}`
+      : page.slug;
+
+    return {
+      params: { slug: fullSlug },
+      props: { page, fullSlug },
+    };
+  });
 }
 
-const { page } = Astro.props;
+const { page, fullSlug } = Astro.props;
 
-const currentPath = `/${page.slug}`;
+const currentPath = `/${fullSlug}`;
 const headings = extractH2s(page.body);
 ---
 
