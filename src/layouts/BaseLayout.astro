@@ -5,13 +5,20 @@ interface Props {
   title?: string;
   description?: string;
   keywords?: string[];
+  ogImage?: string;
+  ogType?: string;
 }
 
 const {
   title = "",
   description = "",
-  keywords = []
+  keywords = [],
+  ogImage = "/assets/images/isov8-logo-colour.svg",
+  ogType = "website",
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
 ---
 
 <!doctype html>
@@ -22,13 +29,29 @@ const {
     {description && <meta name="description" content={description} />}
     {keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
     <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="ISOv8®" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin />
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="https://use.typekit.net/nlb2jsy.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/nlb2jsy.css?display=swap" />
     <title>{title}</title>
+    <slot name="head" />
   </head>
   <body>
     <slot />

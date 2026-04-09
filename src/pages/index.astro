@@ -109,6 +109,33 @@ const conversionImages = [
 ---
 
 <BaseLayout title="ISOv8®" description=" ">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://isov8.com/#organization",
+        "name": "ISOv8® by ContainerKing® Limited",
+        "url": "https://isov8.com",
+        "logo": "https://isov8.com/assets/images/isov8-logo-colour.svg",
+        "telephone": "01724 870000",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Scunthorpe",
+          "addressRegion": "North Lincolnshire",
+          "addressCountry": "GB"
+        },
+        "description": "UK business delivering shipping container conversions and steel anti-vandal buildings with a focus on clarity, specification, and long-term performance."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://isov8.com/#website",
+        "name": "ISOv8®",
+        "url": "https://isov8.com",
+        "publisher": { "@id": "https://isov8.com/#organization" }
+      }
+    ]
+  })} />
   <main>
     <EngageContact />
 
@@ -156,8 +183,8 @@ const conversionImages = [
           </button>
 
           <nav aria-label="Primary" class="hidden items-center gap-6 lg:flex lg:gap-10">
-            <a href="#about-us">ABOUT US</a>
-            <a href="#inside-v8">INSIDE V8</a>
+            <a href="/about-us">ABOUT US</a>
+            <a href="/inside-v8">INSIDE V8</a>
           </nav>
         </div>
       </header>
@@ -227,6 +254,9 @@ const conversionImages = [
               alt=""
               aria-hidden="true"
               class="mx-auto block h-[250px] w-[350px] object-cover max-[678px]:w-full"
+              width="350"
+              height="250"
+              decoding="async"
             />
 
             <div class="mt-[50px] flex items-center gap-4 px-[45px]">
@@ -338,7 +368,7 @@ const conversionImages = [
         muted
         loop
         playsinline
-        preload="auto"
+        preload="metadata"
       >
         <source src="/assets/images/banner.mp4" type="video/mp4" />
       </video>
@@ -386,7 +416,10 @@ const conversionImages = [
                 src={`/assets/images/${image.src}`}
                 alt={image.title}
                 class="h-auto w-[250px] shrink-0"
+                width="250"
+                height="250"
                 loading="lazy"
+                decoding="async"
               />
 
               <div class="flex-1">

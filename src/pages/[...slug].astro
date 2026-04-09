@@ -57,6 +57,79 @@ const sectionIdMap: Record<string, string> = {
   "transport-and-geography": "transport-geography",
 };
 
+const phaseLabelMap: Record<string, string> = {
+  understand: "Phase 1 - Understand",
+  define: "Phase 2 - Define",
+  see: "Phase 3 - See",
+  perform: "Phase 4 - Perform",
+  align: "Phase 5 - Align",
+};
+
+const sectionLabelMap: Record<string, string> = {
+  "base-platforms-and-structural-principles": "Base Platforms & Structural Principles",
+  "structural-behavior-and-modification-limits": "Structural Behaviour & Modification Limits",
+  "performance-comfort-and-longevity": "Performance, Comfort & Longevity",
+  "planning-legal-and-compliance": "Planning, Legal and Compliance",
+  "commercial-and-financial-hub": "Commercial & Financial Hub",
+  "decision-framework": "Decision Frameworks",
+  "red-flag-warnings": "Red Flag Warnings",
+  "reality-chq": "Reality CHQ\u2122",
+  "platform-section": "Platform Selection",
+  "real-world-product-examples": "Real-World Product Examples",
+  "industries-and-operational-use": "Industries & Operational Use",
+  "from-a-to-done": "From A to Done\u2122",
+  "internal-finishes-and-fit-out-options": "Internal Finishes & Fit-Out Options",
+  "maintenance-condition-control-and-aftercare": "Maintenance, Condition Control & Aftercare",
+  "practical-execution-and-ownership": "Practical Execution & Ownership",
+  "technical-reference-hub": "Technical Reference Hub",
+  "project-definition-and-alignment": "Project Definition & Alignment",
+  "transport-and-geography": "Transport and Geography",
+};
+
+const breadcrumbItems = [
+  { "@type": "ListItem" as const, "position": 1, "name": "Home", "item": "https://isov8.com/" },
+];
+if (page.phase && phaseLabelMap[page.phase]) {
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    "position": 2,
+    "name": phaseLabelMap[page.phase],
+    "item": `https://isov8.com/?phase=${phaseIdMap[page.phase]}`,
+  });
+}
+if (page.section && sectionLabelMap[page.section]) {
+  breadcrumbItems.push({
+    "@type": "ListItem",
+    "position": 3,
+    "name": sectionLabelMap[page.section],
+    "item": `https://isov8.com/?phase=${phaseIdMap[page.phase]}&section=${sectionIdMap[page.section]}`,
+  });
+}
+breadcrumbItems.push({
+  "@type": "ListItem",
+  "position": breadcrumbItems.length + 1,
+  "name": page.metaTitle || page.h1Title || "Page",
+} as any);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbItems,
+    },
+    {
+      "@type": "Article",
+      "headline": page.h1Title || page.metaTitle,
+      "description": page.metaDescription,
+      "author": { "@type": "Organization", "name": "ISOv8® by ContainerKing® Limited" },
+      "publisher": { "@id": "https://isov8.com/#organization" },
+      "dateModified": page._updatedAt,
+      "mainEntityOfPage": `https://isov8.com/${fullSlug}`,
+    },
+  ],
+};
+
 const backPhase = page.phase ? phaseIdMap[page.phase] : null;
 const backSection = page.section ? sectionIdMap[page.section] : null;
 const backParams = new URLSearchParams();
@@ -69,7 +142,9 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
   title={page.metaTitle ? `ISOv8\u00AE | ${page.metaTitle}` : "ISOv8\u00AE"}
   description={page.metaDescription}
   keywords={page.metaKeywords}
+  ogType="article"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
   <div class="min-h-screen bg-white text-[#111111] lg:pl-[350px]">
     <aside
       class="hidden border-b border-gray-300 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:block lg:w-[350px] lg:overflow-y-auto lg:border-b-0 lg:border-r"
@@ -79,6 +154,9 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
         alt=""
         aria-hidden="true"
         class="block w-full"
+        width="350"
+        height="250"
+        decoding="async"
       />
 
       <div class="flex items-center gap-4 px-[30px] py-8 lg:mt-[18px] lg:px-[45px]">
@@ -142,6 +220,7 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
             src="/assets/images/isov8-logo.png"
             alt={page.h1Title || "ISOv8"}
             class="block w-full"
+            decoding="async"
           />
 
           <div class="absolute inset-0 pl-[48px] pr-8 text-left text-black">
@@ -153,15 +232,15 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
               )}
 
               {page.h2Title && (
-                <h2 class="mt-10 max-w-5xl text-[21px] font-[400] leading-[1.5] lg:mt-12">
+                <p class="mt-10 max-w-5xl text-[21px] font-[400] leading-[1.5] lg:mt-12">
                   {page.h2Title}
-                </h2>
+                </p>
               )}
 
               {page.h3Title && (
-                <h3 class="mt-10 max-w-4xl text-[21px] font-[400] leading-[1.5] lg:mt-12">
+                <p class="mt-10 max-w-4xl text-[21px] font-[400] leading-[1.5] lg:mt-12">
                   {page.h3Title}
-                </h3>
+                </p>
               )}
             </div>
           </div>

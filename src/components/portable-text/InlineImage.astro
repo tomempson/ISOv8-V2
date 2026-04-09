@@ -13,6 +13,10 @@ interface Props {
 const { node } = Astro.props;
 const { asset, alt, caption, alignment = "center" } = node;
 
+const widths = [400, 600, 800, 1200];
+const srcset = widths
+  .map((w) => `${urlFor(asset).width(w).auto("format").url()} ${w}w`)
+  .join(", ");
 const imageUrl = urlFor(asset).width(800).auto("format").url();
 
 const alignmentClasses: Record<string, string> = {
@@ -28,6 +32,8 @@ const figureClass = alignmentClasses[alignment] ?? "mx-auto";
 <figure class:list={["my-8", figureClass, alignment !== "full-width" && "max-w-md"]}>
   <img
     src={imageUrl}
+    srcset={srcset}
+    sizes={alignment === "full-width" ? "100vw" : "(max-width: 448px) 100vw, 448px"}
     alt={alt}
     class="block w-full rounded"
     loading="lazy"
