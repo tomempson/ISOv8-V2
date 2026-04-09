@@ -1,10 +1,12 @@
 ---
 interface Props {
   class?: string;
+  backHref?: string;
 }
 
 const {
-  class: className = ""
+  class: className = "",
+  backHref = "/"
 } = Astro.props;
 ---
 
@@ -38,7 +40,7 @@ const {
   </a>
 
   <a
-    href="/"
+    href={backHref}
     aria-label="Back to home"
     class="absolute left-8 top-1/2 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center lg:hidden"
   >

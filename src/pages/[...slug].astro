@@ -27,6 +27,42 @@ const { page, fullSlug } = Astro.props;
 
 const currentPath = `/${fullSlug}`;
 const headings = extractH2s(page.body);
+
+const phaseIdMap: Record<string, string> = {
+  understand: "phase-1",
+  define: "phase-2",
+  see: "phase-3",
+  perform: "phase-4",
+  align: "phase-5",
+};
+
+const sectionIdMap: Record<string, string> = {
+  "base-platforms-and-structural-principles": "base-platforms",
+  "structural-behavior-and-modification-limits": "structural-behaviour",
+  "performance-comfort-and-longevity": "performance-comfort",
+  "planning-legal-and-compliance": "planning-legal",
+  "commercial-and-financial-hub": "commercial-financial",
+  "decision-framework": "decision-frameworks",
+  "red-flag-warnings": "red-flag-warnings",
+  "reality-chq": "reality-chq",
+  "platform-section": "platform-selection",
+  "real-world-product-examples": "real-world-examples",
+  "industries-and-operational-use": "industries-operational",
+  "from-a-to-done": "from-a-to-done",
+  "internal-finishes-and-fit-out-options": "internal-finishes",
+  "maintenance-condition-control-and-aftercare": "maintenance-aftercare",
+  "practical-execution-and-ownership": "practical-execution",
+  "technical-reference-hub": "technical-reference",
+  "project-definition-and-alignment": "project-definition",
+  "transport-and-geography": "transport-geography",
+};
+
+const backPhase = page.phase ? phaseIdMap[page.phase] : null;
+const backSection = page.section ? sectionIdMap[page.section] : null;
+const backParams = new URLSearchParams();
+if (backPhase) backParams.set("phase", backPhase);
+if (backSection) backParams.set("section", backSection);
+const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
 ---
 
 <BaseLayout
@@ -47,7 +83,7 @@ const headings = extractH2s(page.body);
 
       <div class="flex items-center gap-4 px-[30px] py-8 lg:mt-[18px] lg:px-[45px]">
         <a
-          href="/"
+          href={backHref}
           aria-label="Back to home"
           class="flex h-5 w-5 shrink-0 items-center justify-center text-black transition-colors hover:text-[#088cbc]"
         >
@@ -99,7 +135,7 @@ const headings = extractH2s(page.body);
 
     <main class="min-h-screen bg-white">
       <EngageContact />
-      <SiteHeader />
+      <SiteHeader backHref={backHref} />
       <div class="bg-white px-8 py-10 lg:px-12 lg:py-12">
         <section class="relative my-6 overflow-hidden py-8 md:my-8 md:py-10 xl:my-0 xl:py-0">
           <img

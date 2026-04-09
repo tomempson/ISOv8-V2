@@ -1017,6 +1017,67 @@ const conversionImages = [
           }
         });
       }
+
+      // Restore sidebar state from query params (e.g. /?phase=phase-1&section=base-platforms)
+      const urlParams = new URLSearchParams(window.location.search);
+      const openPhase = urlParams.get("phase");
+      const openSection = urlParams.get("section");
+
+      if (openPhase) {
+        const trigger = document.getElementById(`menu-${openPhase}-trigger`);
+        const panel = document.getElementById(`menu-${openPhase}-panel`);
+
+        if (trigger && panel) {
+          // Instantly set menu open (no animation)
+          lockPageScroll();
+          menuToggle.setAttribute("aria-expanded", "true");
+          menuOverlay.setAttribute("aria-hidden", "false");
+          menuOverlay.classList.remove("opacity-0", "pointer-events-none");
+          menuOverlay.classList.add("opacity-100", "pointer-events-auto");
+          menuPanel.setAttribute("aria-hidden", "false");
+          menuShell.style.transitionDuration = "0s";
+          setMenuShellTransform(true);
+          syncMenuInteractivity();
+
+          // Instantly set phase panel open (no animation)
+          trigger.setAttribute("aria-expanded", "true");
+          panel.setAttribute("aria-hidden", "false");
+          panel.classList.remove("hidden", "pointer-events-none");
+          panel.classList.add("pointer-events-auto");
+          panel.style.transitionDuration = "0s";
+          panel.style.transform = "translateX(0)";
+          activePhasePanel = panel;
+          activePhaseTrigger = trigger;
+
+          // If the section matches the articles trigger, open it too
+          if (openSection === "base-platforms" && menuArticlesTrigger && menuArticlesPanel) {
+            menuArticlesTrigger.setAttribute("aria-expanded", "true");
+            menuArticlesPanel.setAttribute("aria-hidden", "false");
+            menuArticlesPanel.classList.remove("hidden", "pointer-events-none");
+            menuArticlesPanel.classList.add("pointer-events-auto");
+            menuArticlesPanel.style.transitionDuration = "0s";
+            menuArticlesPanel.style.transform = "translateX(0)";
+          }
+
+          // Force layout flush, then restore transition durations after paint
+          menuShell.offsetHeight;
+          panel.offsetHeight;
+          if (menuArticlesPanel) menuArticlesPanel.offsetHeight;
+
+          window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(() => {
+              menuShell.style.transitionDuration = "1000ms";
+              panel.style.transitionDuration = "1000ms";
+              if (menuArticlesPanel) {
+                menuArticlesPanel.style.transitionDuration = "1000ms";
+              }
+            });
+          });
+        }
+
+        // Clean the URL
+        history.replaceState(null, "", "/");
+      }
     }
   </script>
 </BaseLayout>
