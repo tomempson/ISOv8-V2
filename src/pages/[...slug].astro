@@ -6,6 +6,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import PortableTextRenderer from "../components/portable-text/PortableTextRenderer.astro";
 import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
 import { getAllPages } from "../utils/sanity";
+import { extractH2s } from "../utils/portable-text";
 
 export async function getStaticPaths() {
   const pages = await getAllPages();
@@ -19,6 +20,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 
 const currentPath = `/${page.slug}`;
+const headings = extractH2s(page.body);
 ---
 
 <BaseLayout
@@ -60,7 +62,7 @@ const currentPath = `/${page.slug}`;
         </a>
 
         <p class="text-[20px] font-[500] leading-tight text-black">
-          Section 1
+          Base Platforms & Structural Principles
         </p>
       </div>
 
@@ -124,8 +126,41 @@ const currentPath = `/${page.slug}`;
         </section>
 
         {page.body && page.body.length > 0 && (
-          <div class="mt-12">
-            <PortableTextRenderer value={page.body} />
+          <div id="toc-region" class="mt-12 xl:relative xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-12">
+            <div
+              class="pointer-events-none absolute bottom-0 right-[304px] top-0 hidden w-px bg-gray-200 xl:block"
+              aria-hidden="true"
+            ></div>
+
+            <div>
+              <PortableTextRenderer value={page.body} />
+            </div>
+
+            {headings.length > 0 && (
+              <aside id="toc-rail" class="mt-12 hidden xl:relative xl:mt-0 xl:block xl:self-stretch xl:justify-self-end xl:w-full xl:max-w-[280px] xl:pl-6">
+                <div id="toc-panel" class="p-0">
+                  <p class="text-[20px] font-[600] leading-tight text-black">
+                    Table of Contents
+                  </p>
+
+                  <nav aria-label="Table of contents" class="mt-5">
+                    <ul class="space-y-3 text-left">
+                      {headings.map((heading) => (
+                        <li>
+                          <a
+                            href={`#${heading.id}`}
+                            data-toc-link={heading.id}
+                            class="text-[17px] leading-[1.5] text-[#4b5563] transition-colors hover:text-[#088cbc] hover:underline"
+                          >
+                            {heading.text}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
+              </aside>
+            )}
           </div>
         )}
 
@@ -159,4 +194,103 @@ const currentPath = `/${page.slug}`;
       <SiteFooter />
     </main>
   </div>
+  <script is:inline>
+    const tocRail = document.getElementById("toc-rail");
+    const tocPanel = document.getElementById("toc-panel");
+    const tocRegion = document.getElementById("toc-region");
+    const desktopMq = window.matchMedia("(min-width: 1280px)");
+
+    const resetTocPanel = () => {
+      if (!tocPanel) {
+        return;
+      }
+
+      tocPanel.style.removeProperty("position");
+      tocPanel.style.removeProperty("top");
+      tocPanel.style.removeProperty("left");
+      tocPanel.style.removeProperty("right");
+      tocPanel.style.removeProperty("width");
+    };
+
+    const updateTocPanel = () => {
+      if (!tocRail || !tocPanel || !tocRegion || !desktopMq.matches) {
+        resetTocPanel();
+        return;
+      }
+
+      const railRect = tocRail.getBoundingClientRect();
+      const regionRect = tocRegion.getBoundingClientRect();
+      const panelRect = tocPanel.getBoundingClientRect();
+      const railTop = railRect.top + window.scrollY;
+      const regionBottom = regionRect.bottom + window.scrollY;
+      const panelNaturalLeft = panelRect.left;
+      const panelNaturalWidth = panelRect.width;
+      const panelOffsetWithinRail = panelNaturalLeft - railRect.left;
+      const currentScroll = window.scrollY;
+      const fixedTop = 24;
+      const startPoint = railTop - fixedTop;
+      const stopPoint = regionBottom - tocPanel.offsetHeight - fixedTop;
+
+      if (currentScroll <= startPoint) {
+        resetTocPanel();
+        return;
+      }
+
+      if (currentScroll >= stopPoint) {
+        tocPanel.style.position = "absolute";
+        tocPanel.style.top = `${Math.max(regionBottom - railTop - tocPanel.offsetHeight, 0)}px`;
+        tocPanel.style.left = `${panelOffsetWithinRail}px`;
+        tocPanel.style.right = "auto";
+        tocPanel.style.width = `${panelNaturalWidth}px`;
+        return;
+      }
+
+      tocPanel.style.position = "fixed";
+      tocPanel.style.top = `${fixedTop}px`;
+      tocPanel.style.left = `${panelNaturalLeft}px`;
+      tocPanel.style.right = "auto";
+      tocPanel.style.width = `${panelNaturalWidth}px`;
+    };
+
+    updateTocPanel();
+    window.addEventListener("scroll", updateTocPanel, { passive: true });
+    window.addEventListener("resize", updateTocPanel);
+    desktopMq.addEventListener("change", updateTocPanel);
+
+    // Active heading highlight
+    const tocLinks = document.querySelectorAll("[data-toc-link]");
+    if (tocLinks.length > 0) {
+      const headingIds = Array.from(tocLinks).map(
+        (link) => link.getAttribute("data-toc-link")
+      );
+      const headingEls = headingIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+      const setActive = (id) => {
+        tocLinks.forEach((link) => {
+          if (link.getAttribute("data-toc-link") === id) {
+            link.classList.remove("text-[#4b5563]");
+            link.classList.add("text-[#088cbc]", "underline");
+          } else {
+            link.classList.add("text-[#4b5563]");
+            link.classList.remove("text-[#088cbc]", "underline");
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: "0px 0px -70% 0px", threshold: 0 }
+      );
+
+      headingEls.forEach((el) => observer.observe(el));
+    }
+  </script>
 </BaseLayout>

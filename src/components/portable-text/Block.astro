@@ -1,26 +1,28 @@
 ---
 import type { Props as BlockProps } from "astro-portabletext/types";
+import { slugify, extractText } from "../../utils/portable-text";
 
 type Props = BlockProps;
 
 const { node } = Astro.props;
 const style = node.style || "normal";
+const headingId = style === "h2" ? slugify(extractText(node)) : undefined;
 ---
 
 {style === "h2" && (
-  <h2 class="mt-14 text-[36px] font-[600] leading-tight text-black first:mt-0">
+  <h2 id={headingId} class="mt-14 scroll-mt-36 text-[36px] font-[500] leading-tight text-black first:mt-0">
     <slot />
   </h2>
 )}
 
 {style === "h3" && (
-  <h3 class="mt-10 text-[28px] font-[600] leading-tight text-black">
+  <h3 class="mt-10 text-[28px] font-[500] leading-tight text-black">
     <slot />
   </h3>
 )}
 
 {style === "h4" && (
-  <h4 class="mt-8 text-[22px] font-[600] leading-tight text-black">
+  <h4 class="mt-8 text-[22px] font-[500] leading-tight text-black">
     <slot />
   </h4>
 )}
