@@ -9,6 +9,7 @@ export function urlFor(source: any) {
 
 const PAGES_QUERY = `*[_type == "page" && defined(slug.current)]{
   _id,
+  _updatedAt,
   phase,
   section,
   metaTitle,

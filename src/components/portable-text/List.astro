@@ -1,0 +1,14 @@
+---
+const { node } = Astro.props;
+const listType = node.listItem;
+---
+
+{listType === "number" ? (
+  <ol class="mt-4 list-decimal space-y-2 pl-6 text-[18px] leading-[1.8] text-[#4b5563]">
+    <slot />
+  </ol>
+) : (
+  <ul class="mt-2 list-disc space-y-2 pl-6 text-[18px] leading-[1.8] text-[#4b5563]">
+    <slot />
+  </ul>
+)}

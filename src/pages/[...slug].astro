@@ -112,7 +112,7 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
         <div class="flex flex-col gap-6">
           {
             structuralSidebarLinks.map((link) => {
-              const isActive = link.href === currentPath || link.isCurrentPageLink;
+              const isActive = link.href === currentPath;
               return (
                 <a
                   href={link.href}
@@ -206,6 +206,12 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
           </div>
         )}
 
+        {page._updatedAt && (
+          <p class="mt-12 text-[15px] italic text-[#4b5563]">
+            Published: {new Date(page._updatedAt).toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" })}, {new Date(page._updatedAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
+          </p>
+        )}
+
         <section class="mt-12 border-t border-gray-200 pt-8 text-[#111111]">
           <div class="space-y-4">
             <p class="text-[15px] leading-[1.8] text-[#4b5563]">
@@ -259,6 +265,9 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
         resetTocPanel();
         return;
       }
+
+      // Reset before measuring so we get the natural layout position
+      resetTocPanel();
 
       const railRect = tocRail.getBoundingClientRect();
       const regionRect = tocRegion.getBoundingClientRect();

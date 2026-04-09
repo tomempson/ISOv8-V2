@@ -3,6 +3,8 @@ import { PortableText } from "astro-portabletext";
 import InlineImage from "./InlineImage.astro";
 import Block from "./Block.astro";
 import Link from "./Link.astro";
+import List from "./List.astro";
+import ListItem from "./ListItem.astro";
 
 interface Props {
   value: any[];
@@ -20,6 +22,14 @@ const components = {
     h4: Block,
     normal: Block,
     blockquote: Block,
+  },
+  list: {
+    bullet: List,
+    number: List,
+  },
+  listItem: {
+    bullet: ListItem,
+    number: ListItem,
   },
   mark: {
     link: Link,
