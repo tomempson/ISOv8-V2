@@ -297,7 +297,7 @@
       document.body.style.removeProperty("right");
       document.body.style.removeProperty("width");
       document.body.style.removeProperty("overflow");
-      window.scrollTo(0, lockedScrollY);
+      window.scrollTo({ top: lockedScrollY, behavior: "instant" });
     };
 
     if (engageButton && contactOverlay && contactModal && contactClose) {
