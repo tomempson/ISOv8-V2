@@ -14,5 +14,5 @@ const isExternal = href && !href.startsWith("/") && !href.startsWith("#");
   rel={isExternal ? "noopener noreferrer" : undefined}
   class="text-[#088cbc] underline decoration-1 underline-offset-4 transition-colors hover:text-[#066a94]"
 >
-  <slot />
+  <slot />{openInNewTab && <span class="sr-only"> (opens in a new tab)</span>}
 </a>

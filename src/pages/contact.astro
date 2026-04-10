@@ -8,11 +8,11 @@ import SiteFooter from "../components/SiteFooter.astro";
   description="Get in touch with ISOv8 about your container conversion project."
 >
   <div class="flex min-h-screen flex-col bg-white text-[#111111]">
-    <main class="flex flex-1 flex-col items-center justify-center px-6 py-16">
+    <main id="main-content" class="flex flex-1 flex-col items-center justify-center px-6 py-16">
       <div class="w-full max-w-[760px]">
         <div class="mb-7 flex items-center justify-center gap-6 min-[640px]:justify-between">
           <div class="flex items-center gap-3">
-            <h3 class="text-[40px] font-[600] leading-none text-black">Just As</h3>
+            <h3 class="text-[2.5rem] font-[600] leading-none text-black">Just As</h3>
             <img
               src="/assets/images/container-king-logo-mark-colour.svg"
               alt="Container King"
@@ -22,7 +22,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 
           <a
             href="tel:01724870000"
-            class="hidden text-[28px] font-[600] leading-none text-[#088cbc] transition-opacity hover:opacity-80 min-[640px]:block"
+            class="hidden text-[1.75rem] font-[600] leading-none text-[#088cbc] transition-opacity hover:opacity-80 min-[640px]:block"
           >
             01724 870000
           </a>
@@ -47,74 +47,82 @@ import SiteFooter from "../components/SiteFooter.astro";
 
           <div class="grid gap-2 md:grid-cols-2 lg:gap-3">
             <div class="flex flex-col gap-1">
+              <label for="contact-name" class="sr-only">Name</label>
               <input
+                id="contact-name"
                 type="text"
                 name="name"
-                aria-label="Name"
                 placeholder="Name"
                 autocomplete="name"
                 required
                 maxlength="80"
                 data-contact-input
-                class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[16px] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus:border-[#088cbc]"
+                class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
               />
               <p
+                id="contact-name-error"
                 data-error-for="name"
-                class="min-h-[16px] text-[12px] leading-tight text-[#c53d32]"
+                class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
               ></p>
             </div>
 
             <div class="flex flex-col gap-1">
+              <label for="contact-telephone" class="sr-only">Telephone Number</label>
               <input
+                id="contact-telephone"
                 type="text"
                 name="telephone"
-                aria-label="Telephone Number"
                 placeholder="Telephone Number"
                 autocomplete="tel"
                 inputmode="numeric"
                 required
                 pattern="^[0-9]{7,15}$"
                 data-contact-input
-                class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[16px] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus:border-[#088cbc]"
+                class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
               />
               <p
+                id="contact-telephone-error"
                 data-error-for="telephone"
-                class="min-h-[16px] text-[12px] leading-tight text-[#c53d32]"
+                class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
               ></p>
             </div>
 
             <div class="flex flex-col gap-1 md:col-span-2">
+              <label for="contact-business" class="sr-only">Business Name</label>
               <input
+                id="contact-business"
                 type="text"
                 name="business-name"
-                aria-label="Business Name"
                 placeholder="Business Name"
                 autocomplete="organization"
                 required
                 maxlength="100"
                 data-contact-input
-                class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[16px] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus:border-[#088cbc]"
+                class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
               />
               <p
+                id="contact-business-error"
                 data-error-for="business-name"
-                class="min-h-[16px] text-[12px] leading-tight text-[#c53d32]"
+                class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
               ></p>
             </div>
 
             <div class="flex flex-col gap-1 md:col-span-2">
+              <label for="contact-enquiry" class="sr-only">Enquiry Details</label>
               <textarea
+                id="contact-enquiry"
                 name="enquiry-details"
                 rows="5"
-                aria-label="Enquiry Details"
                 placeholder="Enquiry Details"
                 required
                 maxlength="1000"
                 data-contact-input
-                class="w-full resize-none rounded-[6px] border border-gray-300 bg-white px-4 py-3 text-[16px] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus:border-[#088cbc]"
+                class="w-full resize-none rounded-[6px] border border-gray-300 bg-white px-4 py-3 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
               ></textarea>
               <p
+                id="contact-enquiry-error"
                 data-error-for="enquiry-details"
-                class="min-h-[16px] text-[12px] leading-tight text-[#c53d32]"
+                class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
               ></p>
             </div>
           </div>
@@ -122,13 +130,13 @@ import SiteFooter from "../components/SiteFooter.astro";
           <div class="mt-3 grid grid-cols-2 gap-3">
             <button
               type="submit"
-              class="h-12 w-full cursor-pointer rounded-[6px] bg-[#088cbc] px-8 text-[16px] font-[600] leading-none text-white transition-opacity hover:opacity-90"
+              class="h-12 w-full cursor-pointer rounded-[6px] bg-[#088cbc] px-8 text-[1rem] font-[600] leading-none text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
             >
               Submit
             </button>
             <a
               href="/"
-              class="flex h-12 w-full items-center justify-center rounded-[6px] border border-gray-300 text-[16px] font-[600] leading-none text-[#1f1f1f] transition-opacity hover:opacity-70"
+              class="flex h-12 w-full items-center justify-center rounded-[6px] border border-gray-300 text-[1rem] font-[600] leading-none text-[#1f1f1f] transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
             >
               Return Home
             </a>
@@ -179,10 +187,17 @@ import SiteFooter from "../components/SiteFooter.astro";
         const hasError = errorMessage.length > 0;
         input.setAttribute("aria-invalid", String(hasError));
         input.classList.toggle("border-[#c53d32]", hasError);
-        input.classList.toggle("focus:border-[#c53d32]", hasError);
+        input.classList.toggle("focus-visible:border-[#c53d32]", hasError);
         input.classList.toggle("border-gray-300", !hasError);
-        input.classList.toggle("focus:border-[#088cbc]", !hasError);
-        if (errorElement) errorElement.textContent = errorMessage;
+        input.classList.toggle("focus-visible:border-[#088cbc]", !hasError);
+        if (errorElement) {
+          errorElement.textContent = errorMessage;
+          if (hasError && errorElement.id) {
+            input.setAttribute("aria-describedby", errorElement.id);
+          } else {
+            input.removeAttribute("aria-describedby");
+          }
+        }
         return !hasError;
       };
 

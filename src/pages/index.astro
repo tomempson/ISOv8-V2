@@ -108,7 +108,7 @@ const conversionImages = [
 ];
 ---
 
-<BaseLayout title="ISOv8®" description=" ">
+<BaseLayout title="ISOv8®" description="ISO Shipping Container Conversions for Businesses, Creatives & Commercial Sectors Across the UK">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -136,7 +136,7 @@ const conversionImages = [
       }
     ]
   })} />
-  <main>
+  <main id="main-content">
     <EngageContact />
 
     <section class="relative h-screen overflow-hidden">
@@ -165,14 +165,14 @@ const conversionImages = [
           />
         </a>
 
-        <div class="flex items-center justify-between gap-6 px-8 py-8 text-[20px] font-medium text-white lg:px-12 lg:py-10">
+        <div class="flex items-center justify-between gap-6 px-8 py-8 text-[1.25rem] font-medium text-white lg:px-12 lg:py-10">
           <button
             id="menu-toggle"
             type="button"
             aria-controls="menu-shell"
             aria-expanded="false"
             aria-label="Open menu"
-            class="flex cursor-pointer items-center gap-4 text-white transition-colors duration-300"
+            class="flex cursor-pointer items-center gap-4 text-white transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             <span class="flex w-10 flex-col gap-3" aria-hidden="true">
               <span class="h-0.5 w-full bg-current"></span>
@@ -216,7 +216,7 @@ const conversionImages = [
             type="button"
             aria-controls="menu-shell"
             aria-label="Close menu"
-            class="absolute left-8 top-8 flex cursor-pointer items-center gap-4 text-[20px] font-medium text-black lg:left-12 lg:top-10"
+            class="absolute left-8 top-8 flex cursor-pointer items-center gap-4 text-[1.25rem] font-medium text-black lg:left-12 lg:top-10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#088cbc]"
           >
             <span class="relative flex h-10 w-10 items-center justify-center" aria-hidden="true">
               <span class="absolute h-0.5 w-full rotate-45 bg-current"></span>
@@ -232,7 +232,7 @@ const conversionImages = [
                 type="button"
                 aria-controls={`menu-${phase.id}-panel`}
                 aria-expanded="false"
-                class="phase-trigger inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
+                class="phase-trigger inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
               >
                 {phase.label}
               </button>
@@ -265,7 +265,7 @@ const conversionImages = [
                 type="button"
                 aria-controls={`menu-${phase.id}-panel`}
                 aria-label="Back to primary menu"
-                class="phase-back flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc]"
+                class="phase-back flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
               >
                 <svg
                   class="h-5 w-5"
@@ -283,7 +283,7 @@ const conversionImages = [
                 </svg>
               </button>
 
-              <p class="text-[20px] font-[500] leading-tight text-black">
+              <p class="text-[1.25rem] font-[500] leading-tight text-black">
                 {phase.label}
               </p>
             </div>
@@ -296,12 +296,12 @@ const conversionImages = [
                     type="button"
                     aria-controls="menu-articles-panel"
                     aria-expanded="false"
-                    class="menu-articles-trigger inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline"
+                    class="menu-articles-trigger inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
                   >
                     {section.label}
                   </button>
                 ) : (
-                  <p class="inline-block text-left text-[18px] font-[400] leading-tight text-[#999999]">
+                  <p class="inline-block text-left text-[1.125rem] font-[400] leading-tight text-[#999999]">
                     {section.label}
                   </p>
                 )
@@ -324,7 +324,7 @@ const conversionImages = [
               type="button"
               aria-controls="menu-articles-panel"
               aria-label="Back to Phase 1 panel"
-              class="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc]"
+              class="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
             >
               <svg
                 class="h-5 w-5"
@@ -342,7 +342,7 @@ const conversionImages = [
               </svg>
             </button>
 
-            <p class="text-[20px] font-[500] leading-tight text-black">
+            <p class="text-[1.25rem] font-[500] leading-tight text-black">
               Base Platforms & Structural Principles
             </p>
           </div>
@@ -352,7 +352,7 @@ const conversionImages = [
               structuralSidebarLinks.map((link) => (
                 <a
                   href={link.href}
-                  class="menu-tertiary-link inline-block cursor-pointer text-left text-[18px] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline active:text-[#088cbc] active:underline"
+                  class="menu-tertiary-link inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline active:text-[#088cbc] active:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
                 >
                   {link.label}
                 </a>
@@ -376,7 +376,7 @@ const conversionImages = [
       <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/65 via-black/20 to-transparent lg:h-36"></div>
 
       <h1
-        class="absolute bottom-8 left-8 z-20 text-[35px] font-[600] leading-[1.1] text-white lg:bottom-12 lg:left-12"
+        class="absolute bottom-8 left-8 z-20 text-[2.1875rem] font-[600] leading-[1.1] text-white lg:bottom-12 lg:left-12"
       >
         <span class="flex items-start gap-3">
           <img
@@ -403,7 +403,7 @@ const conversionImages = [
       class="bg-cover bg-center bg-no-repeat px-6 py-12 lg:px-12"
       style="background-image: url('/assets/images/showcase-background.webp');"
     >
-      <h2 class="text-center text-[35px] font-[600]">
+      <h2 class="text-center text-[2.1875rem] font-[600]">
         ISO Shipping Container Conversions for Businesses, Creatives &
         Commercial Sectors Across the UK
       </h2>
@@ -423,10 +423,10 @@ const conversionImages = [
               />
 
               <div class="flex-1">
-                <h3 class="text-left text-[24px] font-[600] leading-tight text-[#1f1f1f]">
+                <h3 class="text-left text-[1.5rem] font-[600] leading-tight text-[#1f1f1f]">
                   {image.title}
                 </h3>
-                <p class="mt-3 text-[16px] leading-[1.6] text-[#4b4b4b]">
+                <p class="mt-3 text-[1rem] leading-[1.6] text-[#4b4b4b]">
                   {image.description}
                 </p>
               </div>
@@ -447,7 +447,7 @@ const conversionImages = [
             />
           </a>
 
-          <p class="text-right text-[30px] font-[400] italic leading-none text-black max-[1024px]:text-center">
+          <p class="text-right text-[1.875rem] font-[400] italic leading-none text-black max-[1024px]:text-center">
             without doubt&reg;
           </p>
         </div>
@@ -455,15 +455,15 @@ const conversionImages = [
 
       <div class="border-b border-gray-300 px-6 py-8 lg:px-12">
         <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:items-center max-[1024px]:gap-10">
-          <p class="text-[16px] leading-none text-[#6f6f6f] max-[1024px]:text-center">
+          <p class="text-[1rem] leading-none text-[#6f6f6f] max-[1024px]:text-center">
             &copy; 2025 ContainerKing&reg;. All rights reserved.
           </p>
 
           <nav aria-label="Footer policies" class="flex items-center gap-8 max-[1024px]:flex-row max-[1024px]:justify-center max-[1024px]:gap-8">
-            <a href="/cookie-policy" class="text-[16px] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
+            <a href="/cookie-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
               Cookie Policy
             </a>
-            <a href="/privacy-policy" class="text-[16px] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
+            <a href="/privacy-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
               Privacy Policy
             </a>
           </nav>
