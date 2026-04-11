@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EngageContact from "../components/EngageContact.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -7,6 +8,8 @@ import PortableTextRenderer from "../components/portable-text/PortableTextRender
 import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
 import { getAllPages } from "../utils/sanity";
 import { extractH2s } from "../utils/portable-text";
+import phase1Img from "../assets/images/phase-1.jpg";
+import logoPng from "../assets/images/isov8-logo.png";
 
 export async function getStaticPaths() {
   const pages = await getAllPages();
@@ -149,13 +152,13 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
     <aside
       class="hidden border-b border-gray-300 bg-white lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:block lg:w-[350px] lg:overflow-y-auto lg:border-b-0 lg:border-r"
     >
-      <img
-        src="/assets/images/phase-1.jpg"
+      <Image
+        src={phase1Img}
         alt=""
         aria-hidden="true"
         class="block w-full"
-        width="350"
-        height="250"
+        width={350}
+        height={250}
         decoding="async"
       />
 
@@ -216,8 +219,8 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
       <SiteHeader backHref={backHref} />
       <div class="bg-white px-8 py-10 lg:px-12 lg:py-12">
         <section class="relative my-6 overflow-hidden py-8 md:my-8 md:py-10 xl:my-0 xl:py-0">
-          <img
-            src="/assets/images/isov8-logo.png"
+          <Image
+            src={logoPng}
             alt={page.h1Title || "ISOv8"}
             class="block w-full"
             decoding="async"
@@ -321,7 +324,7 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
       <SiteFooter />
     </main>
   </div>
-  <script is:inline>
+  <script>
     const tocRail = document.getElementById("toc-rail");
     const tocPanel = document.getElementById("toc-panel");
     const tocRegion = document.getElementById("toc-region");

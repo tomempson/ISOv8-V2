@@ -1,3 +1,8 @@
+---
+import contactBg from "../assets/images/contact-background.svg";
+import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
+---
+
 <button
   id="engage-button"
   type="button"
@@ -64,7 +69,7 @@
 
   <div class="relative w-full max-w-[min(94vw,1100px)]">
     <img
-      src="/assets/images/contact-background.svg"
+      src={contactBg.src}
       alt=""
       aria-hidden="true"
       class="h-auto max-h-[calc(100dvh-72px)] w-full"
@@ -74,14 +79,11 @@
     <form
       id="contact-form"
       name="engage-contact"
-      method="POST"
-      action="/thank-you/"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
       novalidate
       class="absolute inset-0 flex items-center justify-center px-8 py-8 text-black lg:px-20 lg:py-10"
     >
       <input type="hidden" name="form-name" value="engage-contact" />
+      <input type="hidden" name="form-loaded-at" value="" data-form-timing />
       <p class="hidden" aria-hidden="true">
         <label>
           Don&apos;t fill this out if you&apos;re human:
@@ -94,7 +96,7 @@
           <div class="flex items-center gap-3">
             <h3 class="text-[2.5rem] font-[600] leading-none text-black">Just As</h3>
             <img
-              src="/assets/images/container-king-logo-mark-colour.svg"
+              src={ckLogoMark.src}
               alt="Container King"
               class="-ml-1 h-9 w-auto"
             />
@@ -108,7 +110,7 @@
           </a>
         </div>
 
-        <div class="grid gap-2 md:grid-cols-2 lg:gap-3">
+        <div class="grid gap-0 md:grid-cols-2 lg:gap-1">
           <div class="flex flex-col gap-1">
             <label for="engage-name" class="sr-only">Name</label>
             <input
@@ -125,7 +127,7 @@
             <p
               id="engage-name-error"
               data-error-for="name"
-              class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
+              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
             ></p>
           </div>
 
@@ -146,7 +148,7 @@
             <p
               id="engage-telephone-error"
               data-error-for="telephone"
-              class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
+              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
             ></p>
           </div>
 
@@ -166,7 +168,7 @@
             <p
               id="engage-business-error"
               data-error-for="business-name"
-              class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
+              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
             ></p>
           </div>
 
@@ -185,14 +187,22 @@
             <p
               id="engage-enquiry-error"
               data-error-for="enquiry-details"
-              class="min-h-[16px] text-[0.75rem] leading-tight text-[#c53d32]"
+              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
             ></p>
           </div>
         </div>
 
+        <p
+          id="engage-form-error"
+          role="alert"
+          class="mt-2 hidden text-[0.875rem] leading-tight text-[#c53d32]"
+        ></p>
+
         <button
+          id="engage-submit"
           type="submit"
-          class="mt-3 h-12 w-full cursor-pointer rounded-[6px] bg-[#088cbc] px-8 text-[1rem] font-[600] leading-none text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+          class="mt-3 w-full cursor-pointer rounded-md py-5 text-[1.25rem] font-[500] uppercase tracking-[0.05em] leading-none text-white transition-opacity duration-300 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc] disabled:cursor-not-allowed disabled:opacity-60"
+          style="background: linear-gradient(to right, #008eba, #00a9d3);"
         >
           Submit
         </button>
@@ -201,7 +211,15 @@
   </div>
 </div>
 
-<style is:inline>
+<form name="engage-contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="engage-contact" />
+  <input name="name" />
+  <input name="telephone" />
+  <input name="business-name" />
+  <textarea name="enquiry-details"></textarea>
+</form>
+
+<style is:global>
   .engage-button {
     position: fixed;
     isolation: isolate;
@@ -254,7 +272,7 @@
   }
 </style>
 
-<script is:inline>
+<script>
   (() => {
     const engageButton = document.getElementById("engage-button");
     const contactOverlay = document.getElementById("contact-overlay");
@@ -430,9 +448,16 @@
     }
 
     if (contactForm) {
+      const formLoadedAt = Date.now();
+      const timingInput = contactForm.querySelector("[data-form-timing]");
+      if (timingInput) timingInput.value = String(formLoadedAt);
+
       const contactInputs = Array.from(
         contactForm.querySelectorAll("[data-contact-input]")
       );
+      const submitButton = document.getElementById("engage-submit");
+      const formError = document.getElementById("engage-form-error");
+      let isSubmitting = false;
 
       const validationMessages = {
         name: {
@@ -493,6 +518,26 @@
         return !hasError;
       };
 
+      const showFormError = (message) => {
+        if (!formError) return;
+        formError.textContent = message;
+        formError.classList.remove("hidden");
+      };
+
+      const hideFormError = () => {
+        if (!formError) return;
+        formError.textContent = "";
+        formError.classList.add("hidden");
+      };
+
+      const setSubmitting = (submitting) => {
+        isSubmitting = submitting;
+        if (submitButton) {
+          submitButton.disabled = submitting;
+          submitButton.textContent = submitting ? "Submitting\u2026" : "Submit";
+        }
+      };
+
       contactInputs.forEach((input) => {
         input.addEventListener("blur", () => {
           setFieldErrorState(input);
@@ -511,6 +556,14 @@
 
       contactForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        hideFormError();
+
+        if (isSubmitting) return;
+
+        if (Date.now() - formLoadedAt < 3000) {
+          showFormError("Please wait a moment before submitting.");
+          return;
+        }
 
         const firstInvalidInput = contactInputs.find((input) => !setFieldErrorState(input));
 
@@ -518,6 +571,8 @@
           firstInvalidInput.focus();
           return;
         }
+
+        setSubmitting(true);
 
         try {
           const summaryData = {};
@@ -530,16 +585,24 @@
         const formData = new FormData(contactForm);
         window.removeEventListener("beforeunload", warnBeforeUnload);
 
-        fetch("/", {
+        fetch("/.netlify/functions/submit-contact", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams(formData).toString()
         })
-          .then(() => {
+          .then(async (response) => {
+            const data = await response.json().catch(() => null);
+            if (!response.ok) throw new Error(data?.error || "[E-502] The server returned an unexpected response. Please try again.");
             window.location.href = "/thank-you/";
           })
-          .catch(() => {
-            window.location.href = "/thank-you/";
+          .catch((err) => {
+            try {
+              const message = err.message && err.message.startsWith("[E-")
+                ? err.message
+                : "[E-600] Unable to reach our servers. Please check your internet connection and try again.";
+              sessionStorage.setItem("submission-error", message);
+            } catch (_) {}
+            window.location.href = "/error/";
           });
       });
     }

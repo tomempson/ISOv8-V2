@@ -16,6 +16,7 @@
     "tailwindcss": "^4.1.12"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.7.4",
     "@sanity/astro": "^3.3.1",
     "@sanity/client": "^7.20.0",
     "@sanity/image-url": "^2.1.1",

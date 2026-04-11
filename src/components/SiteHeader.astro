@@ -1,4 +1,7 @@
 ---
+import logoFull from "../assets/images/isov8-logo.svg";
+import logoMark from "../assets/images/isov8-logo-mark.svg";
+
 interface Props {
   class?: string;
   backHref?: string;
@@ -21,7 +24,7 @@ const {
     class="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 min-[679px]:block lg:left-12 lg:translate-x-0"
   >
     <img
-      src="/assets/images/isov8-logo.svg"
+      src={logoFull.src}
       alt="ISO V8"
       class="w-[300px] max-w-[calc(100vw-120px)]"
       width="300"
@@ -36,7 +39,7 @@ const {
     class="absolute right-8 top-1/2 z-10 block -translate-y-1/2 min-[679px]:hidden"
   >
     <img
-      src="/assets/images/isov8-logo-mark.svg"
+      src={logoMark.src}
       alt="ISO V8"
       class="w-16"
       width="64"

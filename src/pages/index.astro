@@ -1,126 +1,154 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EngageContact from "../components/EngageContact.astro";
 import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
 import { phases } from "../data/phases";
 
+import logoMark from "../assets/images/isov8-logo-mark.svg";
+import logoFull from "../assets/images/isov8-logo.svg";
+import logoColour from "../assets/images/isov8-logo-colour.svg";
+import bulletPoint from "../assets/images/bullet-point.webp";
+import showcaseBg from "../assets/images/showcase-background.webp";
+
+import airbnbPod from "../assets/images/airbnb-pod.webp";
+import artStudio from "../assets/images/art-studio.webp";
+import playRoom from "../assets/images/play-room.webp";
+import canteen from "../assets/images/canteen.webp";
+import cinemaRoom from "../assets/images/cinema-room.webp";
+import classroom from "../assets/images/classroom.webp";
+import craftStudio from "../assets/images/craft-studio.webp";
+import gamingRoom from "../assets/images/gaming-room.webp";
+import gardenRoom from "../assets/images/garden-room.webp";
+import gym from "../assets/images/gym.webp";
+import insulatedStorage from "../assets/images/insulated-storage.webp";
+import bar from "../assets/images/bar.webp";
+import office from "../assets/images/office.webp";
+import home from "../assets/images/home.webp";
+import meetingRoom from "../assets/images/meeting-room.webp";
+import motorsportGarage from "../assets/images/motorsport-garage.webp";
+import retailPopupShop from "../assets/images/retail-popup-shop.webp";
+import sheShed from "../assets/images/she-shed.webp";
+import siteOffice from "../assets/images/site-office.webp";
+import workshop from "../assets/images/workshop.webp";
+
 const conversionImages = [
   {
-    src: "airbnb-pod.webp",
+    src: airbnbPod,
     title: "Airbnb Pods",
     href: "/airbnb-pods",
     description: "Stand out and earn more. Our bespoke container Airbnb pods can be styled for wow-factor—compact, comfortable, and unforgettable. Ideal for short stays, guest retreats, or off-grid escapes. Eye-catching, insulated and made to impress - ready to explore high-impact pods with serious rental appeal."
   },
   {
-    src: "art-studio.webp",
+    src: artStudio,
     title: "Arts, Crafts, Hobbyists Studios",
     href: "/arts-crafts-hobbyists-studios",
     description: "Space to focus, freedom to create. Our bespoke container studios can be designed for artists, makers and hobbyists who need room to think and time to make. Bright, secure and insulated for year-round comfort. Whether it's painting, sewing, or sculpting: ready to create your own custom craft space?"
   },
   {
-    src: "play-room.webp",
+    src: playRoom,
     title: "BDSM Play Rooms",
     href: "/bdsm-play-rooms",
     description: "Privacy. Control. Atmosphere. Our bespoke container conversions can be transformed into fully private BDSM playrooms: sound-insulated, secure, and built to your preferences. Create a space that feels safe, personal, and entirely yours - ready to explore discreet, made-to-measure playroom options?"
   },
   {
-    src: "canteen.webp",
+    src: canteen,
     title: "Canteens",
     href: "/canteens",
     description: "Break time, built better. Our canteen and mess cabin conversions can be fitted out for comfort and durability - bright, easy to clean and ready for site life. Ideal for staff meals, rest breaks or shelter from the weather. Built tough, finished smart - uncover ready-to-use break room solutions."
   },
   {
-    src: "cinema-room.webp",
+    src: cinemaRoom,
     title: "Cinema Rooms",
     href: "/cinema-rooms",
     description: "Bring the big screen home. Our container cinema rooms can be crafted for pure escapism - dark, quiet and acoustically treated. Perfect for film buffs, directors, or anyone who takes movie nights seriously. Designed for atmosphere, built for comfort - find more details on your bespoke private cinema room."
   },
   {
-    src: "classroom.webp",
+    src: classroom,
     title: "Classrooms",
     href: "/classrooms",
     description: "Teach in peace. Our container classrooms can be designed for calm, focused learning - quiet, warm and free from outside distractions: ideal for one-to-one tuition, small groups or online learning. A smarter, faster alternative to traditional builds - delve into bespoke classroom spaces that work."
   },
   {
-    src: "craft-studio.webp",
+    src: craftStudio,
     title: "Craft Studios",
     href: "/craft-studios",
     description: "Create without compromise. Our container craft studios can be tailored to your flow - bright, warm and distraction-free. Whether you're painting, stitching, sculpting or designing, this is your dedicated space to focus and flourish. Inspiring, secure and built around you. Navigate to your made-to-measure studio now."
   },
   {
-    src: "gaming-room.webp",
+    src: gamingRoom,
     title: "Gaming Rooms",
     href: "/gaming-rooms",
     description: "Level up your setup. Our container gaming rooms can be styled for total immersion - dark walls, ambient lighting and zero distractions. Built for streamers, creators and serious players who want their own private world. Bold, atmospheric, and made to order. Discover your custom-built game zone now."
   },
   {
-    src: "garden-room.webp",
+    src: gardenRoom,
     title: "Garden Rooms",
     href: "/garden-rooms",
     description: "Not your average garden room. Our container conversions blend modern design with practical performance - think clean lines, sleek finishes and fully insulated comfort. Ideal for creative spaces, studios or home offices. Made to impress, made to last - investigate our designer garden rooms now."
   },
   {
-    src: "gym.webp",
+    src: gym,
     title: "Gyms",
     href: "/gyms",
     description: "Train hard. Build smart. Our bespoke steel gym buildings and container gym conversions are built to take a beating - just like you. Fully insulated, ventilated and ready for kit. Ideal for PTs, sports clubs or home setups. Durable, relocatable and made to spec - why not examine your gym built the industrial way?"
   },
   {
-    src: "insulated-storage.webp",
+    src: insulatedStorage,
     title: "Insulated Storage",
     href: "/insulated-storage",
     description: "Need more than just a basic box? Our lined and insulated storage containers offer dry, secure and temperature-stable space all year round. Perfect for tools, stock, equipment or sensitive items. Clean, ready-to-use and customisable. Discover a smarter way to store - tick box, explore our range now."
   },
   {
-    src: "bar.webp",
+    src: bar,
     title: "Luxury Bars & Lounges",
     href: "/luxury-bars-lounges",
     description: "Designed to impress. Built to perform. Our luxury container bars and lounges can be styled with fitted bars, ambient lighting, luxe finishes and serious atmosphere. Ideal for bold private builds or standout brand launches - tune in & cheque out our high-spec spaces that turn heads."
   },
   {
-    src: "office.webp",
+    src: office,
     title: "Luxury Offices",
     href: "/luxury-offices",
     description: "Portable prestige. Built to impress. Our luxury container offices can be tailored with premium finishes, smart layouts and executive detail. Designed for entrepreneurs, directors and decision-makers who want more than just a workspace. Built to command respect from day one. Make it yours now."
   },
   {
-    src: "home.webp",
+    src: home,
     title: "Man Caves",
     href: "/man-caves",
     description: "Your space. Your rules. Our bespoke man cave container conversions can be tailored for downtime, hobbies or serious-big screen time. Dark, bold, built around you: whether it's music, motors, gambling or just relaxing. Hard drinks, harder playlists. Peruse the ultimate retreat on your terms now."
   },
   {
-    src: "meeting-room.webp",
+    src: meetingRoom,
     title: "Meeting Rooms",
     href: "/meeting-rooms",
     description: "Boardroom brains in a Box. Why settle for noise, glare or distraction? ISOv8® meeting rooms are acoustically treated, soundproofed and made for high-focus thinking. Perfect for strategy, deals or zoom meetings that matter. We build bespoke, relocatable meeting spaces that perform - and impress - smart, private: built for serious business."
   },
   {
-    src: "motorsport-garage.webp",
+    src: motorsportGarage,
     title: "Motorsport Garages",
     href: "/motorsport-garages",
     description: "Smart garages for petrolheads. Your own pit lane in a box. Space for classics, karts or just track-day toys: plus room to work and for benches, cabinets and spares. IsoV8® builds wide-body anti-vandal workshops with grease, grit and gearstick glory. Space to polish, tinker and enjoy. Made for weekends, wheel nuts and winners. built with dream team energy."
   },
   {
-    src: "retail-popup-shop.webp",
+    src: retailPopupShop,
     title: "Retail Pop-Up Shops",
     href: "/retail-pop-up-shops",
     description: "Pop-Up shops that scream style. Bold, branded and impossible to ignore - these container conversions aren't just shops, they're show-stoppers. From artisan espresso bars to streetwear temples, we build mobile spaces that demand attention. Perfect for festivals, high streets, markets and brand pioneers. you bring the vision — we'll build the buzz."
   },
   {
-    src: "she-shed.webp",
+    src: sheShed,
     title: "She Sheds",
     href: "/she-sheds",
     description: "A Containerised She Shed! Girl power in a box: and no, he's not invited. Fully-insulated, electrified and 100% yours. She Shed container conversions built for peace, pampering or plotting your empire. Art studio? Yoga pod? Wine & whinge den? You choose. Built your way, delivered UK-wide. No men - no boys!"
   },
   {
-    src: "site-office.webp",
+    src: siteOffice,
     title: "Site Offices",
     href: "/site-offices",
     description: "Steel-built, site-ready, lined & insulated offices: anti-vandal, secure, portable and made for serious work. We convert shipping containers and fabricate steel site offices, to order. You choose electrics, heating, lighting, layout and internal finishes. Ideal for construction, logistics, manufacturing, and remote teams. Built to your spec - delivered nationwide."
   },
   {
-    src: "workshop.webp",
+    src: workshop,
     title: "Workshops",
     href: "/workshops",
     description: "Workshops that mean business. Steel-built, badged-up and ready to graft. From greasy spanners to sparks and sawdust, these converted container workshops are made to take the hits and keep working. Fit them with benches, racks, power, light and grit. Built for mechanics, makers, engineers and repair crews - bespoke customised relocatable: all yours."
@@ -167,7 +195,7 @@ const conversionImages = [
           class="absolute right-8 top-[15px] lg:hidden"
         >
           <img
-            src="/assets/images/isov8-logo-mark.svg"
+            src={logoMark.src}
             alt="ISO V8"
             class="w-16"
           />
@@ -179,7 +207,7 @@ const conversionImages = [
           class="absolute left-1/2 top-[15px] hidden -translate-x-1/2 lg:block"
         >
           <img
-            src="/assets/images/isov8-logo.svg"
+            src={logoFull.src}
             alt="ISO V8"
             class="w-[300px] max-w-none"
           />
@@ -269,13 +297,13 @@ const conversionImages = [
             aria-hidden="true"
             style="transform: translateX(-100%); transition-duration: 1000ms;"
           >
-            <img
+            <Image
               src={phase.image}
               alt=""
               aria-hidden="true"
               class="mx-auto block h-[250px] w-[350px] object-cover max-[678px]:w-full"
-              width="350"
-              height="250"
+              width={350}
+              height={250}
               decoding="async"
             />
 
@@ -399,8 +427,8 @@ const conversionImages = [
         class="absolute bottom-8 left-8 z-20 text-[2.1875rem] font-[600] leading-[1.1] text-white lg:bottom-12 lg:left-12"
       >
         <span class="flex items-start gap-3">
-          <img
-            src="/assets/images/bullet-point.webp"
+          <Image
+            src={bulletPoint}
             alt=""
             aria-hidden="true"
             class="mt-1 h-7 w-auto shrink-0 object-contain"
@@ -408,8 +436,8 @@ const conversionImages = [
           <span>Shipping Container Conversions</span>
         </span>
         <span class="mt-1 flex items-start gap-3">
-          <img
-            src="/assets/images/bullet-point.webp"
+          <Image
+            src={bulletPoint}
             alt=""
             aria-hidden="true"
             class="mt-1 h-7 w-auto shrink-0 object-contain"
@@ -421,7 +449,7 @@ const conversionImages = [
 
     <section
       class="bg-cover bg-center bg-no-repeat px-6 py-12 lg:px-12"
-      style="background-image: url('/assets/images/showcase-background.webp');"
+      style={`background-image: url('${showcaseBg.src}');`}
     >
       <h2 class="text-center text-[2.1875rem] font-[600]">
         ISO Shipping Container Conversions for Businesses, Creatives &
@@ -433,12 +461,12 @@ const conversionImages = [
           conversionImages.map((image) => (
             <article class="flex flex-col items-start gap-4 min-[679px]:flex-row">
               <a href={image.href}>
-                <img
-                  src={`/assets/images/${image.src}`}
+                <Image
+                  src={image.src}
                   alt={image.title}
                   class="h-auto w-[250px] shrink-0"
-                  width="250"
-                  height="250"
+                  width={250}
+                  height={250}
                   loading="lazy"
                   decoding="async"
                 />
@@ -463,7 +491,7 @@ const conversionImages = [
         <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:justify-center max-[1024px]:gap-10">
           <a href="/" aria-label="ISO V8 home">
             <img
-              src="/assets/images/isov8-logo-colour.svg"
+              src={logoColour.src}
               alt="ISO V8"
               class="h-auto w-[300px] max-w-full"
             />
@@ -478,7 +506,7 @@ const conversionImages = [
       <div class="border-b border-gray-300 px-6 py-8 lg:px-12">
         <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:items-center max-[1024px]:gap-10">
           <p class="text-[1rem] leading-none text-[#6f6f6f] max-[1024px]:text-center">
-            &copy; 2025 ContainerKing&reg;. All rights reserved.
+            &copy; 2026 ContainerKing&reg;. All rights reserved.
           </p>
 
           <nav aria-label="Footer policies" class="flex items-center gap-8 max-[1024px]:flex-row max-[1024px]:justify-center max-[1024px]:gap-8">
@@ -494,7 +522,7 @@ const conversionImages = [
     </footer>
   </main>
 
-  <style is:inline>
+  <style is:global>
     .phase-trigger:active,
     .phase-trigger.is-pressed,
     .phase-trigger[aria-expanded="true"] {
@@ -518,7 +546,7 @@ const conversionImages = [
     }
   </style>
 
-  <script is:inline>
+  <script>
     const menuToggle = document.getElementById("menu-toggle");
     const menuOverlay = document.getElementById("menu-overlay");
     const menuShell = document.getElementById("menu-shell");

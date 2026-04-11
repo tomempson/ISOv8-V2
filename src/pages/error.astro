@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="ISOv8® | Error"
+  description="There was a problem submitting your enquiry."
+>
+  <div class="flex min-h-screen flex-col bg-white text-[#111111]">
+    <main id="main-content" class="flex flex-1 flex-col items-center justify-center px-6 py-16">
+      <h1
+        class="text-center text-[3.75rem] font-[700] uppercase leading-[1] tracking-tight text-[#1f1f1f] md:text-[5.625rem] lg:text-[7.5rem]"
+      >
+        Error
+      </h1>
+
+      <div class="mt-8 w-full max-w-lg rounded-lg border border-[#c53d32] bg-[#fef2f2] px-6 py-5">
+        <p id="error-message" class="text-center text-[1.0625rem] font-[400] leading-[1.7] text-[#1f1f1f]">
+          We couldn't submit your enquiry. Please try again or contact us directly.
+        </p>
+      </div>
+
+      <div class="mt-10 flex flex-col items-center gap-4 min-[480px]:flex-row">
+        <a
+          href="/contact/"
+          class="inline-block rounded-md px-14 py-5 text-[1.25rem] font-[500] uppercase tracking-[0.05em] text-white transition-opacity duration-300 hover:opacity-85"
+          style="background: linear-gradient(to right, #008eba, #00a9d3);"
+        >
+          Try Again
+        </a>
+        <a
+          href="tel:01724870000"
+          class="inline-block rounded-md border border-gray-300 px-14 py-5 text-[1.25rem] font-[500] uppercase tracking-[0.05em] text-[#1f1f1f] transition-opacity duration-300 hover:opacity-70"
+        >
+          Call Us
+        </a>
+      </div>
+    </main>
+
+    <SiteFooter />
+  </div>
+
+  <script>
+    (() => {
+      try {
+        const error = sessionStorage.getItem("submission-error");
+        if (!error) {
+          window.location.replace("/");
+          return;
+        }
+
+        sessionStorage.removeItem("submission-error");
+
+        const messageEl = document.getElementById("error-message");
+        if (messageEl) messageEl.textContent = error;
+      } catch (_) {
+        window.location.replace("/");
+      }
+    })();
+  </script>
+</BaseLayout>

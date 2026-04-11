@@ -1,8 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EngageContact from "../components/EngageContact.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import logoPng from "../assets/images/isov8-logo.png";
 ---
 
 <BaseLayout
@@ -23,8 +25,8 @@ import SiteFooter from "../components/SiteFooter.astro";
       <SiteHeader backHref="/" />
       <div class="bg-white px-8 py-10 lg:px-12 lg:py-12">
         <section class="relative my-6 overflow-hidden py-8 md:my-8 md:py-10 xl:my-0 xl:py-0">
-          <img
-            src="/assets/images/isov8-logo.png"
+          <Image
+            src={logoPng}
             alt="Inside V8"
             class="block w-full"
             decoding="async"
