@@ -18,14 +18,7 @@ const PAGES_QUERY = `*[_type == "page" && defined(slug.current)]{
   h1Title,
   h2Title,
   h3Title,
-  body[]{
-    ...,
-    _type == "inlineImage" => {
-      ...,
-      "imageUrl": asset->url,
-      "imageDimensions": asset->metadata.dimensions
-    }
-  },
+  body,
   "slug": slug.current
 }`;
 
@@ -43,14 +36,7 @@ const PAGE_BY_SLUG_QUERY = `*[_type == "page" && slug.current == $slug][0]{
   h1Title,
   h2Title,
   h3Title,
-  body[]{
-    ...,
-    _type == "inlineImage" => {
-      ...,
-      "imageUrl": asset->url,
-      "imageDimensions": asset->metadata.dimensions
-    }
-  },
+  body,
   "slug": slug.current
 }`;
 

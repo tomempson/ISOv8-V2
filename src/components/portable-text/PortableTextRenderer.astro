@@ -1,6 +1,6 @@
 ---
 import { PortableText } from "astro-portabletext";
-import InlineImage from "./InlineImage.astro";
+import InlineImageInline from "./InlineImageInline.astro";
 import Block from "./Block.astro";
 import Link from "./Link.astro";
 import List from "./List.astro";
@@ -14,7 +14,7 @@ const { value } = Astro.props;
 
 const components = {
   type: {
-    inlineImage: InlineImage,
+    inlineImageInline: InlineImageInline,
   },
   block: {
     h2: Block,
@@ -38,7 +38,7 @@ const components = {
 ---
 
 {value && value.length > 0 && (
-  <div class="max-w-4xl">
+  <div class="max-w-4xl [display:flow-root]">
     <PortableText value={value} components={components} />
   </div>
 )}

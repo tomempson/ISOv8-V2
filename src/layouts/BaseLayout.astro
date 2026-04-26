@@ -53,6 +53,15 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <link rel="stylesheet" href="https://use.typekit.net/nlb2jsy.css?display=swap" />
     <title>{title}</title>
     <slot name="head" />
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-YQHKG2BQ0K"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-YQHKG2BQ0K');
+    </script>
   </head>
   <body>
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#111111] focus:shadow-lg focus:outline-2 focus:outline-[#088cbc]">Skip to content</a>

@@ -1,0 +1,35 @@
+---
+import { urlFor } from "../../utils/sanity";
+
+interface Props {
+  node: {
+    asset: any;
+    alt: string;
+    side?: "left" | "right";
+  };
+}
+
+const { node } = Astro.props;
+const { asset, alt, side = "left" } = node;
+
+const widths = [200, 300, 400, 600];
+const srcset = widths
+  .map((w) => `${urlFor(asset).width(w).auto("format").url()} ${w}w`)
+  .join(", ");
+const imageUrl = urlFor(asset).width(400).auto("format").url();
+
+const sideClass =
+  side === "right"
+    ? "float-right ml-6 my-2"
+    : "float-left mr-6 my-2";
+---
+
+<img
+  src={imageUrl}
+  srcset={srcset}
+  sizes="(max-width: 640px) 45vw, 320px"
+  alt={alt}
+  class:list={["max-w-[45%] sm:max-w-[18rem] rounded align-top", sideClass]}
+  loading="lazy"
+  decoding="async"
+/>

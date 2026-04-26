@@ -26,15 +26,6 @@ import SiteFooter from "../components/SiteFooter.astro";
       >
         Return Home
       </a>
-
-      <div id="submission-summary" class="mt-12 hidden w-full max-w-4xl">
-        <p class="mb-4 text-left text-[0.875rem] font-[500] uppercase text-[#6f6f6f]">
-          Your Submission
-        </p>
-        <div class="rounded-[6px] border border-gray-300 bg-[#fafafa] px-6 py-5">
-          <dl id="submission-fields" class="flex flex-col gap-2 text-[1rem]"></dl>
-        </div>
-      </div>
     </main>
 
     <SiteFooter />
@@ -43,40 +34,7 @@ import SiteFooter from "../components/SiteFooter.astro";
   <script>
     (() => {
       try {
-        const raw = sessionStorage.getItem("engage-contact-data");
-        if (!raw) return;
-
-        const data = JSON.parse(raw);
         sessionStorage.removeItem("engage-contact-data");
-
-        const labels = {
-          name: "Name",
-          telephone: "Telephone",
-          "business-name": "Business Name",
-          "enquiry-details": "Enquiry Details"
-        };
-
-        const container = document.getElementById("submission-fields");
-        const wrapper = document.getElementById("submission-summary");
-        if (!container || !wrapper) return;
-
-        Object.entries(labels).forEach(([key, label]) => {
-          const value = data[key];
-          if (!value) return;
-
-          const dt = document.createElement("dt");
-          dt.className = "text-[1rem] font-[500] text-[#6f6f6f]";
-          dt.textContent = label;
-
-          const dd = document.createElement("dd");
-          dd.className = "mt-0.5 mb-4 text-[1rem] leading-[1.6] text-[#1f1f1f]";
-          dd.textContent = value;
-
-          container.appendChild(dt);
-          container.appendChild(dd);
-        });
-
-        wrapper.classList.remove("hidden");
       } catch (_) {}
     })();
   </script>

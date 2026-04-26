@@ -1,0 +1,179 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EngageContact from "../components/EngageContact.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import logoPng from "../assets/images/isov8-logo.png";
+---
+
+<BaseLayout
+  title="ISOv8® | Cookie Policy"
+  description="Cookies and similar technologies used on isov8.co.uk, why we use them, and how you can control them."
+  keywords={["ISOv8 cookie policy", "cookies", "Google Analytics", "Adobe Fonts", "consent"]}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://isov8-v2.netlify.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Cookie Policy" }
+    ]
+  })} />
+  <div class="min-h-screen bg-white text-[#111111]">
+    <main id="main-content" class="min-h-screen bg-white">
+      <EngageContact />
+      <SiteHeader backHref="/" />
+      <div class="bg-white px-8 py-10 lg:px-12 lg:py-12">
+        <section class="relative my-6 overflow-hidden py-8 md:my-8 md:py-10 xl:my-0 xl:py-0">
+          <Image
+            src={logoPng}
+            alt="Cookie Policy"
+            class="block w-full"
+            decoding="async"
+          />
+
+          <div class="absolute inset-0 pl-[48px] pr-8 text-left text-black">
+            <div class="absolute left-[48px] top-1/2 max-w-5xl -translate-y-1/2">
+              <h1 class="max-w-4xl text-[2.625rem] font-[600] leading-[1.08]">
+                Cookie Policy
+              </h1>
+            </div>
+          </div>
+        </section>
+
+        <div id="toc-region" class="mt-12 xl:relative xl:grid xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-12">
+          <div></div>
+        </div>
+
+        <section class="mt-12 border-t border-gray-200 pt-8 text-[#111111]">
+          <div class="space-y-4">
+            <p class="text-[0.9375rem] leading-[1.8] text-[#4b5563]">
+              If you are considering commissioning a container office, workshop, storage unit or secure anti-vandal unit for site use and want clarity on structural suitability before specification is fixed, speak with ISOv8&reg;. A short early discussion prevents disproportionate reinforcement and reactive redesign.
+            </p>
+            <p class="text-[0.9375rem] leading-[1.8] text-[#4b5563]">
+              ISOv8&reg; by ContainerKing&reg; Limited Scunthorpe, North Lincolnshire<br />Tel: 01724 870000<br />Nationwide delivery across England, Scotland &amp; Wales
+            </p>
+          </div>
+        </section>
+
+        <section id="page-legal" class="mt-8 border-t border-gray-200 pt-8 text-[#111111]">
+          <div class="space-y-3">
+            <p class="text-[1.125rem] font-[600] leading-tight">Legal Disclaimer</p>
+            <p class="text-[0.9375rem] leading-[1.8] text-[#4b5563]">
+              The content provided in this document is for general information purposes only and is not intended to constitute legal, planning, building control, health and safety, or professional advice. Regulations and site-specific requirements vary widely across the UK. ISOv8&reg; by ContainerKing&reg; does not accept liability for actions taken, losses incurred, or decisions made based on the information provided. Always consult your local authority, planning department, building inspector, legal adviser, or relevant professional before starting any container project. Use of this document is entirely at your own risk.
+            </p>
+          </div>
+
+          <div class="mt-8 space-y-3">
+            <p class="text-[1.125rem] font-[600] leading-tight">Copyright Notice</p>
+            <p class="text-[0.9375rem] leading-[1.8] text-[#4b5563]">
+              &copy; 2025 ISOv8&reg; by ContainerKing&reg;. All rights reserved. You are welcome to link to this page or share brief excerpts for commentary, review, or non-commercial purposes, provided proper credit is given to ISOv8&reg; by ContainerKing&reg;. No part of this document may be reproduced, distributed, or transmitted in full in any form or by any means without prior written permission from ISOv8&reg; by ContainerKing&reg;.
+            </p>
+          </div>
+        </section>
+      </div>
+      <SiteFooter />
+    </main>
+  </div>
+  <script>
+    const tocRail = document.getElementById("toc-rail");
+    const tocPanel = document.getElementById("toc-panel");
+    const tocRegion = document.getElementById("toc-region");
+    const desktopMq = window.matchMedia("(min-width: 1280px)");
+
+    const resetTocPanel = () => {
+      if (!tocPanel) {
+        return;
+      }
+
+      tocPanel.style.removeProperty("position");
+      tocPanel.style.removeProperty("top");
+      tocPanel.style.removeProperty("left");
+      tocPanel.style.removeProperty("right");
+      tocPanel.style.removeProperty("width");
+    };
+
+    const updateTocPanel = () => {
+      if (!tocRail || !tocPanel || !tocRegion || !desktopMq.matches) {
+        resetTocPanel();
+        return;
+      }
+
+      resetTocPanel();
+
+      const railRect = tocRail.getBoundingClientRect();
+      const regionRect = tocRegion.getBoundingClientRect();
+      const panelRect = tocPanel.getBoundingClientRect();
+      const railTop = railRect.top + window.scrollY;
+      const regionBottom = regionRect.bottom + window.scrollY;
+      const panelNaturalLeft = panelRect.left;
+      const panelNaturalWidth = panelRect.width;
+      const panelOffsetWithinRail = panelNaturalLeft - railRect.left;
+      const currentScroll = window.scrollY;
+      const fixedTop = 24;
+      const startPoint = railTop - fixedTop;
+      const stopPoint = regionBottom - tocPanel.offsetHeight - fixedTop;
+
+      if (currentScroll <= startPoint) {
+        resetTocPanel();
+        return;
+      }
+
+      if (currentScroll >= stopPoint) {
+        tocPanel.style.position = "absolute";
+        tocPanel.style.top = `${Math.max(regionBottom - railTop - tocPanel.offsetHeight, 0)}px`;
+        tocPanel.style.left = `${panelOffsetWithinRail}px`;
+        tocPanel.style.right = "auto";
+        tocPanel.style.width = `${panelNaturalWidth}px`;
+        return;
+      }
+
+      tocPanel.style.position = "fixed";
+      tocPanel.style.top = `${fixedTop}px`;
+      tocPanel.style.left = `${panelNaturalLeft}px`;
+      tocPanel.style.right = "auto";
+      tocPanel.style.width = `${panelNaturalWidth}px`;
+    };
+
+    updateTocPanel();
+    window.addEventListener("scroll", updateTocPanel, { passive: true });
+    window.addEventListener("resize", updateTocPanel);
+    desktopMq.addEventListener("change", updateTocPanel);
+
+    const tocLinks = document.querySelectorAll("[data-toc-link]");
+    if (tocLinks.length > 0) {
+      const headingIds = Array.from(tocLinks).map(
+        (link) => link.getAttribute("data-toc-link")
+      );
+      const headingEls = headingIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+      const setActive = (id) => {
+        tocLinks.forEach((link) => {
+          if (link.getAttribute("data-toc-link") === id) {
+            link.classList.remove("text-[#4b5563]");
+            link.classList.add("text-[#088cbc]", "underline");
+          } else {
+            link.classList.add("text-[#4b5563]");
+            link.classList.remove("text-[#088cbc]", "underline");
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActive(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: "0px 0px -70% 0px", threshold: 0 }
+      );
+
+      headingEls.forEach((el) => observer.observe(el));
+    }
+  </script>
+</BaseLayout>

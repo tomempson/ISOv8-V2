@@ -956,19 +956,25 @@ const conversionImages = [
         }
       };
 
-      menuToggle.addEventListener("click", () => {
+      menuToggle.addEventListener("click", (event) => {
         requestMenuState(true);
-        menuClose.focus();
+        if (event.detail === 0) {
+          menuClose.focus();
+        }
       });
 
-      menuClose.addEventListener("click", () => {
+      menuClose.addEventListener("click", (event) => {
         requestMenuState(false);
-        menuToggle.focus();
+        if (event.detail === 0) {
+          menuToggle.focus();
+        }
       });
 
-      menuOverlay.addEventListener("click", () => {
+      menuOverlay.addEventListener("click", (event) => {
         requestMenuState(false);
-        menuToggle.focus();
+        if (event.detail === 0) {
+          menuToggle.focus();
+        }
       });
 
       document.addEventListener("keydown", (event) => {

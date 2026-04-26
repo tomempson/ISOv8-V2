@@ -132,6 +132,49 @@ export const page = defineType({
       of: [
         defineArrayMember({
           type: 'block',
+          of: [
+            defineArrayMember({
+              name: 'inlineImageInline',
+              title: 'Image',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'asset',
+                  title: 'Image',
+                  type: 'image',
+                  options: {hotspot: true},
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string',
+                  description: 'Required for accessibility',
+                  validation: (Rule) =>
+                    Rule.required().error('Alt text is required for accessibility'),
+                }),
+                defineField({
+                  name: 'side',
+                  title: 'Float Side',
+                  type: 'string',
+                  options: {
+                    list: [
+                      {title: 'Left', value: 'left'},
+                      {title: 'Right', value: 'right'},
+                    ],
+                    layout: 'radio',
+                  },
+                  initialValue: 'left',
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'alt',
+                  media: 'asset',
+                },
+              },
+            }),
+          ],
           marks: {
             decorators: [
               {title: 'Strong', value: 'strong'},
@@ -175,54 +218,6 @@ export const page = defineType({
             {title: 'Bullet', value: 'bullet'},
             {title: 'Numbered', value: 'number'},
           ],
-        }),
-        defineArrayMember({
-          name: 'inlineImage',
-          title: 'Image',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'asset',
-              title: 'Image',
-              type: 'image',
-              options: {hotspot: true},
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: 'alt',
-              title: 'Alt Text',
-              type: 'string',
-              description: 'Required for accessibility',
-              validation: (Rule) =>
-                Rule.required().error('Alt text is required for accessibility'),
-            }),
-            defineField({
-              name: 'caption',
-              title: 'Caption',
-              type: 'string',
-            }),
-            defineField({
-              name: 'alignment',
-              title: 'Alignment',
-              type: 'string',
-              options: {
-                list: [
-                  {title: 'Left', value: 'left'},
-                  {title: 'Centre', value: 'center'},
-                  {title: 'Right', value: 'right'},
-                  {title: 'Full Width', value: 'full-width'},
-                ],
-                layout: 'radio',
-              },
-              initialValue: 'center',
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'alt',
-              media: 'asset',
-            },
-          },
         }),
       ],
     }),

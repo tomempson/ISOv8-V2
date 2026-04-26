@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant hover (&:hover);
+
 html {
   height: 100%;
   overflow-x: hidden;

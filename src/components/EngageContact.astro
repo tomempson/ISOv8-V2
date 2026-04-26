@@ -206,6 +206,10 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         >
           Submit
         </button>
+
+        <p class="mt-3 text-center text-[0.875rem] leading-snug text-[#6f6f6f]">
+          By submitting this form, you agree to our <a href="/privacy-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]">privacy policy</a>. We will only use your details to respond to your enquiry.
+        </p>
       </div>
     </form>
   </div>
@@ -573,14 +577,6 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         }
 
         setSubmitting(true);
-
-        try {
-          const summaryData = {};
-          contactInputs.forEach((input) => {
-            summaryData[input.name] = input.value;
-          });
-          sessionStorage.setItem("engage-contact-data", JSON.stringify(summaryData));
-        } catch (_) {}
 
         const formData = new FormData(contactForm);
         window.removeEventListener("beforeunload", warnBeforeUnload);
