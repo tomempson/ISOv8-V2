@@ -5,8 +5,7 @@ import EngageContact from "../components/EngageContact.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import PortableTextRenderer from "../components/portable-text/PortableTextRenderer.astro";
-import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
-import { getAllPages } from "../utils/sanity";
+import { getAllPages, getSidebarLinksGroupedByPhaseSection } from "../utils/sanity";
 import { extractH2s } from "../utils/portable-text";
 import phase1Img from "../assets/images/phase-1.jpg";
 import logoPng from "../assets/images/isov8-logo.png";
@@ -139,6 +138,16 @@ const backParams = new URLSearchParams();
 if (backPhase) backParams.set("phase", backPhase);
 if (backSection) backParams.set("section", backSection);
 const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
+
+const groupedLinks = await getSidebarLinksGroupedByPhaseSection();
+const sidebarLinks =
+  page.phase && page.section
+    ? groupedLinks[page.phase]?.[page.section] || []
+    : [];
+const sidebarHeading =
+  page.section && sectionLabelMap[page.section]
+    ? sectionLabelMap[page.section]
+    : "";
 ---
 
 <BaseLayout
@@ -185,14 +194,14 @@ const backHref = backParams.toString() ? `/?${backParams.toString()}` : "/";
         </a>
 
         <p class="text-[1.25rem] font-[500] leading-tight text-black">
-          Base Platforms & Structural Principles
+          {sidebarHeading}
         </p>
       </div>
 
       <div class="px-[30px] pb-10 lg:px-[45px]">
         <div class="flex flex-col gap-6">
           {
-            structuralSidebarLinks.map((link) => {
+            sidebarLinks.map((link) => {
               const isActive = link.href === currentPath;
               return (
                 <a

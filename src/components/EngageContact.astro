@@ -279,20 +279,20 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
 
 <script>
   (() => {
-    const engageButton = document.getElementById("engage-button");
+    const engageButton = document.getElementById("engage-button") as HTMLButtonElement | null;
     const contactOverlay = document.getElementById("contact-overlay");
     const contactModal = document.getElementById("contact-modal");
-    const contactClose = document.getElementById("contact-close");
-    const contactForm = document.getElementById("contact-form");
+    const contactClose = document.getElementById("contact-close") as HTMLButtonElement | null;
+    const contactForm = document.getElementById("contact-form") as HTMLFormElement | null;
 
     let lockedScrollY = 0;
     let pageLockCount = 0;
 
-    const warnBeforeUnload = (event) => {
+    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
     };
 
-    const getTransitionDuration = (element) => {
+    const getTransitionDuration = (element: Element) => {
       const durationSeconds = Number.parseFloat(
         window.getComputedStyle(element).transitionDuration
       );
@@ -338,9 +338,9 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
 
     if (engageButton && contactOverlay && contactModal && contactClose) {
       let isContactAnimating = false;
-      let contactAnimationTimer;
+      let contactAnimationTimer: number | undefined;
 
-      const setInertOnPageContent = (isOpen) => {
+      const setInertOnPageContent = (isOpen: boolean) => {
         const parent = contactModal.parentElement;
         if (!parent) return;
         for (const child of parent.children) {
@@ -353,7 +353,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         }
       };
 
-      const setContactState = (isOpen) => {
+      const setContactState = (isOpen: boolean) => {
         if (isOpen) {
           window.addEventListener("beforeunload", warnBeforeUnload);
         } else {
@@ -393,7 +393,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         window.clearTimeout(contactAnimationTimer);
       };
 
-      const requestContactState = (nextIsOpen) => {
+      const requestContactState = (nextIsOpen: boolean) => {
         const currentIsOpen = engageButton.getAttribute("aria-expanded") === "true";
         if (isContactAnimating || currentIsOpen === nextIsOpen) {
           return;
@@ -454,17 +454,19 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
 
     if (contactForm) {
       const formLoadedAt = Date.now();
-      const timingInput = contactForm.querySelector("[data-form-timing]");
+      const timingInput = contactForm.querySelector<HTMLInputElement>("[data-form-timing]");
       if (timingInput) timingInput.value = String(formLoadedAt);
 
+      type FormInput = HTMLInputElement | HTMLTextAreaElement;
+
       const contactInputs = Array.from(
-        contactForm.querySelectorAll("[data-contact-input]")
+        contactForm.querySelectorAll<FormInput>("[data-contact-input]")
       );
-      const submitButton = document.getElementById("engage-submit");
+      const submitButton = document.getElementById("engage-submit") as HTMLButtonElement | null;
       const formError = document.getElementById("engage-form-error");
       let isSubmitting = false;
 
-      const validationMessages = {
+      const validationMessages: Record<string, Record<string, string>> = {
         name: {
           valueMissing: "Please enter your name."
         },
@@ -480,7 +482,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         }
       };
 
-      const getErrorMessage = (input) => {
+      const getErrorMessage = (input: FormInput) => {
         const fieldMessages = validationMessages[input.name] ?? {};
 
         if (input.validity.valueMissing) {
@@ -498,8 +500,8 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         return "";
       };
 
-      const setFieldErrorState = (input) => {
-        const errorElement = contactForm.querySelector(
+      const setFieldErrorState = (input: FormInput) => {
+        const errorElement = contactForm.querySelector<HTMLElement>(
           `[data-error-for="${input.name}"]`
         );
         const errorMessage = getErrorMessage(input);
@@ -523,7 +525,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         return !hasError;
       };
 
-      const showFormError = (message) => {
+      const showFormError = (message: string) => {
         if (!formError) return;
         formError.textContent = message;
         formError.classList.remove("hidden");
@@ -535,7 +537,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         formError.classList.add("hidden");
       };
 
-      const setSubmitting = (submitting) => {
+      const setSubmitting = (submitting: boolean) => {
         isSubmitting = submitting;
         if (submitButton) {
           submitButton.disabled = submitting;
@@ -580,19 +582,23 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         setSubmitting(true);
 
         const formData = new FormData(contactForm);
+        const params = new URLSearchParams();
+        formData.forEach((value, key) => {
+          params.append(key, typeof value === "string" ? value : "");
+        });
         window.removeEventListener("beforeunload", warnBeforeUnload);
 
         fetch("/.netlify/functions/submit-contact", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData).toString()
+          body: params.toString()
         })
           .then(async (response) => {
             const data = await response.json().catch(() => null);
             if (!response.ok) throw new Error(data?.error || "[E-502] The server returned an unexpected response. Please try again.");
             window.location.href = "/thank-you/";
           })
-          .catch((err) => {
+          .catch((err: Error) => {
             try {
               const message = err.message && err.message.startsWith("[E-")
                 ? err.message

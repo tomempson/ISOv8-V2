@@ -2,8 +2,25 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EngageContact from "../components/EngageContact.astro";
-import { structuralSidebarLinks } from "../data/structuralSidebarLinks";
 import { phases } from "../data/phases";
+import { phaseSidebarToSanity, sectionSidebarToSanity } from "../data/sectionMapping";
+import { getSidebarLinksGroupedByPhaseSection } from "../utils/sanity";
+
+const groupedLinks = await getSidebarLinksGroupedByPhaseSection();
+
+const sectionLinks: Record<string, { href: string; label: string }[]> = {};
+for (const phase of phases) {
+  const sanityPhase = phaseSidebarToSanity[phase.id];
+  if (!sanityPhase) continue;
+  for (const section of phase.sections) {
+    const sanitySection = sectionSidebarToSanity[section.id];
+    if (!sanitySection) continue;
+    const links = groupedLinks[sanityPhase]?.[sanitySection] || [];
+    if (links.length > 0) {
+      sectionLinks[section.id] = links;
+    }
+  }
+}
 
 import logoMark from "../assets/images/isov8-logo-mark.svg";
 import logoFull from "../assets/images/isov8-logo.svg";
@@ -338,12 +355,13 @@ const conversionImages = [
 
             <div class="mt-[60px] flex flex-col gap-6 px-[45px] pb-12">
               {phase.sections.map((section) => (
-                section.id === "base-platforms" ? (
+                sectionLinks[section.id] ? (
                   <button
-                    id="menu-articles-trigger"
+                    id={`menu-${section.id}-trigger`}
                     type="button"
-                    aria-controls="menu-articles-panel"
+                    aria-controls={`menu-${section.id}-panel`}
                     aria-expanded="false"
+                    data-section-trigger={section.id}
                     class="menu-articles-trigger inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
                   >
                     {section.label}
@@ -358,56 +376,62 @@ const conversionImages = [
           </div>
         ))}
 
-        <div
-          id="menu-articles-panel"
-          role="navigation"
-          aria-label="Base Platforms & Structural Principles"
-          class="pointer-events-none relative -z-10 hidden h-dvh w-[350px] shrink-0 overflow-y-auto overscroll-contain border-r border-gray-300 bg-white transition-transform ease-out will-change-transform max-[678px]:absolute max-[678px]:inset-y-0 max-[678px]:left-0 max-[678px]:z-30 max-[678px]:w-dvw"
-          aria-hidden="true"
-          style="transform: translateX(-100%); transition-duration: 1000ms;"
-        >
-          <div class="mt-[50px] flex items-center gap-4 px-[45px]">
-            <button
-              id="menu-articles-back"
-              type="button"
-              aria-controls="menu-articles-panel"
-              aria-label="Back to Phase 1 panel"
-              class="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
-            >
-              <svg
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="none"
+        {phases.flatMap((phase) =>
+          phase.sections
+            .filter((section) => sectionLinks[section.id])
+            .map((section) => (
+              <div
+                id={`menu-${section.id}-panel`}
+                role="navigation"
+                aria-label={section.label}
+                data-section-panel={section.id}
+                data-parent-phase={phase.id}
+                class="section-panel pointer-events-none relative -z-10 hidden h-dvh w-[350px] shrink-0 overflow-y-auto overscroll-contain border-r border-gray-300 bg-white transition-transform ease-out will-change-transform max-[678px]:absolute max-[678px]:inset-y-0 max-[678px]:left-0 max-[678px]:z-30 max-[678px]:w-dvw"
                 aria-hidden="true"
+                style="transform: translateX(-100%); transition-duration: 1000ms;"
               >
-                <path
-                  d="M13 4L7 10L13 16"
-                  stroke="currentColor"
-                  stroke-width="1.75"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
+                <div class="mt-[50px] flex items-center gap-4 px-[45px]">
+                  <button
+                    type="button"
+                    aria-controls={`menu-${section.id}-panel`}
+                    aria-label={`Back to ${phase.label} panel`}
+                    data-section-back={section.id}
+                    class="section-back flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M13 4L7 10L13 16"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
 
-            <p class="text-[1.25rem] font-[500] leading-tight text-black">
-              Base Platforms & Structural Principles
-            </p>
-          </div>
+                  <p class="text-[1.25rem] font-[500] leading-tight text-black">
+                    {section.label}
+                  </p>
+                </div>
 
-          <div class="mt-[60px] flex flex-col gap-6 px-[45px] pb-12">
-            {
-              structuralSidebarLinks.map((link) => (
-                <a
-                  href={link.href}
-                  class="menu-tertiary-link inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline active:text-[#088cbc] active:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
-                >
-                  {link.label}
-                </a>
-              ))
-            }
-          </div>
-        </div>
+                <div class="mt-[60px] flex flex-col gap-6 px-[45px] pb-12">
+                  {sectionLinks[section.id].map((link) => (
+                    <a
+                      href={link.href}
+                      class="menu-tertiary-link inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline active:text-[#088cbc] active:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))
+        )}
       </div>
 
       <video
@@ -557,9 +581,21 @@ const conversionImages = [
     const phasePanels = document.querySelectorAll(".phase-panel");
     const phaseBackButtons = document.querySelectorAll(".phase-back");
 
-    const menuArticlesTrigger = document.getElementById("menu-articles-trigger");
-    const menuArticlesBack = document.getElementById("menu-articles-back");
-    const menuArticlesPanel = document.getElementById("menu-articles-panel");
+    const sectionTriggers = document.querySelectorAll("[data-section-trigger]");
+    const sectionPanels = document.querySelectorAll("[data-section-panel]");
+    const sectionBackButtons = document.querySelectorAll("[data-section-back]");
+
+    const sectionPanelById = new Map();
+    sectionPanels.forEach((panel) => {
+      sectionPanelById.set(panel.getAttribute("data-section-panel"), panel);
+    });
+    const sectionTriggerById = new Map();
+    sectionTriggers.forEach((trigger) => {
+      sectionTriggerById.set(trigger.getAttribute("data-section-trigger"), trigger);
+    });
+
+    let activeSectionPanel = null;
+    let activeSectionTrigger = null;
 
     let lockedScrollY = 0;
     let pageLockCount = 0;
@@ -605,13 +641,13 @@ const conversionImages = [
       let isPhaseAnimating = false;
       let isArticlesAnimating = false;
       let isSwitchingPhase = false;
+      let isSwitchingSection = false;
       let activePhasePanel = null;
       let activePhaseTrigger = null;
 
       const isMenuOpen = () => menuToggle.getAttribute("aria-expanded") === "true";
       const isPhasePanelOpen = () => activePhasePanel !== null;
-      const isArticlesPanelOpen = () =>
-        menuArticlesTrigger?.getAttribute("aria-expanded") === "true";
+      const isArticlesPanelOpen = () => activeSectionPanel !== null;
 
       const syncMenuInteractivity = () => {
         const menuIsOpen = isMenuOpen();
@@ -628,17 +664,19 @@ const conversionImages = [
       };
 
       const resetArticlesPanelState = () => {
-        if (!menuArticlesTrigger || !menuArticlesPanel) {
-          return;
-        }
-
-        menuArticlesTrigger.setAttribute("aria-expanded", "false");
-        menuArticlesPanel.setAttribute("aria-hidden", "true");
-        menuArticlesPanel.classList.add("hidden");
-        menuArticlesPanel.classList.add("pointer-events-none");
-        menuArticlesPanel.classList.remove("pointer-events-auto");
-        menuArticlesPanel.style.transform = "translateX(-100%)";
-        menuArticlesPanel.style.removeProperty("z-index");
+        sectionTriggers.forEach((trigger) => {
+          trigger.setAttribute("aria-expanded", "false");
+        });
+        sectionPanels.forEach((panel) => {
+          panel.setAttribute("aria-hidden", "true");
+          panel.classList.add("hidden");
+          panel.classList.add("pointer-events-none");
+          panel.classList.remove("pointer-events-auto");
+          panel.style.transform = "translateX(-100%)";
+          panel.style.removeProperty("z-index");
+        });
+        activeSectionPanel = null;
+        activeSectionTrigger = null;
       };
 
       const resetAllPhasePanels = () => {
@@ -666,9 +704,11 @@ const conversionImages = [
 
         isArticlesAnimating = false;
 
-        if (menuArticlesPanel?.getAttribute("aria-hidden") === "true") {
-          menuArticlesPanel.classList.add("hidden");
-        }
+        sectionPanels.forEach((panel) => {
+          if (panel.getAttribute("aria-hidden") === "true") {
+            panel.classList.add("hidden");
+          }
+        });
 
         syncMenuInteractivity();
       };
@@ -697,25 +737,29 @@ const conversionImages = [
           return;
         }
 
-        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase) {
+        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || isSwitchingSection) {
           return;
         }
 
         const oldPanel = activePhasePanel;
         const oldTrigger = activePhaseTrigger;
         const articlesWasOpen = isArticlesPanelOpen();
+        const articlesPanelToClose = activeSectionPanel;
+        const articlesTriggerToClose = activeSectionTrigger;
 
         isSwitchingPhase = true;
         isPhaseAnimating = true;
 
-        const slideDistance = (oldPanel.offsetWidth + (menuArticlesPanel && articlesWasOpen ? menuArticlesPanel.offsetWidth : 0)) + "px";
+        const slideDistance = (oldPanel.offsetWidth + (articlesPanelToClose ? articlesPanelToClose.offsetWidth : 0)) + "px";
 
-        if (menuArticlesPanel && articlesWasOpen) {
-          menuArticlesTrigger?.setAttribute("aria-expanded", "false");
-          menuArticlesPanel.setAttribute("aria-hidden", "true");
-          menuArticlesPanel.classList.add("pointer-events-none");
-          menuArticlesPanel.classList.remove("pointer-events-auto");
-          menuArticlesPanel.style.transform = "translateX(-" + slideDistance + ")";
+        if (articlesPanelToClose) {
+          articlesTriggerToClose?.setAttribute("aria-expanded", "false");
+          articlesPanelToClose.setAttribute("aria-hidden", "true");
+          articlesPanelToClose.classList.add("pointer-events-none");
+          articlesPanelToClose.classList.remove("pointer-events-auto");
+          articlesPanelToClose.style.transform = "translateX(-" + slideDistance + ")";
+          activeSectionPanel = null;
+          activeSectionTrigger = null;
         }
 
         oldTrigger.setAttribute("aria-expanded", "false");
@@ -742,13 +786,13 @@ const conversionImages = [
           isSwitchingPhase = false;
           oldPanel.classList.add("hidden");
 
-          if (menuArticlesPanel && articlesWasOpen) {
-            menuArticlesPanel.classList.add("hidden");
-            menuArticlesPanel.style.removeProperty("z-index");
-            menuArticlesPanel.style.transitionDuration = "0s";
-            menuArticlesPanel.style.transform = "translateX(-100%)";
-            menuArticlesPanel.offsetHeight;
-            menuArticlesPanel.style.transitionDuration = "1000ms";
+          if (articlesPanelToClose) {
+            articlesPanelToClose.classList.add("hidden");
+            articlesPanelToClose.style.removeProperty("z-index");
+            articlesPanelToClose.style.transitionDuration = "0s";
+            articlesPanelToClose.style.transform = "translateX(-100%)";
+            articlesPanelToClose.offsetHeight;
+            articlesPanelToClose.style.transitionDuration = "1000ms";
           }
 
           oldPanel.style.transitionDuration = "0s";
@@ -783,36 +827,40 @@ const conversionImages = [
           }
         });
 
-        if (menuArticlesPanel?.getAttribute("aria-hidden") === "true") {
-          menuArticlesPanel.classList.add("hidden");
-        }
+        sectionPanels.forEach((panel) => {
+          if (panel.getAttribute("aria-hidden") === "true") {
+            panel.classList.add("hidden");
+          }
+        });
 
         syncMenuInteractivity();
       };
 
-      const setArticlesPanelState = (isOpen) => {
-        if (!menuArticlesTrigger || !menuArticlesPanel) {
+      const setArticlesPanelState = (trigger, panel, isOpen) => {
+        if (!trigger || !panel) {
           return;
         }
 
-        const currentIsOpen = isArticlesPanelOpen();
-        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || currentIsOpen === isOpen) {
+        const currentIsOpen = trigger.getAttribute("aria-expanded") === "true";
+        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || isSwitchingSection || currentIsOpen === isOpen) {
           return;
         }
 
         isArticlesAnimating = true;
-        menuArticlesTrigger.setAttribute("aria-expanded", String(isOpen));
-        menuArticlesPanel.setAttribute("aria-hidden", String(!isOpen));
+        trigger.setAttribute("aria-expanded", String(isOpen));
+        panel.setAttribute("aria-hidden", String(!isOpen));
         syncMenuInteractivity();
 
         if (isOpen) {
-          menuArticlesPanel.style.transform = "translateX(-100%)";
-          menuArticlesPanel.classList.remove("hidden");
+          activeSectionPanel = panel;
+          activeSectionTrigger = trigger;
+          panel.style.transform = "translateX(-100%)";
+          panel.classList.remove("hidden");
 
           window.requestAnimationFrame(() => {
-            menuArticlesPanel.classList.remove("pointer-events-none");
-            menuArticlesPanel.classList.add("pointer-events-auto");
-            menuArticlesPanel.style.transform = "translateX(0)";
+            panel.classList.remove("pointer-events-none");
+            panel.classList.add("pointer-events-auto");
+            panel.style.transform = "translateX(0)";
             if (menuToggle.getAttribute("aria-expanded") === "true") {
               setMenuShellTransform(true);
             }
@@ -821,9 +869,11 @@ const conversionImages = [
           return;
         }
 
-        menuArticlesPanel.classList.add("pointer-events-none");
-        menuArticlesPanel.classList.remove("pointer-events-auto");
-        menuArticlesPanel.style.transform = "translateX(-100%)";
+        panel.classList.add("pointer-events-none");
+        panel.classList.remove("pointer-events-auto");
+        panel.style.transform = "translateX(-100%)";
+        activeSectionPanel = null;
+        activeSectionTrigger = null;
 
         if (menuToggle.getAttribute("aria-expanded") === "true") {
           setMenuShellTransform(true);
@@ -836,7 +886,7 @@ const conversionImages = [
         }
 
         const currentIsOpen = trigger.getAttribute("aria-expanded") === "true";
-        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || currentIsOpen === isOpen) {
+        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || isSwitchingSection || currentIsOpen === isOpen) {
           return;
         }
 
@@ -913,7 +963,7 @@ const conversionImages = [
 
       const requestMenuState = (nextIsOpen) => {
         const currentIsOpen = isMenuOpen();
-        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || currentIsOpen === nextIsOpen) {
+        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || isSwitchingSection || currentIsOpen === nextIsOpen) {
           return;
         }
 
@@ -929,7 +979,7 @@ const conversionImages = [
       const trapFocus = (event) => {
         let focusPanel;
         if (isArticlesPanelOpen()) {
-          focusPanel = menuArticlesPanel;
+          focusPanel = activeSectionPanel;
         } else if (isPhasePanelOpen()) {
           focusPanel = activePhasePanel;
         } else {
@@ -970,13 +1020,6 @@ const conversionImages = [
         }
       });
 
-      menuOverlay.addEventListener("click", (event) => {
-        requestMenuState(false);
-        if (event.detail === 0) {
-          menuToggle.focus();
-        }
-      });
-
       document.addEventListener("keydown", (event) => {
         if (!isMenuOpen()) {
           return;
@@ -985,7 +1028,7 @@ const conversionImages = [
         if (event.key === "Escape") {
           event.preventDefault();
           if (isArticlesPanelOpen()) {
-            setArticlesPanelState(false);
+            setArticlesPanelState(activeSectionTrigger, activeSectionPanel, false);
           } else if (isPhasePanelOpen()) {
             setPhasePanelState(activePhaseTrigger, activePhasePanel, false);
           } else {
@@ -1019,7 +1062,7 @@ const conversionImages = [
 
       phaseBackButtons.forEach((backBtn) => {
         backBtn.addEventListener("click", () => {
-          if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase) {
+          if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || isSwitchingSection) {
             return;
           }
 
@@ -1028,14 +1071,18 @@ const conversionImages = [
 
           isPhaseAnimating = true;
 
-          const slideDistance = (panel.offsetWidth + (menuArticlesPanel && isArticlesPanelOpen() ? menuArticlesPanel.offsetWidth : 0)) + "px";
+          const articlesPanelToClose = activeSectionPanel;
+          const articlesTriggerToClose = activeSectionTrigger;
+          const slideDistance = (panel.offsetWidth + (articlesPanelToClose ? articlesPanelToClose.offsetWidth : 0)) + "px";
 
-          if (menuArticlesPanel && isArticlesPanelOpen()) {
-            menuArticlesTrigger?.setAttribute("aria-expanded", "false");
-            menuArticlesPanel.setAttribute("aria-hidden", "true");
-            menuArticlesPanel.classList.add("pointer-events-none");
-            menuArticlesPanel.classList.remove("pointer-events-auto");
-            menuArticlesPanel.style.transform = "translateX(-" + slideDistance + ")";
+          if (articlesPanelToClose) {
+            articlesTriggerToClose?.setAttribute("aria-expanded", "false");
+            articlesPanelToClose.setAttribute("aria-hidden", "true");
+            articlesPanelToClose.classList.add("pointer-events-none");
+            articlesPanelToClose.classList.remove("pointer-events-auto");
+            articlesPanelToClose.style.transform = "translateX(-" + slideDistance + ")";
+            activeSectionPanel = null;
+            activeSectionTrigger = null;
           }
 
           trigger?.setAttribute("aria-expanded", "false");
@@ -1053,20 +1100,91 @@ const conversionImages = [
         });
       });
 
-      if (menuArticlesTrigger && menuArticlesPanel) {
-        menuArticlesTrigger.addEventListener("click", () => {
-          const isOpen =
-            menuArticlesTrigger.getAttribute("aria-expanded") === "true";
+      const switchSectionPanel = (newTrigger, newPanel) => {
+        if (!activeSectionPanel || !activeSectionTrigger) {
+          return;
+        }
 
-          setArticlesPanelState(!isOpen);
-        });
-      }
+        if (isMenuAnimating || isPhaseAnimating || isArticlesAnimating || isSwitchingPhase || isSwitchingSection) {
+          return;
+        }
 
-      if (menuArticlesBack) {
-        menuArticlesBack.addEventListener("click", () => {
-          setArticlesPanelState(false);
+        const oldPanel = activeSectionPanel;
+        const oldTrigger = activeSectionTrigger;
+
+        isSwitchingSection = true;
+        isArticlesAnimating = true;
+
+        const slideDistance = oldPanel.offsetWidth + "px";
+
+        oldTrigger.setAttribute("aria-expanded", "false");
+        oldPanel.setAttribute("aria-hidden", "true");
+        oldPanel.classList.add("pointer-events-none");
+        oldPanel.classList.remove("pointer-events-auto");
+        oldPanel.style.transform = "translateX(-" + slideDistance + ")";
+
+        activeSectionPanel = null;
+        activeSectionTrigger = null;
+
+        if (menuToggle.getAttribute("aria-expanded") === "true") {
+          setMenuShellTransform(true);
+        }
+
+        let handled = false;
+        const proceed = () => {
+          if (handled) return;
+          handled = true;
+
+          isArticlesAnimating = false;
+          isSwitchingSection = false;
+          oldPanel.classList.add("hidden");
+
+          oldPanel.style.transitionDuration = "0s";
+          oldPanel.style.transform = "translateX(-100%)";
+          oldPanel.offsetHeight;
+          oldPanel.style.transitionDuration = "1000ms";
+
+          window.requestAnimationFrame(() => {
+            setArticlesPanelState(newTrigger, newPanel, true);
+          });
+        };
+
+        oldPanel.addEventListener("transitionend", (e) => {
+          if (e.propertyName === "transform") {
+            proceed();
+          }
+        }, { once: true });
+
+        setTimeout(proceed, 1100);
+      };
+
+      sectionTriggers.forEach((trigger) => {
+        const sectionId = trigger.getAttribute("data-section-trigger");
+        const panel = sectionPanelById.get(sectionId);
+        if (!panel) return;
+
+        trigger.addEventListener("click", () => {
+          const isOpen = trigger.getAttribute("aria-expanded") === "true";
+
+          if (!isOpen && activeSectionPanel && activeSectionPanel !== panel) {
+            switchSectionPanel(trigger, panel);
+            return;
+          }
+
+          setArticlesPanelState(trigger, panel, !isOpen);
         });
-      }
+      });
+
+      sectionBackButtons.forEach((backBtn) => {
+        backBtn.addEventListener("click", () => {
+          const sectionId = backBtn.getAttribute("data-section-back");
+          const panel = sectionPanelById.get(sectionId);
+          const trigger = sectionTriggerById.get(sectionId);
+          if (panel && trigger) {
+            setArticlesPanelState(trigger, panel, false);
+          }
+        });
+      });
 
       menuShell.addEventListener("touchstart", (event) => {
         const target = event.target.closest(
@@ -1099,13 +1217,13 @@ const conversionImages = [
         });
       });
 
-      if (menuArticlesPanel) {
-        menuArticlesPanel.addEventListener("transitionend", (event) => {
+      sectionPanels.forEach((panel) => {
+        panel.addEventListener("transitionend", (event) => {
           if (event.propertyName === "transform" && isArticlesAnimating) {
             finishArticlesTransition();
           }
         });
-      }
+      });
 
       // Restore sidebar state from query params (e.g. /?phase=phase-1&section=base-platforms)
       const urlParams = new URLSearchParams(window.location.search);
@@ -1138,27 +1256,35 @@ const conversionImages = [
           activePhasePanel = panel;
           activePhaseTrigger = trigger;
 
-          // If the section matches the articles trigger, open it too
-          if (openSection === "base-platforms" && menuArticlesTrigger && menuArticlesPanel) {
-            menuArticlesTrigger.setAttribute("aria-expanded", "true");
-            menuArticlesPanel.setAttribute("aria-hidden", "false");
-            menuArticlesPanel.classList.remove("hidden", "pointer-events-none");
-            menuArticlesPanel.classList.add("pointer-events-auto");
-            menuArticlesPanel.style.transitionDuration = "0s";
-            menuArticlesPanel.style.transform = "translateX(0)";
+          // If the section matches a section trigger, open it too
+          let restoredSectionPanel = null;
+          if (openSection) {
+            const sectionTrigger = sectionTriggerById.get(openSection);
+            const sectionPanel = sectionPanelById.get(openSection);
+            if (sectionTrigger && sectionPanel) {
+              sectionTrigger.setAttribute("aria-expanded", "true");
+              sectionPanel.setAttribute("aria-hidden", "false");
+              sectionPanel.classList.remove("hidden", "pointer-events-none");
+              sectionPanel.classList.add("pointer-events-auto");
+              sectionPanel.style.transitionDuration = "0s";
+              sectionPanel.style.transform = "translateX(0)";
+              activeSectionPanel = sectionPanel;
+              activeSectionTrigger = sectionTrigger;
+              restoredSectionPanel = sectionPanel;
+            }
           }
 
           // Force layout flush, then restore transition durations after paint
           menuShell.offsetHeight;
           panel.offsetHeight;
-          if (menuArticlesPanel) menuArticlesPanel.offsetHeight;
+          if (restoredSectionPanel) restoredSectionPanel.offsetHeight;
 
           window.requestAnimationFrame(() => {
             window.requestAnimationFrame(() => {
               menuShell.style.transitionDuration = "1000ms";
               panel.style.transitionDuration = "1000ms";
-              if (menuArticlesPanel) {
-                menuArticlesPanel.style.transitionDuration = "1000ms";
+              if (restoredSectionPanel) {
+                restoredSectionPanel.style.transitionDuration = "1000ms";
               }
             });
           });

@@ -1,0 +1,424 @@
+---
+// UK PECR + UK GDPR compliant cookie banner.
+// Two-layer: notice card (Accept all / Reject all / Manage) + preferences panel.
+// Persists choice in localStorage for 12 months. Wires Google Consent Mode v2.
+---
+
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-labelledby="cookie-banner-title"
+  aria-describedby="cookie-banner-desc"
+  aria-modal="false"
+  aria-hidden="true"
+  inert
+  class="pointer-events-none fixed bottom-4 left-4 z-[9998] w-[calc(100%-2rem)] max-w-[420px] rounded-lg border border-gray-200 bg-white p-6 opacity-0 shadow-2xl transition-opacity ease-out max-sm:bottom-2 max-sm:left-2 max-sm:right-2 max-sm:w-auto"
+  style="transition-duration: 1000ms;"
+>
+  <h2 id="cookie-banner-title" class="mb-3 text-[1.25rem] font-semibold leading-tight text-[#111111]">
+    Cookies on ISOv8&reg;
+  </h2>
+  <p id="cookie-banner-desc" class="mb-5 text-[0.9375rem] leading-relaxed text-[#444444]">
+    We use strictly necessary cookies to make this site work. With your permission, we&rsquo;d also like to set analytics cookies to help us improve it. See our
+    <a href="/cookie-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Cookie Policy</a>.
+  </p>
+  <div class="flex flex-col gap-2">
+    <button
+      type="button"
+      data-cookie-action="accept-all"
+      class="flex w-full cursor-pointer items-center justify-center rounded-md py-5 text-[1.25rem] font-[500] uppercase leading-none tracking-[0.05em] text-white transition-opacity duration-300 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+      style="background: linear-gradient(to right, #008eba, #00a9d3);"
+    >
+      Accept All
+    </button>
+    <button
+      type="button"
+      data-cookie-action="reject-all"
+      class="flex w-full cursor-pointer items-center justify-center rounded-md border border-gray-300 py-5 text-[1.25rem] font-[500] uppercase leading-none tracking-[0.05em] text-[#1f1f1f] transition-opacity duration-300 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+    >
+      Reject All
+    </button>
+  </div>
+  <div class="mt-3 text-center">
+    <button
+      type="button"
+      data-cookie-action="open-preferences"
+      class="cursor-pointer bg-transparent p-0 text-[0.875rem] font-medium text-[#444444] underline transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+    >
+      Manage preferences
+    </button>
+  </div>
+</div>
+
+<div
+  id="cookie-preferences-overlay"
+  class="pointer-events-none fixed inset-0 z-[9998] bg-black/50 opacity-0 transition-opacity ease-out"
+  aria-hidden="true"
+  style="transition-duration: 1000ms;"
+></div>
+
+<div
+  id="cookie-preferences"
+  role="dialog"
+  aria-labelledby="cookie-preferences-title"
+  aria-modal="true"
+  aria-hidden="true"
+  inert
+  class="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center p-4 opacity-0 transition-opacity ease-out"
+  style="transition-duration: 1000ms;"
+>
+  <button
+    type="button"
+    data-cookie-action="close-preferences"
+    aria-label="Close cookie preferences"
+    class="absolute left-16 top-16 z-10 flex cursor-pointer items-center text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:left-20 lg:top-20"
+  >
+    <span class="relative flex h-10 w-10 items-center justify-center" aria-hidden="true">
+      <span class="absolute h-0.5 w-full rotate-45 bg-current"></span>
+      <span class="absolute h-0.5 w-full -rotate-45 bg-current"></span>
+    </span>
+  </button>
+
+  <div class="flex max-h-[90vh] w-full max-w-[560px] flex-col overflow-hidden rounded-lg bg-white shadow-2xl">
+   <div class="flex-1 overflow-y-auto p-6 sm:p-8">
+    <h2 id="cookie-preferences-title" class="mb-2 text-[1.5rem] font-semibold text-[#111111]">
+      Cookie preferences
+    </h2>
+    <p class="mb-6 text-[0.9375rem] leading-relaxed text-[#444444]">
+      Choose which categories of cookies you allow. You can change these settings at any time. Read more in our
+      <a href="/cookie-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Cookie Policy</a>
+      and
+      <a href="/privacy-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Privacy Policy</a>.
+    </p>
+
+    <div class="mb-4 rounded-md border border-gray-200 p-4">
+      <div class="mb-2 flex items-center justify-between gap-4">
+        <h3 class="text-[1rem] font-semibold text-[#111111]">Strictly Necessary</h3>
+        <span class="rounded bg-gray-100 px-2 py-1 text-[0.75rem] font-medium uppercase tracking-wide text-[#444444]">
+          Always on
+        </span>
+      </div>
+      <p class="text-[0.875rem] leading-relaxed text-[#444444]">
+        Required for the site to function &mdash; remembering your cookie choice, securing form submissions, and basic navigation. These cannot be disabled.
+      </p>
+      <details class="group mt-3 border-t border-gray-200 pt-3">
+        <summary class="inline-flex cursor-pointer list-none items-center gap-1.5 text-[0.8125rem] font-medium text-[#444444] underline transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc] [&::-webkit-details-marker]:hidden">
+          <span>View cookies in this category</span>
+          <span class="transition-transform group-open:rotate-180" aria-hidden="true">
+            <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
+              <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </summary>
+        <div class="mt-3 space-y-3">
+          <div class="rounded border border-gray-200 bg-gray-50 p-3 text-[0.8125rem] text-[#444444]">
+            <p class="mb-1 font-mono text-[0.75rem] font-semibold text-[#111111]">isov8_consent_v1</p>
+            <p class="mb-2 leading-relaxed">Stores your cookie preferences so we don&rsquo;t ask again on every visit.</p>
+            <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.75rem]">
+              <dt class="font-semibold">Provider</dt><dd>isov8.co.uk (first-party)</dd>
+              <dt class="font-semibold">Type</dt><dd>localStorage</dd>
+              <dt class="font-semibold">Expires</dt><dd>12 months</dd>
+            </dl>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="mb-6 rounded-md border border-gray-200 p-4">
+      <div class="mb-2 flex items-center justify-between gap-4">
+        <h3 class="text-[1rem] font-semibold text-[#111111]">Analytics</h3>
+        <label class="relative inline-flex cursor-pointer items-center">
+          <input
+            type="checkbox"
+            id="cookie-toggle-analytics"
+            class="peer sr-only"
+          />
+          <span class="block h-6 w-11 rounded-full bg-gray-300 transition-colors peer-checked:bg-[#088cbc] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#088cbc]"></span>
+          <span class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform peer-checked:translate-x-5"></span>
+          <span class="sr-only">Enable analytics cookies</span>
+        </label>
+      </div>
+      <p class="text-[0.875rem] leading-relaxed text-[#444444]">
+        Google Analytics 4 helps us understand which pages are useful and where visitors come from. Data is anonymised and used only to improve the site.
+      </p>
+      <details class="group mt-3 border-t border-gray-200 pt-3">
+        <summary class="inline-flex cursor-pointer list-none items-center gap-1.5 text-[0.8125rem] font-medium text-[#444444] underline transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc] [&::-webkit-details-marker]:hidden">
+          <span>View cookies in this category</span>
+          <span class="transition-transform group-open:rotate-180" aria-hidden="true">
+            <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none">
+              <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </summary>
+        <div class="mt-3 space-y-3">
+          <div class="rounded border border-gray-200 bg-gray-50 p-3 text-[0.8125rem] text-[#444444]">
+            <p class="mb-1 font-mono text-[0.75rem] font-semibold text-[#111111]">_ga</p>
+            <p class="mb-2 leading-relaxed">Distinguishes unique visitors by assigning a randomly generated client ID.</p>
+            <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.75rem]">
+              <dt class="font-semibold">Provider</dt><dd>Google Analytics (third-party)</dd>
+              <dt class="font-semibold">Type</dt><dd>HTTP cookie</dd>
+              <dt class="font-semibold">Expires</dt><dd>2 years</dd>
+            </dl>
+          </div>
+          <div class="rounded border border-gray-200 bg-gray-50 p-3 text-[0.8125rem] text-[#444444]">
+            <p class="mb-1 font-mono text-[0.75rem] font-semibold text-[#111111]">_ga_YQHKG2BQ0K</p>
+            <p class="mb-2 leading-relaxed">Persists session state and engagement metrics for this Google Analytics 4 property.</p>
+            <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.75rem]">
+              <dt class="font-semibold">Provider</dt><dd>Google Analytics (third-party)</dd>
+              <dt class="font-semibold">Type</dt><dd>HTTP cookie</dd>
+              <dt class="font-semibold">Expires</dt><dd>2 years</dd>
+            </dl>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+      <button
+        type="button"
+        data-cookie-action="reject-all"
+        class="flex cursor-pointer items-center justify-center rounded-md border border-gray-300 px-6 py-3 text-[0.9375rem] font-[500] uppercase leading-none tracking-[0.05em] text-[#1f1f1f] transition-opacity duration-300 hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+      >
+        Reject All
+      </button>
+      <button
+        type="button"
+        data-cookie-action="save-preferences"
+        class="cursor-pointer rounded-md px-6 py-3 text-center text-[0.9375rem] font-[500] uppercase tracking-[0.05em] text-white transition-opacity duration-300 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+        style="background: linear-gradient(to right, #008eba, #00a9d3);"
+      >
+        Save Preferences
+      </button>
+      <button
+        type="button"
+        data-cookie-action="accept-all"
+        class="cursor-pointer rounded-md px-6 py-3 text-center text-[0.9375rem] font-[500] uppercase tracking-[0.05em] text-white transition-opacity duration-300 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc] sm:hidden"
+        style="background: linear-gradient(to right, #008eba, #00a9d3);"
+      >
+        Accept All
+      </button>
+    </div>
+   </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = 'isov8_consent_v1';
+    var EXPIRY_DAYS = 365;
+    var banner = document.getElementById('cookie-banner');
+    var prefs = document.getElementById('cookie-preferences');
+    var overlay = document.getElementById('cookie-preferences-overlay');
+    var analyticsToggle = document.getElementById('cookie-toggle-analytics');
+
+    function readStored() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        var parsed = JSON.parse(raw);
+        var ageDays = (Date.now() - parsed.timestamp) / 86400000;
+        if (ageDays >= EXPIRY_DAYS || parsed.version !== 1) {
+          localStorage.removeItem(STORAGE_KEY);
+          return null;
+        }
+        return parsed;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function applyConsent(choice) {
+      var record = {
+        analytics: !!choice.analytics,
+        timestamp: Date.now(),
+        version: 1
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(record));
+      } catch (e) {}
+      window.__isov8Consent = record;
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          analytics_storage: record.analytics ? 'granted' : 'denied'
+        });
+      }
+    }
+
+    var lockedScrollY = 0;
+    var isLocked = false;
+
+    function lockPageScroll() {
+      if (isLocked) return;
+      lockedScrollY = window.scrollY;
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + lockedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      isLocked = true;
+    }
+
+    function unlockPageScroll() {
+      if (!isLocked) return;
+      document.documentElement.style.removeProperty('overflow');
+      document.body.style.removeProperty('position');
+      document.body.style.removeProperty('top');
+      document.body.style.removeProperty('left');
+      document.body.style.removeProperty('right');
+      document.body.style.removeProperty('width');
+      document.body.style.removeProperty('overflow');
+      window.scrollTo({ top: lockedScrollY, behavior: 'instant' });
+      isLocked = false;
+    }
+
+    function setBackgroundInert(isOn) {
+      if (!prefs) return;
+      var parent = prefs.parentElement;
+      if (!parent) return;
+      for (var i = 0; i < parent.children.length; i++) {
+        var child = parent.children[i];
+        if (child === prefs || child === overlay || child === banner) continue;
+        if (isOn) {
+          child.setAttribute('inert', '');
+        } else {
+          child.removeAttribute('inert');
+        }
+      }
+    }
+
+    var FADE_MS = 1000;
+    var isAnimating = false;
+    var animationTimer = null;
+
+    function startAnimation(onEnd) {
+      isAnimating = true;
+      if (animationTimer) clearTimeout(animationTimer);
+      animationTimer = setTimeout(function () {
+        animationTimer = null;
+        isAnimating = false;
+        if (onEnd) onEnd();
+      }, FADE_MS + 50);
+    }
+
+    function showOverlay() {
+      if (!overlay) return;
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideOverlay() {
+      if (!overlay) return;
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function showBanner() {
+      if (!banner) return;
+      banner.classList.remove('opacity-0', 'pointer-events-none');
+      banner.classList.add('opacity-100', 'pointer-events-auto');
+      banner.setAttribute('aria-hidden', 'false');
+      banner.removeAttribute('inert');
+    }
+
+    function hideBanner() {
+      if (!banner) return;
+      banner.classList.add('opacity-0', 'pointer-events-none');
+      banner.classList.remove('opacity-100', 'pointer-events-auto');
+      banner.setAttribute('aria-hidden', 'true');
+      banner.setAttribute('inert', '');
+    }
+
+    function showPrefs() {
+      if (!prefs) return;
+      prefs.classList.remove('opacity-0', 'pointer-events-none');
+      prefs.classList.add('opacity-100', 'pointer-events-auto');
+      prefs.setAttribute('aria-hidden', 'false');
+      prefs.removeAttribute('inert');
+    }
+
+    function hidePrefs() {
+      if (!prefs) return;
+      prefs.classList.add('opacity-0', 'pointer-events-none');
+      prefs.classList.remove('opacity-100', 'pointer-events-auto');
+      prefs.setAttribute('aria-hidden', 'true');
+      prefs.setAttribute('inert', '');
+    }
+
+    function closePreferences() {
+      hidePrefs();
+      hideOverlay();
+      startAnimation(function () {
+        setBackgroundInert(false);
+        unlockPageScroll();
+      });
+    }
+
+    function hideAll() {
+      hideBanner();
+      closePreferences();
+    }
+
+    function openPreferences() {
+      if (!prefs) return;
+      var stored = readStored();
+      if (analyticsToggle) {
+        analyticsToggle.checked = stored ? !!stored.analytics : false;
+      }
+      hideBanner();
+      lockPageScroll();
+      setBackgroundInert(true);
+      showPrefs();
+      showOverlay();
+      startAnimation();
+    }
+
+    document.addEventListener('click', function (e) {
+      var target = e.target.closest('[data-cookie-action]');
+      if (!target) return;
+      if (isAnimating) {
+        if (target.getAttribute('data-cookie-action') === 'reopen') {
+          e.preventDefault();
+        }
+        return;
+      }
+      var action = target.getAttribute('data-cookie-action');
+      if (action === 'accept-all') {
+        applyConsent({ analytics: true });
+        hideAll();
+      } else if (action === 'reject-all') {
+        applyConsent({ analytics: false });
+        hideAll();
+      } else if (action === 'open-preferences') {
+        openPreferences();
+      } else if (action === 'save-preferences') {
+        applyConsent({ analytics: analyticsToggle ? analyticsToggle.checked : false });
+        hideAll();
+      } else if (action === 'reopen') {
+        e.preventDefault();
+        openPreferences();
+      } else if (action === 'close-preferences') {
+        closePreferences();
+        if (!readStored()) showBanner();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && prefs && prefs.getAttribute('aria-hidden') === 'false') {
+        if (isAnimating) return;
+        closePreferences();
+        if (!readStored()) showBanner();
+      }
+    });
+
+    if (!readStored()) {
+      showBanner();
+      startAnimation();
+    }
+
+    window.openCookiePreferences = openPreferences;
+  })();
+</script>

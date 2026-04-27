@@ -161,21 +161,23 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
 
   <script>
     (() => {
-      const contactForm = document.getElementById("contact-form");
+      const contactForm = document.getElementById("contact-form") as HTMLFormElement | null;
       if (!contactForm) return;
 
+      type FormInput = HTMLInputElement | HTMLTextAreaElement;
+
       const formLoadedAt = Date.now();
-      const timingInput = contactForm.querySelector("[data-form-timing]");
+      const timingInput = contactForm.querySelector<HTMLInputElement>("[data-form-timing]");
       if (timingInput) timingInput.value = String(formLoadedAt);
 
       const contactInputs = Array.from(
-        contactForm.querySelectorAll("[data-contact-input]")
+        contactForm.querySelectorAll<FormInput>("[data-contact-input]")
       );
-      const submitButton = document.getElementById("contact-submit");
+      const submitButton = document.getElementById("contact-submit") as HTMLButtonElement | null;
       const formError = document.getElementById("contact-form-error");
       let isSubmitting = false;
 
-      const validationMessages = {
+      const validationMessages: Record<string, Record<string, string>> = {
         name: {
           valueMissing: "Please enter your name."
         },
@@ -191,7 +193,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         }
       };
 
-      const getErrorMessage = (input) => {
+      const getErrorMessage = (input: FormInput) => {
         const fieldMessages = validationMessages[input.name] ?? {};
         if (input.validity.valueMissing) return fieldMessages.valueMissing ?? "This field is required.";
         if (input.validity.tooShort) return fieldMessages.tooShort ?? "Please enter a little more information.";
@@ -199,8 +201,8 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         return "";
       };
 
-      const setFieldErrorState = (input) => {
-        const errorElement = contactForm.querySelector(`[data-error-for="${input.name}"]`);
+      const setFieldErrorState = (input: FormInput) => {
+        const errorElement = contactForm.querySelector<HTMLElement>(`[data-error-for="${input.name}"]`);
         const errorMessage = getErrorMessage(input);
         const hasError = errorMessage.length > 0;
         input.setAttribute("aria-invalid", String(hasError));
@@ -219,7 +221,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         return !hasError;
       };
 
-      const showFormError = (message) => {
+      const showFormError = (message: string) => {
         if (!formError) return;
         formError.textContent = message;
         formError.classList.remove("hidden");
@@ -231,7 +233,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         formError.classList.add("hidden");
       };
 
-      const setSubmitting = (submitting) => {
+      const setSubmitting = (submitting: boolean) => {
         isSubmitting = submitting;
         if (submitButton) {
           submitButton.disabled = submitting;
@@ -264,17 +266,21 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
         setSubmitting(true);
 
         const formData = new FormData(contactForm);
+        const params = new URLSearchParams();
+        formData.forEach((value, key) => {
+          params.append(key, typeof value === "string" ? value : "");
+        });
         fetch("/.netlify/functions/submit-contact", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData).toString()
+          body: params.toString()
         })
           .then(async (response) => {
             const data = await response.json().catch(() => null);
             if (!response.ok) throw new Error(data?.error || "[E-502] The server returned an unexpected response. Please try again.");
             window.location.href = "/thank-you/";
           })
-          .catch((err) => {
+          .catch((err: Error) => {
             try {
               const message = err.message && err.message.startsWith("[E-")
                 ? err.message
