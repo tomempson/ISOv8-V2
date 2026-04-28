@@ -12,7 +12,7 @@
   aria-modal="false"
   aria-hidden="true"
   inert
-  class="pointer-events-none fixed bottom-4 left-4 z-[9998] w-[calc(100%-2rem)] max-w-[420px] rounded-lg border border-gray-200 bg-white p-6 opacity-0 shadow-2xl transition-opacity ease-out max-sm:bottom-2 max-sm:left-2 max-sm:right-2 max-sm:w-auto"
+  class="pointer-events-none fixed bottom-4 left-4 z-[9998] w-[calc(100%-2rem)] max-w-[420px] rounded-lg border border-gray-200 bg-white p-6 opacity-0 transition-opacity ease-out max-sm:bottom-2 max-sm:left-2 max-sm:right-2 max-sm:w-auto"
   style="transition-duration: 1000ms;"
 >
   <h2 id="cookie-banner-title" class="mb-3 text-[1.25rem] font-semibold leading-tight text-[#111111]">
@@ -67,22 +67,19 @@
   class="pointer-events-none fixed inset-0 z-[9999] flex items-center justify-center p-4 opacity-0 transition-opacity ease-out"
   style="transition-duration: 1000ms;"
 >
-  <button
-    type="button"
-    data-cookie-action="close-preferences"
-    aria-label="Close cookie preferences"
-    class="absolute left-16 top-16 z-10 flex cursor-pointer items-center text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:left-20 lg:top-20"
-  >
-    <span class="relative flex h-10 w-10 items-center justify-center" aria-hidden="true">
-      <span class="absolute h-0.5 w-full rotate-45 bg-current"></span>
-      <span class="absolute h-0.5 w-full -rotate-45 bg-current"></span>
-    </span>
-  </button>
-
-  <div class="flex max-h-[90vh] w-full max-w-[560px] flex-col overflow-hidden rounded-lg bg-white shadow-2xl">
+  <div class="relative flex max-h-[90vh] w-full max-w-[560px] flex-col overflow-hidden rounded-lg bg-white shadow-2xl">
    <div class="flex-1 overflow-y-auto p-6 sm:p-8">
+    <div class="sticky -mx-6 -mt-6 mb-4 flex justify-end bg-white px-6 pb-2 pt-4 sm:-mx-8 sm:-mt-8 sm:px-8 sm:pt-6" style="top: -1.5rem;">
+      <button
+        type="button"
+        data-cookie-action="close-preferences"
+        class="cursor-pointer text-[0.875rem] font-medium text-[#444444] underline transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+      >
+        Close
+      </button>
+    </div>
     <h2 id="cookie-preferences-title" class="mb-2 text-[1.5rem] font-semibold text-[#111111]">
-      Cookie preferences
+      Cookie Preferences
     </h2>
     <p class="mb-6 text-[0.9375rem] leading-relaxed text-[#444444]">
       Choose which categories of cookies you allow. You can change these settings at any time. Read more in our
@@ -120,6 +117,15 @@
               <dt class="font-semibold">Expires</dt><dd>12 months</dd>
             </dl>
           </div>
+          <div class="rounded border border-gray-200 bg-gray-50 p-3 text-[0.8125rem] text-[#444444]">
+            <p class="mb-1 font-mono text-[0.75rem] font-semibold text-[#111111]">Adobe Fonts (Typekit)</p>
+            <p class="mb-2 leading-relaxed">Delivers the site&rsquo;s typefaces from use.typekit.net and p.typekit.net. Serves CSS and font files only &mdash; no cookies are set on isov8.co.uk. Adobe may set its own cookies on the typekit.net domain to operate its font delivery service; these are not accessible to ISOv8&reg; and are governed by Adobe&rsquo;s privacy policy.</p>
+            <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.75rem]">
+              <dt class="font-semibold">Provider</dt><dd>Adobe Fonts (third-party)</dd>
+              <dt class="font-semibold">Type</dt><dd>No cookies set on isov8.co.uk</dd>
+              <dt class="font-semibold">Expires</dt><dd>N/A</dd>
+            </dl>
+          </div>
         </div>
       </details>
     </div>
@@ -155,7 +161,7 @@
             <p class="mb-1 font-mono text-[0.75rem] font-semibold text-[#111111]">_ga</p>
             <p class="mb-2 leading-relaxed">Distinguishes unique visitors by assigning a randomly generated client ID.</p>
             <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.75rem]">
-              <dt class="font-semibold">Provider</dt><dd>Google Analytics (third-party)</dd>
+              <dt class="font-semibold">Provider</dt><dd>isov8.co.uk (first-party, set by Google Analytics)</dd>
               <dt class="font-semibold">Type</dt><dd>HTTP cookie</dd>
               <dt class="font-semibold">Expires</dt><dd>2 years</dd>
             </dl>
@@ -164,7 +170,7 @@
             <p class="mb-1 font-mono text-[0.75rem] font-semibold text-[#111111]">_ga_YQHKG2BQ0K</p>
             <p class="mb-2 leading-relaxed">Persists session state and engagement metrics for this Google Analytics 4 property.</p>
             <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-[0.75rem]">
-              <dt class="font-semibold">Provider</dt><dd>Google Analytics (third-party)</dd>
+              <dt class="font-semibold">Provider</dt><dd>isov8.co.uk (first-party, set by Google Analytics)</dd>
               <dt class="font-semibold">Type</dt><dd>HTTP cookie</dd>
               <dt class="font-semibold">Expires</dt><dd>2 years</dd>
             </dl>
@@ -244,32 +250,27 @@
       }
     }
 
-    var lockedScrollY = 0;
     var isLocked = false;
+    var previousScrollbarGutter = '';
 
     function lockPageScroll() {
       if (isLocked) return;
-      lockedScrollY = window.scrollY;
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = '-' + lockedScrollY + 'px';
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
+      var html = document.documentElement;
+      previousScrollbarGutter = html.style.scrollbarGutter;
+      html.style.scrollbarGutter = 'stable';
+      html.style.overflow = 'hidden';
       isLocked = true;
     }
 
     function unlockPageScroll() {
       if (!isLocked) return;
-      document.documentElement.style.removeProperty('overflow');
-      document.body.style.removeProperty('position');
-      document.body.style.removeProperty('top');
-      document.body.style.removeProperty('left');
-      document.body.style.removeProperty('right');
-      document.body.style.removeProperty('width');
-      document.body.style.removeProperty('overflow');
-      window.scrollTo({ top: lockedScrollY, behavior: 'instant' });
+      var html = document.documentElement;
+      html.style.removeProperty('overflow');
+      if (previousScrollbarGutter) {
+        html.style.scrollbarGutter = previousScrollbarGutter;
+      } else {
+        html.style.removeProperty('scrollbar-gutter');
+      }
       isLocked = false;
     }
 
@@ -326,6 +327,9 @@
 
     function hideBanner() {
       if (!banner) return;
+      if (document.activeElement && banner.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
       banner.classList.add('opacity-0', 'pointer-events-none');
       banner.classList.remove('opacity-100', 'pointer-events-auto');
       banner.setAttribute('aria-hidden', 'true');
@@ -342,6 +346,9 @@
 
     function hidePrefs() {
       if (!prefs) return;
+      if (document.activeElement && prefs.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
       prefs.classList.add('opacity-0', 'pointer-events-none');
       prefs.classList.remove('opacity-100', 'pointer-events-auto');
       prefs.setAttribute('aria-hidden', 'true');
