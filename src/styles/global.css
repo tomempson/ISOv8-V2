@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand: #088cbc;
+}
+
 @custom-variant hover (&:hover);
 
 html {
@@ -33,6 +37,6 @@ body {
 }
 
 a:focus-visible {
-  outline: 2px solid #088cbc;
+  outline: 2px solid var(--color-brand);
   outline-offset: 2px;
 }

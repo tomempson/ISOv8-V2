@@ -12,24 +12,42 @@ interface Props {
 const { node } = Astro.props;
 const { asset, alt, side = "left" } = node;
 
-const widths = [200, 300, 400, 600];
-const srcset = widths
-  .map((w) => `${urlFor(asset).width(w).auto("format").url()} ${w}w`)
-  .join(", ");
-const imageUrl = urlFor(asset).width(400).auto("format").url();
+const widths = [288, 432, 576, 864, 1152];
+const buildUrl = (w: number) =>
+  urlFor(asset).width(w).fit("max").auto("format").quality(80).url();
+
+const srcset = widths.map((w) => `${buildUrl(w)} ${w}w`).join(", ");
+const fallbackSrc = buildUrl(576);
+
+const dimensions = asset?.metadata?.dimensions;
+const intrinsicWidth = dimensions?.width;
+const intrinsicHeight = dimensions?.height;
+const aspectRatio =
+  intrinsicWidth && intrinsicHeight ? intrinsicWidth / intrinsicHeight : null;
+
+const lqip: string | undefined = asset?.metadata?.lqip;
 
 const sideClass =
   side === "right"
     ? "float-right ml-6 my-2"
     : "float-left mr-6 my-2";
+
+const placeholderStyle = lqip
+  ? `background-image:url('${lqip}');background-size:cover;background-position:center;`
+  : "";
+const aspectStyle = aspectRatio ? `aspect-ratio:${aspectRatio};` : "";
+const inlineStyle = `${aspectStyle}${placeholderStyle}`;
 ---
 
 <img
-  src={imageUrl}
+  src={fallbackSrc}
   srcset={srcset}
-  sizes="(max-width: 640px) 45vw, 320px"
+  sizes="(max-width: 640px) 45vw, 288px"
   alt={alt}
+  width={intrinsicWidth}
+  height={intrinsicHeight}
   class:list={["max-w-[45%] sm:max-w-[18rem] rounded align-top", sideClass]}
   loading="lazy"
   decoding="async"
+  style={inlineStyle}
 />

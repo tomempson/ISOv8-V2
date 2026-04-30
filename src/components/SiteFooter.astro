@@ -1,14 +1,16 @@
 ---
 import logoColour from "../assets/images/isov8-logo-colour.svg";
+import SiteFooterSitemap from "./SiteFooterSitemap.astro";
 ---
 
 <footer class="bg-[#f5f3ee]">
   <div class="border-y border-gray-300 px-6 py-14 lg:px-12 lg:py-12">
     <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:justify-center max-[1024px]:gap-10">
-      <a href="/" aria-label="ISO V8 home">
+      <a href="/" aria-label="ISOv8 home">
         <img
           src={logoColour.src}
-          alt="ISO V8"
+          alt=""
+          aria-hidden="true"
           class="h-auto w-[300px] max-w-full"
           width="300"
           height="40"
@@ -22,6 +24,8 @@ import logoColour from "../assets/images/isov8-logo-colour.svg";
     </div>
   </div>
 
+  <SiteFooterSitemap />
+
   <div class="border-b border-gray-300 px-6 py-8 lg:px-12">
     <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:items-center max-[1024px]:gap-10">
       <p class="text-[1rem] leading-none text-[#6f6f6f] max-[1024px]:text-center">
@@ -32,15 +36,18 @@ import logoColour from "../assets/images/isov8-logo-colour.svg";
         <button
           type="button"
           data-cookie-action="reopen"
-          class="cursor-pointer bg-transparent p-0 text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+          class="cursor-pointer bg-transparent p-0 text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
         >
-          Cookie Settings
+          Cookie Preferences
         </button>
-        <a href="/cookie-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
+        <a href="/cookie-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-brand">
           Cookie Policy
         </a>
-        <a href="/privacy-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
+        <a href="/privacy-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-brand">
           Privacy Policy
+        </a>
+        <a href="/terms-of-use" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-brand">
+          Terms of Use
         </a>
       </nav>
     </div>

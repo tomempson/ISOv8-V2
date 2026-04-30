@@ -1,14 +1,13 @@
 ---
 import contactBg from "../assets/images/contact-background.svg";
-import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
+import ContactForm from "./ContactForm.astro";
 ---
 
 <button
   id="engage-button"
   type="button"
-  class="engage-button fixed bottom-6 right-6 z-30 flex h-[125px] w-[125px] cursor-pointer items-center justify-center rounded-full bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#088cbc]"
-  aria-controls="contact-modal"
-  aria-expanded="false"
+  aria-label="Contact us"
+  class="engage-button fixed bottom-6 right-6 z-30 flex h-[125px] w-[125px] cursor-pointer items-center justify-center rounded-full bg-transparent p-0 transition-opacity duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
 >
   <svg
     class="engage-button__ring absolute inset-0 h-full w-full -rotate-90"
@@ -31,9 +30,9 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
     />
   </svg>
   <div class="engage-button__core relative z-10 flex h-[105px] w-[105px] flex-col items-center justify-center rounded-full bg-white">
-    <span class="h-[3px] w-[82px] bg-[#088cbc]"></span>
+    <span class="h-[3px] w-[82px] bg-brand"></span>
     <span class="my-2 text-[1.25rem] font-[600] leading-none text-black">ENGAGE</span>
-    <span class="h-[3px] w-[82px] bg-[#088cbc]"></span>
+    <span class="h-[3px] w-[82px] bg-brand"></span>
   </div>
 </button>
 
@@ -76,158 +75,23 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
       decoding="async"
     />
 
-    <form
-      id="contact-form"
-      name="engage-contact"
-      novalidate
-      class="absolute inset-0 flex items-center justify-center px-8 py-8 text-black lg:px-20 lg:py-10"
-    >
-      <input type="hidden" name="form-name" value="engage-contact" />
-      <input type="hidden" name="form-loaded-at" value="" data-form-timing />
-      <p class="hidden" aria-hidden="true">
-        <label>
-          Don&apos;t fill this out if you&apos;re human:
-          <input type="text" name="bot-field" tabindex="-1" autocomplete="off" />
-        </label>
-      </p>
-
+    <div class="absolute inset-0 flex items-center justify-center px-8 py-8 text-black lg:px-20 lg:py-10">
       <div class="w-full max-w-[760px]">
-        <div class="mb-7 flex items-center justify-between gap-6">
-          <div class="flex items-center gap-3">
-            <h3 class="text-[2.5rem] font-[600] leading-none text-black">Just As</h3>
-            <img
-              src={ckLogoMark.src}
-              alt="Container King"
-              class="-ml-1 h-9 w-auto"
-            />
-          </div>
-
-          <a
-            href="tel:01724870000"
-            class="text-[1.75rem] font-[600] leading-none text-[#088cbc] transition-opacity hover:opacity-80"
-          >
-            01724 870000
-          </a>
-        </div>
-
-        <div class="grid gap-0 md:grid-cols-2 lg:gap-1">
-          <div class="flex flex-col gap-1">
-            <label for="engage-name" class="sr-only">Name</label>
-            <input
-              id="engage-name"
-              type="text"
-              name="name"
-              placeholder="Name"
-              autocomplete="name"
-              required
-              maxlength="80"
-              data-contact-input
-              class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
-            />
-            <p
-              id="engage-name-error"
-              data-error-for="name"
-              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
-            ></p>
-          </div>
-
-          <div class="flex flex-col gap-1">
-            <label for="engage-telephone" class="sr-only">Telephone Number</label>
-            <input
-              id="engage-telephone"
-              type="text"
-              name="telephone"
-              placeholder="Telephone Number"
-              autocomplete="tel"
-              inputmode="numeric"
-              required
-              pattern="^[0-9]{7,15}$"
-              data-contact-input
-              class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
-            />
-            <p
-              id="engage-telephone-error"
-              data-error-for="telephone"
-              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
-            ></p>
-          </div>
-
-          <div class="flex flex-col gap-1 md:col-span-2">
-            <label for="engage-business" class="sr-only">Business Name</label>
-            <input
-              id="engage-business"
-              type="text"
-              name="business-name"
-              placeholder="Business Name"
-              autocomplete="organization"
-              required
-              maxlength="100"
-              data-contact-input
-              class="h-12 w-full rounded-[6px] border border-gray-300 bg-white px-4 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
-            />
-            <p
-              id="engage-business-error"
-              data-error-for="business-name"
-              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
-            ></p>
-          </div>
-
-          <div class="flex flex-col gap-1 md:col-span-2">
-            <label for="engage-enquiry" class="sr-only">Enquiry Details</label>
-            <textarea
-              id="engage-enquiry"
-              name="enquiry-details"
-              rows="5"
-              placeholder="Enquiry Details"
-              required
-              maxlength="1000"
-              autocomplete="off"
-              data-contact-input
-              class="w-full resize-none rounded-[6px] border border-gray-300 bg-white px-4 py-3 text-[1rem] text-black outline-none transition-colors placeholder:text-[#6f6f6f] focus-visible:border-[#088cbc] focus-visible:ring-2 focus-visible:ring-[#088cbc]/30"
-            ></textarea>
-            <p
-              id="engage-enquiry-error"
-              data-error-for="enquiry-details"
-              class="min-h-[4px] text-[0.75rem] leading-tight text-[#c53d32]"
-            ></p>
-          </div>
-        </div>
-
-        <p
-          id="engage-form-error"
-          role="alert"
-          class="mt-2 hidden text-[0.875rem] leading-tight text-[#c53d32]"
-        ></p>
-
-        <button
-          id="engage-submit"
-          type="submit"
-          class="mt-3 w-full cursor-pointer rounded-md py-5 text-[1.25rem] font-[500] uppercase tracking-[0.05em] leading-none text-white transition-opacity duration-300 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc] disabled:cursor-not-allowed disabled:opacity-60"
-          style="background: linear-gradient(to right, #008eba, #00a9d3);"
-        >
-          Submit
-        </button>
-
-        <p class="mt-3 text-center text-[0.875rem] leading-snug text-[#6f6f6f]">
-          By submitting this form, you agree to our <a href="/privacy-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]">privacy policy</a>. We will only use your details to respond to your enquiry.
-        </p>
+        <ContactForm variant="modal" />
       </div>
-    </form>
+    </div>
   </div>
 </div>
-
-<form name="engage-contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="engage-contact" />
-  <input name="name" />
-  <input name="telephone" />
-  <input name="business-name" />
-  <textarea name="enquiry-details"></textarea>
-</form>
 
 <style is:global>
   .engage-button {
     position: fixed;
     isolation: isolate;
+  }
+
+  .engage-button.is-hidden {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .engage-button::before {
@@ -257,7 +121,7 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
   }
 
   .engage-button__ring-progress {
-    stroke: #088cbc;
+    stroke: var(--color-brand);
     stroke-dasharray: 100 100;
     stroke-dashoffset: 100.1;
     stroke-linecap: butt;
@@ -283,14 +147,9 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
     const contactOverlay = document.getElementById("contact-overlay");
     const contactModal = document.getElementById("contact-modal");
     const contactClose = document.getElementById("contact-close") as HTMLButtonElement | null;
-    const contactForm = document.getElementById("contact-form") as HTMLFormElement | null;
 
     let lockedScrollY = 0;
     let pageLockCount = 0;
-
-    const warnBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
-    };
 
     const getTransitionDuration = (element: Element) => {
       const durationSeconds = Number.parseFloat(
@@ -336,6 +195,41 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
       window.scrollTo({ top: lockedScrollY, behavior: "instant" });
     };
 
+    if (engageButton) {
+      const footer = document.querySelector("footer");
+      if (footer && "IntersectionObserver" in window) {
+        const footerObserver = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              engageButton.classList.toggle("is-hidden", entry.isIntersecting);
+            }
+          },
+          { rootMargin: "0px 0px 0px 0px", threshold: 0 }
+        );
+        footerObserver.observe(footer);
+      }
+
+      const syncEngageSemantics = () => {
+        const isLarge = window.innerWidth >= 1280;
+        if (isLarge) {
+          engageButton.setAttribute("aria-haspopup", "dialog");
+          engageButton.setAttribute("aria-controls", "contact-modal");
+          engageButton.setAttribute(
+            "aria-expanded",
+            engageButton.classList.contains("is-active") ? "true" : "false"
+          );
+          engageButton.setAttribute("aria-label", "Open contact form");
+        } else {
+          engageButton.removeAttribute("aria-haspopup");
+          engageButton.removeAttribute("aria-controls");
+          engageButton.removeAttribute("aria-expanded");
+          engageButton.setAttribute("aria-label", "Contact us");
+        }
+      };
+      syncEngageSemantics();
+      window.addEventListener("resize", syncEngageSemantics);
+    }
+
     if (engageButton && contactOverlay && contactModal && contactClose) {
       let isContactAnimating = false;
       let contactAnimationTimer: number | undefined;
@@ -354,11 +248,6 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
       };
 
       const setContactState = (isOpen: boolean) => {
-        if (isOpen) {
-          window.addEventListener("beforeunload", warnBeforeUnload);
-        } else {
-          window.removeEventListener("beforeunload", warnBeforeUnload);
-        }
         engageButton.setAttribute("aria-expanded", String(isOpen));
         contactClose.setAttribute("aria-expanded", String(isOpen));
         engageButton.classList.toggle("is-active", isOpen);
@@ -449,164 +338,6 @@ import ckLogoMark from "../assets/images/container-king-logo-mark-colour.svg";
             requestContactState(false);
           }
         }
-      });
-    }
-
-    if (contactForm) {
-      const formLoadedAt = Date.now();
-      const timingInput = contactForm.querySelector<HTMLInputElement>("[data-form-timing]");
-      if (timingInput) timingInput.value = String(formLoadedAt);
-
-      type FormInput = HTMLInputElement | HTMLTextAreaElement;
-
-      const contactInputs = Array.from(
-        contactForm.querySelectorAll<FormInput>("[data-contact-input]")
-      );
-      const submitButton = document.getElementById("engage-submit") as HTMLButtonElement | null;
-      const formError = document.getElementById("engage-form-error");
-      let isSubmitting = false;
-
-      const validationMessages: Record<string, Record<string, string>> = {
-        name: {
-          valueMissing: "Please enter your name."
-        },
-        telephone: {
-          valueMissing: "Please enter your telephone number.",
-          patternMismatch: "Telephone number must contain 7 to 15 digits only."
-        },
-        "business-name": {
-          valueMissing: "Please enter your business name."
-        },
-        "enquiry-details": {
-          valueMissing: "Please enter your enquiry details."
-        }
-      };
-
-      const getErrorMessage = (input: FormInput) => {
-        const fieldMessages = validationMessages[input.name] ?? {};
-
-        if (input.validity.valueMissing) {
-          return fieldMessages.valueMissing ?? "This field is required.";
-        }
-
-        if (input.validity.tooShort) {
-          return fieldMessages.tooShort ?? "Please enter a little more information.";
-        }
-
-        if (input.validity.patternMismatch) {
-          return fieldMessages.patternMismatch ?? "Please enter a valid value.";
-        }
-
-        return "";
-      };
-
-      const setFieldErrorState = (input: FormInput) => {
-        const errorElement = contactForm.querySelector<HTMLElement>(
-          `[data-error-for="${input.name}"]`
-        );
-        const errorMessage = getErrorMessage(input);
-        const hasError = errorMessage.length > 0;
-
-        input.setAttribute("aria-invalid", String(hasError));
-        input.classList.toggle("border-[#c53d32]", hasError);
-        input.classList.toggle("focus-visible:border-[#c53d32]", hasError);
-        input.classList.toggle("border-gray-300", !hasError);
-        input.classList.toggle("focus-visible:border-[#088cbc]", !hasError);
-
-        if (errorElement) {
-          errorElement.textContent = errorMessage;
-          if (hasError && errorElement.id) {
-            input.setAttribute("aria-describedby", errorElement.id);
-          } else {
-            input.removeAttribute("aria-describedby");
-          }
-        }
-
-        return !hasError;
-      };
-
-      const showFormError = (message: string) => {
-        if (!formError) return;
-        formError.textContent = message;
-        formError.classList.remove("hidden");
-      };
-
-      const hideFormError = () => {
-        if (!formError) return;
-        formError.textContent = "";
-        formError.classList.add("hidden");
-      };
-
-      const setSubmitting = (submitting: boolean) => {
-        isSubmitting = submitting;
-        if (submitButton) {
-          submitButton.disabled = submitting;
-          submitButton.textContent = submitting ? "Submitting\u2026" : "Submit";
-        }
-      };
-
-      contactInputs.forEach((input) => {
-        input.addEventListener("blur", () => {
-          setFieldErrorState(input);
-        });
-
-        input.addEventListener("input", () => {
-          if (input.name === "telephone") {
-            input.value = input.value.replace(/\D+/g, "");
-          }
-
-          if (input.getAttribute("aria-invalid") === "true") {
-            setFieldErrorState(input);
-          }
-        });
-      });
-
-      contactForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        hideFormError();
-
-        if (isSubmitting) return;
-
-        if (Date.now() - formLoadedAt < 3000) {
-          showFormError("Please wait a moment before submitting.");
-          return;
-        }
-
-        const firstInvalidInput = contactInputs.find((input) => !setFieldErrorState(input));
-
-        if (firstInvalidInput) {
-          firstInvalidInput.focus();
-          return;
-        }
-
-        setSubmitting(true);
-
-        const formData = new FormData(contactForm);
-        const params = new URLSearchParams();
-        formData.forEach((value, key) => {
-          params.append(key, typeof value === "string" ? value : "");
-        });
-        window.removeEventListener("beforeunload", warnBeforeUnload);
-
-        fetch("/.netlify/functions/submit-contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: params.toString()
-        })
-          .then(async (response) => {
-            const data = await response.json().catch(() => null);
-            if (!response.ok) throw new Error(data?.error || "[E-502] The server returned an unexpected response. Please try again.");
-            window.location.href = "/thank-you/";
-          })
-          .catch((err: Error) => {
-            try {
-              const message = err.message && err.message.startsWith("[E-")
-                ? err.message
-                : "[E-600] Unable to reach our servers. Please check your internet connection and try again.";
-              sessionStorage.setItem("submission-error", message);
-            } catch (_) {}
-            window.location.href = "/error/";
-          });
       });
     }
   })();

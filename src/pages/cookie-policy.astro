@@ -1,20 +1,20 @@
 ---
-import LegalPageLayout from "../layouts/LegalPageLayout.astro";
+import ContentPageLayout from "../layouts/ContentPageLayout.astro";
 
 const tocItems = [
-  { id: "about-this-policy", label: "1. About this policy" },
-  { id: "what-are-cookies", label: "2. What cookies are" },
-  { id: "cookies-we-use", label: "3. Cookies we use" },
-  { id: "cookies-not-used", label: "4. Cookies we do not use" },
-  { id: "managing-preferences", label: "5. Managing your preferences" },
-  { id: "your-rights", label: "6. Your rights &amp; consent records" },
-  { id: "ico-complaints", label: "7. Right to complain to the ICO" },
-  { id: "changes-to-policy", label: "8. Changes to this policy" },
-  { id: "contact-us", label: "9. Contact us" },
+  { id: "about-this-policy", label: "1. About This Policy" },
+  { id: "what-are-cookies", label: "2. What Cookies Are" },
+  { id: "cookies-we-use", label: "3. Cookies We Use" },
+  { id: "cookies-not-used", label: "4. Cookies We Do Not Use" },
+  { id: "managing-preferences", label: "5. Managing Your Preferences" },
+  { id: "your-rights", label: "6. Your Rights &amp; Consent Records" },
+  { id: "ico-complaints", label: "7. Right to Complain to the ICO" },
+  { id: "changes-to-policy", label: "8. Changes to This Policy" },
+  { id: "contact-us", label: "9. Contact Us" },
 ];
 ---
 
-<LegalPageLayout
+<ContentPageLayout
   metaTitle="ISOv8® | Cookie Policy"
   description="Cookies and similar technologies used on isov8.co.uk, why we use them, and how you can control them."
   keywords={["ISOv8 cookie policy", "cookies", "Google Analytics", "Adobe Fonts", "consent"]}
@@ -24,9 +24,9 @@ const tocItems = [
   tocItems={tocItems}
 >
   <div class="space-y-3">
-    <h2 id="about-this-policy" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">1. About this policy</h2>
+    <h2 id="about-this-policy" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">1. About This Policy</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
-      This Cookie Policy explains how ISOv8&reg; by ContainerKing&reg; Limited (&ldquo;ISOv8&reg;&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) uses cookies and similar technologies on isov8.co.uk. ContainerKing&reg; Limited is the data controller for personal data collected through this website and is registered in England and Wales under company number 03402386 (registered office: Celsius Parc, Cupola Way, Scunthorpe, North Lincolnshire, DN15 9YJ). It should be read alongside our <a href="/privacy-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Privacy Policy</a> (available at <a href="https://isov8.co.uk/privacy-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80">isov8.co.uk/privacy-policy</a>), which sets out how we handle any personal data we collect through the website, your rights as a data subject, and the lawful bases on which we rely.
+      This Cookie Policy explains how ISOv8&reg; by ContainerKing&reg; Limited (&ldquo;ISOv8&reg;&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;) uses cookies and similar technologies on isov8.co.uk. ContainerKing&reg; Limited is the data controller for personal data collected through this website and is registered in England and Wales under company number 03402386 (registered office: Celsius Parc, Cupola Way, Scunthorpe, North Lincolnshire, DN15 9YJ). It should be read alongside our <a href="/privacy-policy" class="text-brand underline transition-opacity hover:opacity-80">Privacy Policy</a> (available at <a href="https://isov8.co.uk/privacy-policy" class="text-brand underline transition-opacity hover:opacity-80">isov8.co.uk/privacy-policy</a>), which sets out how we handle any personal data we collect through the website, your rights as a data subject, and the lawful bases on which we rely.
     </p>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       We use cookies in line with the UK Privacy and Electronic Communications Regulations (PECR) and the UK General Data Protection Regulation (UK GDPR). Strictly necessary cookies are set automatically; all other categories are only used after you give consent through our cookie banner.
@@ -37,7 +37,7 @@ const tocItems = [
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="what-are-cookies" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">2. What cookies and similar technologies are</h2>
+    <h2 id="what-are-cookies" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">2. What Cookies and Similar Technologies Are</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       A cookie is a small text file placed on your device by a website you visit. Cookies are widely used to make websites work, or work more efficiently, and to provide information to the site owner. &ldquo;Similar technologies&rdquo; include browser storage mechanisms such as <em>localStorage</em>, which work like cookies but store data inside your browser rather than sending it to a server with each request.
     </p>
@@ -50,9 +50,9 @@ const tocItems = [
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="cookies-we-use" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">3. Cookies we use</h2>
+    <h2 id="cookies-we-use" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">3. Cookies We Use</h2>
 
-    <h3 class="mt-10 text-[1.75rem] font-[500] leading-tight text-black">3.1 Strictly necessary</h3>
+    <h3 class="mt-10 text-[1.75rem] font-[500] leading-tight text-black">3.1 Strictly Necessary</h3>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       These are required for the site to function. They cannot be disabled and do not require your consent under PECR.
     </p>
@@ -93,7 +93,7 @@ const tocItems = [
       </table>
     </div>
 
-    <h3 class="mt-10 text-[1.75rem] font-[500] leading-tight text-black">3.2 Analytics (consent required)</h3>
+    <h3 class="mt-10 text-[1.75rem] font-[500] leading-tight text-black">3.2 Analytics (Consent Required)</h3>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       We use Google Analytics 4 (measurement ID <span class="font-mono text-[0.8125rem]">G-YQHKG2BQ0K</span>) to understand which pages are useful and where visitors come from. Google Analytics is loaded under Google Consent Mode v2: by default <em>analytics_storage</em> is denied, and the cookies below are only written to your device after you grant consent through our banner.
     </p>
@@ -137,12 +137,12 @@ const tocItems = [
       </table>
     </div>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
-      Google processes the resulting data outside the UK. Where personal data is transferred outside the UK, we rely on appropriate safeguards recognised under UK data protection law, such as the UK International Data Transfer Agreement, the UK Addendum to the EU Standard Contractual Clauses, or adequacy regulations where applicable. For more information on how Google handles this data, see Google&rsquo;s privacy and terms at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">policies.google.com/privacy</a> and Google Analytics&rsquo; cookie usage at <a href="https://developers.google.com/analytics/devguides/collection/ga4/cookies-user-id" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">developers.google.com/analytics</a>.
+      Google processes the resulting data outside the UK. Where personal data is transferred outside the UK, we rely on appropriate safeguards recognised under UK data protection law, such as the UK International Data Transfer Agreement, the UK Addendum to the EU Standard Contractual Clauses, or adequacy regulations where applicable. For more information on how Google handles this data, see Google&rsquo;s privacy and terms at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">policies.google.com/privacy</a> and Google Analytics&rsquo; cookie usage at <a href="https://developers.google.com/analytics/devguides/collection/ga4/cookies-user-id" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">developers.google.com/analytics</a>.
     </p>
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="cookies-not-used" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">4. Cookies we do not use</h2>
+    <h2 id="cookies-not-used" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">4. Cookies We Do Not Use</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       We do not use advertising, marketing, or social-media tracking cookies. We do not load pixels or tags from Meta, LinkedIn, X (Twitter), TikTok, Hotjar, Intercom, or any similar service. Our Content Security Policy is configured to block such third-party scripts at the browser level.
     </p>
@@ -152,15 +152,15 @@ const tocItems = [
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="managing-preferences" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">5. Managing your cookie preferences</h2>
+    <h2 id="managing-preferences" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">5. Managing Your Cookie Preferences</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       When you first visit isov8.co.uk we display a cookie banner allowing you to accept all cookies, reject all non-essential cookies, or choose individual categories under <em>Manage preferences</em>. Your choice is recorded in the <span class="font-mono text-[0.8125rem]">isov8_consent_v1</span> entry described above and is honoured for 12 months, after which we will ask again.
     </p>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
-      You can change your preferences at any time by clicking <button type="button" data-cookie-action="reopen" class="cursor-pointer bg-transparent p-0 text-[#088cbc] underline transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]">Cookie Settings</button> in the site footer. You can also clear or block cookies through your browser&rsquo;s settings &mdash; the help pages for <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Chrome</a>, <a href="https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Firefox</a>, <a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Safari</a>, and <a href="https://support.microsoft.com/en-gb/microsoft-edge" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Edge</a> explain how. Blocking strictly necessary cookies may prevent parts of the site from working as intended.
+      You can change your preferences at any time by clicking <button type="button" data-cookie-action="reopen" class="cursor-pointer bg-transparent p-0 text-brand underline transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">Cookie Settings</button> in the site footer. You can also clear or block cookies through your browser&rsquo;s settings &mdash; the help pages for <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">Chrome</a>, <a href="https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">Firefox</a>, <a href="https://support.apple.com/en-gb/guide/safari/sfri11471/mac" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">Safari</a>, and <a href="https://support.microsoft.com/en-gb/microsoft-edge" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">Edge</a> explain how. Blocking strictly necessary cookies may prevent parts of the site from working as intended.
     </p>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
-      To opt out of Google Analytics across all websites, you can install Google&rsquo;s <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">browser opt-out add-on</a>.
+      To opt out of Google Analytics across all websites, you can install Google&rsquo;s <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">browser opt-out add-on</a>.
     </p>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       Rejecting non-essential cookies does not reduce access to the website&rsquo;s core functionality. You can browse the full site, contact us, and use every feature whether or not you accept analytics cookies &mdash; we only lose the ability to measure how the site is being used.
@@ -171,9 +171,9 @@ const tocItems = [
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="your-rights" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">6. Your rights and consent records</h2>
+    <h2 id="your-rights" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">6. Your Rights and Consent Records</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
-      Where cookies and similar technologies process personal data, you have rights under UK GDPR including the right of access, rectification, erasure, restriction, portability, objection, and the right to withdraw consent at any time. These rights and how to exercise them are described in our <a href="/privacy-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Privacy Policy</a>. Withdrawing consent does not affect the lawfulness of any processing carried out before the withdrawal.
+      Where cookies and similar technologies process personal data, you have rights under UK GDPR including the right of access, rectification, erasure, restriction, portability, objection, and the right to withdraw consent at any time. These rights and how to exercise them are described in our <a href="/privacy-policy" class="text-brand underline transition-opacity hover:opacity-80">Privacy Policy</a>. Withdrawing consent does not affect the lawfulness of any processing carried out before the withdrawal.
     </p>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       We keep a record of your cookie consent choice in the <span class="font-mono text-[0.8125rem]">isov8_consent_v1</span> entry stored in your browser. The record contains the categories you accepted or rejected, the time the choice was made, and a version number for the consent schema. We use this record to honour your choice on future visits and to demonstrate, if asked, that we obtained valid consent before any non-essential technology was used.
@@ -181,35 +181,35 @@ const tocItems = [
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="ico-complaints" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">7. Right to complain to the ICO</h2>
+    <h2 id="ico-complaints" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">7. Right to Complain to the ICO</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       If you are not satisfied with how we use cookies or handle your personal data, we would like the chance to put it right &mdash; please contact us first using the details in section&nbsp;9. You also have the right to lodge a complaint with the UK supervisory authority, the Information Commissioner&rsquo;s Office (ICO).
     </p>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       Information Commissioner&rsquo;s Office<br />
       Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF<br />
-      Helpline: <a href="tel:+443031231113" class="text-[#088cbc] underline transition-opacity hover:opacity-80">0303 123 1113</a><br />
-      Website: <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener" class="text-[#088cbc] underline transition-opacity hover:opacity-80">ico.org.uk/make-a-complaint</a>
+      Helpline: <a href="tel:+443031231113" class="text-brand underline transition-opacity hover:opacity-80">0303 123 1113</a><br />
+      Website: <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener" class="text-brand underline transition-opacity hover:opacity-80">ico.org.uk/make-a-complaint</a>
     </p>
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="changes-to-policy" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">8. Changes to this policy</h2>
+    <h2 id="changes-to-policy" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">8. Changes to This Policy</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       We may update this Cookie Policy from time to time to reflect changes in the cookies we use, or for legal, operational, or regulatory reasons. The &ldquo;Published&rdquo; date at the foot of this page indicates when it was most recently revised. Material changes that affect your consent will be brought to your attention through the cookie banner.
     </p>
   </div>
 
   <div class="mt-8 space-y-3">
-    <h2 id="contact-us" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">9. Contact us</h2>
+    <h2 id="contact-us" class="scroll-mt-36 text-[2.25rem] font-[600] leading-tight text-black">9. Contact Us</h2>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
-      If you have any questions about this Cookie Policy or how we use cookies, please contact us. You can also read our <a href="/privacy-policy" class="text-[#088cbc] underline transition-opacity hover:opacity-80">Privacy Policy</a> for more information about how we handle personal data.
+      If you have any questions about this Cookie Policy or how we use cookies, please contact us. You can also read our <a href="/privacy-policy" class="text-brand underline transition-opacity hover:opacity-80">Privacy Policy</a> for more information about how we handle personal data.
     </p>
     <p class="text-[1.125rem] leading-[1.8] text-[#4b5563]">
       ISOv8&reg; by ContainerKing&reg; Limited<br />
       Celsius Parc, Cupola Way, Scunthorpe, North Lincolnshire, United Kingdom, DN15 9YJ<br />
-      Tel: <a href="tel:+441724870000" class="text-[#088cbc] underline transition-opacity hover:opacity-80">01724 870000</a><br />
-      Email: <a href="mailto:engage@isov8.co.uk" class="text-[#088cbc] underline transition-opacity hover:opacity-80">engage@isov8.co.uk</a>
+      Tel: <a href="tel:+441724870000" class="text-brand underline transition-opacity hover:opacity-80">01724 870000</a><br />
+      Email: <a href="mailto:engage@isov8.co.uk" class="text-brand underline transition-opacity hover:opacity-80">engage@isov8.co.uk</a>
     </p>
   </div>
-</LegalPageLayout>
+</ContentPageLayout>

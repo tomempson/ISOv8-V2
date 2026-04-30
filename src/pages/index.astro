@@ -2,8 +2,8 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EngageContact from "../components/EngageContact.astro";
-import { phases } from "../data/phases";
-import { phaseSidebarToSanity, sectionSidebarToSanity } from "../data/sectionMapping";
+import SiteFooter from "../components/SiteFooter.astro";
+import { phases, phaseSidebarToSanity, sectionSidebarToSanity } from "../data/taxonomy";
 import { getSidebarLinksGroupedByPhaseSection } from "../utils/sanity";
 
 const groupedLinks = await getSidebarLinksGroupedByPhaseSection();
@@ -24,7 +24,6 @@ for (const phase of phases) {
 
 import logoMark from "../assets/images/isov8-logo-mark.svg";
 import logoFull from "../assets/images/isov8-logo.svg";
-import logoColour from "../assets/images/isov8-logo-colour.svg";
 import bulletPoint from "../assets/images/bullet-point.webp";
 import showcaseBg from "../assets/images/showcase-background.webp";
 
@@ -174,58 +173,33 @@ const conversionImages = [
 ---
 
 <BaseLayout title="ISOv8®" description="ISO Shipping Container Conversions for Businesses, Creatives & Commercial Sectors Across the UK">
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://isov8-v2.netlify.app/#organization",
-        "name": "ISOv8® by ContainerKing® Limited",
-        "url": "https://isov8-v2.netlify.app",
-        "logo": "https://isov8-v2.netlify.app/assets/images/isov8-logo-colour.svg",
-        "telephone": "01724 870000",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Scunthorpe",
-          "addressRegion": "North Lincolnshire",
-          "addressCountry": "GB"
-        },
-        "description": "UK business delivering shipping container conversions and steel anti-vandal buildings with a focus on clarity, specification, and long-term performance."
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://isov8-v2.netlify.app/#website",
-        "name": "ISOv8®",
-        "url": "https://isov8-v2.netlify.app",
-        "publisher": { "@id": "https://isov8-v2.netlify.app/#organization" }
-      }
-    ]
-  })} />
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
     <EngageContact />
 
     <section class="relative h-screen overflow-hidden">
       <header class="absolute inset-x-0 top-0 z-30">
         <a
           href="/"
-          aria-label="ISO V8 home"
+          aria-label="ISOv8 home"
           class="absolute right-8 top-[15px] lg:hidden"
         >
           <img
             src={logoMark.src}
-            alt="ISO V8"
+            alt=""
+            aria-hidden="true"
             class="w-16"
           />
         </a>
 
         <a
           href="/"
-          aria-label="ISO V8 home"
+          aria-label="ISOv8 home"
           class="absolute left-1/2 top-[15px] hidden -translate-x-1/2 lg:block"
         >
           <img
             src={logoFull.src}
-            alt="ISO V8"
+            alt=""
+            aria-hidden="true"
             class="w-[300px] max-w-none"
           />
         </a>
@@ -281,7 +255,7 @@ const conversionImages = [
             type="button"
             aria-controls="menu-shell"
             aria-label="Close menu"
-            class="absolute left-8 top-8 flex cursor-pointer items-center gap-4 text-[1.25rem] font-medium text-black lg:left-12 lg:top-10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#088cbc]"
+            class="absolute left-8 top-8 flex cursor-pointer items-center gap-4 text-[1.25rem] font-medium text-black lg:left-12 lg:top-10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
           >
             <span class="relative flex h-10 w-10 items-center justify-center" aria-hidden="true">
               <span class="absolute h-0.5 w-full rotate-45 bg-current"></span>
@@ -297,7 +271,7 @@ const conversionImages = [
                 type="button"
                 aria-controls={`menu-${phase.id}-panel`}
                 aria-expanded="false"
-                class="phase-trigger inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+                class="phase-trigger inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 {phase.label}
               </button>
@@ -330,7 +304,7 @@ const conversionImages = [
                 type="button"
                 aria-controls={`menu-${phase.id}-panel`}
                 aria-label="Back to primary menu"
-                class="phase-back flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+                class="phase-back flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
               >
                 <svg
                   class="h-5 w-5"
@@ -362,7 +336,7 @@ const conversionImages = [
                     aria-controls={`menu-${section.id}-panel`}
                     aria-expanded="false"
                     data-section-trigger={section.id}
-                    class="menu-articles-trigger inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+                    class="menu-articles-trigger inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-brand hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
                   >
                     {section.label}
                   </button>
@@ -396,7 +370,7 @@ const conversionImages = [
                     aria-controls={`menu-${section.id}-panel`}
                     aria-label={`Back to ${phase.label} panel`}
                     data-section-back={section.id}
-                    class="section-back flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+                    class="section-back flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center text-black transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
                   >
                     <svg
                       class="h-5 w-5"
@@ -423,7 +397,7 @@ const conversionImages = [
                   {sectionLinks[section.id].map((link) => (
                     <a
                       href={link.href}
-                      class="menu-tertiary-link inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-[#088cbc] hover:underline active:text-[#088cbc] active:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
+                      class="menu-tertiary-link inline-block cursor-pointer text-left text-[1.125rem] font-[400] leading-tight text-black transition-colors hover:text-brand hover:underline active:text-brand active:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
                     >
                       {link.label}
                     </a>
@@ -510,61 +484,21 @@ const conversionImages = [
       </div>
     </section>
 
-    <footer class="bg-[#f5f3ee]">
-      <div class="border-y border-gray-300 px-6 py-14 lg:px-12 lg:py-12">
-        <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:justify-center max-[1024px]:gap-10">
-          <a href="/" aria-label="ISO V8 home">
-            <img
-              src={logoColour.src}
-              alt="ISO V8"
-              class="h-auto w-[300px] max-w-full"
-            />
-          </a>
-
-          <p class="text-right text-[1.875rem] font-[400] italic leading-none text-black max-[1024px]:text-center">
-            without doubt&reg;
-          </p>
-        </div>
-      </div>
-
-      <div class="border-b border-gray-300 px-6 py-8 lg:px-12">
-        <div class="mx-[75px] flex items-center justify-between gap-6 max-[1024px]:flex-col max-[1024px]:items-center max-[1024px]:gap-10">
-          <p class="text-[1rem] leading-none text-[#6f6f6f] max-[1024px]:text-center">
-            &copy; 2026 ContainerKing&reg;. All rights reserved.
-          </p>
-
-          <nav aria-label="Footer policies" class="flex items-center gap-8 max-[1024px]:flex-row max-[1024px]:justify-center max-[1024px]:gap-8">
-            <button
-              type="button"
-              data-cookie-action="reopen"
-              class="cursor-pointer bg-transparent p-0 text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#088cbc]"
-            >
-              Cookie Settings
-            </button>
-            <a href="/cookie-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
-              Cookie Policy
-            </a>
-            <a href="/privacy-policy" class="text-[1rem] leading-none text-[#6f6f6f] underline transition-colors hover:text-[#088cbc]">
-              Privacy Policy
-            </a>
-          </nav>
-        </div>
-      </div>
-    </footer>
+    <SiteFooter />
   </main>
 
   <style is:global>
     .phase-trigger:active,
     .phase-trigger.is-pressed,
     .phase-trigger[aria-expanded="true"] {
-      color: #088cbc;
+      color: var(--color-brand);
       text-decoration: underline;
     }
 
     .menu-articles-trigger:active,
     .menu-articles-trigger.is-pressed,
     .menu-articles-trigger[aria-expanded="true"] {
-      color: #088cbc;
+      color: var(--color-brand);
       text-decoration: underline;
     }
 
@@ -572,7 +506,7 @@ const conversionImages = [
     .menu-secondary-link.is-pressed,
     .menu-tertiary-link:active,
     .menu-tertiary-link.is-pressed {
-      color: #088cbc;
+      color: var(--color-brand);
       text-decoration: underline;
     }
   </style>

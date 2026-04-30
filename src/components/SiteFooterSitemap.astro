@@ -1,0 +1,75 @@
+---
+import { phases, phaseSidebarToSanity, sectionSidebarToSanity } from "../data/taxonomy";
+import { getSidebarLinksGroupedByPhaseSection } from "../utils/sanity";
+
+const groupedLinks = await getSidebarLinksGroupedByPhaseSection();
+
+const phaseColumns = phases
+  .map((phase) => {
+    const sanityPhase = phaseSidebarToSanity[phase.id];
+    const phaseLinks = sanityPhase ? groupedLinks[sanityPhase] : undefined;
+
+    const sections = phase.sections
+      .map((section) => {
+        const sanitySection = sectionSidebarToSanity[section.id];
+        const links = phaseLinks && sanitySection ? phaseLinks[sanitySection] : undefined;
+        return links && links.length > 0
+          ? { id: section.id, label: section.label, links }
+          : null;
+      })
+      .filter((s): s is { id: string; label: string; links: { href: string; label: string }[] } => s !== null);
+
+    return { id: phase.id, label: phase.label, sections };
+  })
+  .filter((phase) => phase.sections.length > 0);
+---
+
+{phaseColumns.length > 0 && (
+  <div class="border-b border-gray-300 px-6 py-12 lg:px-12">
+    <div class="mx-[75px] grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      {phaseColumns.map((phase) => (
+        <div>
+          <h2 class="mb-4 text-[1.25rem] font-[600] leading-tight text-black">
+            {phase.label}
+          </h2>
+          <ul class="space-y-3">
+            {phase.sections.map((section) => (
+              <li>
+                <details class="group">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-2 text-[1rem] font-[400] leading-tight text-black transition-colors hover:text-brand hover:underline">
+                    <span>{section.label}</span>
+                    <svg
+                      class="h-3 w-3 shrink-0 transition-transform group-open:rotate-180"
+                      viewBox="0 0 12 12"
+                      aria-hidden="true"
+                    >
+                      <path d="M2 4 L6 8 L10 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </summary>
+                  <ul class="mt-3 space-y-2 border-l border-gray-300 pl-3">
+                    {section.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          class="block text-[1rem] font-[400] leading-tight text-[#6f6f6f] transition-colors hover:text-brand hover:underline"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
