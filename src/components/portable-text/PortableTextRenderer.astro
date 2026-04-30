@@ -5,6 +5,7 @@ import Block from "./Block.astro";
 import Link from "./Link.astro";
 import List from "./List.astro";
 import ListItem from "./ListItem.astro";
+import Table from "./Table.astro";
 
 interface Props {
   value: any[];
@@ -15,6 +16,7 @@ const { value } = Astro.props;
 const components = {
   type: {
     inlineImageInline: InlineImageInline,
+    table: Table,
   },
   block: {
     h2: Block,

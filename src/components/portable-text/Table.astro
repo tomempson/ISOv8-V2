@@ -1,0 +1,43 @@
+---
+interface TableRow {
+  _key: string;
+  cells: string[];
+}
+
+interface Props {
+  node: {
+    rows?: TableRow[];
+  };
+}
+
+const { node } = Astro.props;
+const rows = node?.rows ?? [];
+const [headRow, ...bodyRows] = rows;
+---
+
+{rows.length > 0 && (
+  <div class="my-6 overflow-x-auto">
+    <table class="w-full border-collapse text-left text-sm">
+      {headRow && (
+        <thead class="bg-gray-100">
+          <tr>
+            {headRow.cells.map((cell) => (
+              <th class="border border-gray-300 px-3 py-2 font-semibold">{cell}</th>
+            ))}
+          </tr>
+        </thead>
+      )}
+      {bodyRows.length > 0 && (
+        <tbody>
+          {bodyRows.map((row) => (
+            <tr>
+              {row.cells.map((cell) => (
+                <td class="border border-gray-300 px-3 py-2 align-top">{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      )}
+    </table>
+  </div>
+)}

@@ -219,6 +219,7 @@ export const page = defineType({
             {title: 'Numbered', value: 'number'},
           ],
         }),
+        defineArrayMember({type: 'table'}),
       ],
     }),
     defineField({

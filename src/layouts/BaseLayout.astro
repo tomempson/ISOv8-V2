@@ -9,6 +9,12 @@ interface Props {
   keywords?: string[];
   ogImage?: string;
   ogType?: string;
+  /**
+   * Set on interstitial / terminal pages (404, error, thank-you) that should
+   * not advertise themselves as canonical destinations. Suppresses the
+   * canonical link, og:url, and JSON-LD site graph.
+   */
+  noindex?: boolean;
 }
 
 const {
@@ -17,6 +23,7 @@ const {
   keywords = [],
   ogImage = "/assets/images/opengraph-image.jpg",
   ogType = "website",
+  noindex = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
@@ -31,11 +38,11 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     {description && <meta name="description" content={description} />}
     {keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="canonical" href={canonicalUrl} />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content={ogType} />
-    <meta property="og:url" content={canonicalUrl} />
+    {!noindex && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:logo" content={`${Astro.site}assets/images/isov8-logo-mark-colour.svg`} />
     <meta property="og:site_name" content={SITE_NAME} />
@@ -54,7 +61,7 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="https://use.typekit.net/nlb2jsy.css?display=swap" />
     <title>{title}</title>
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(siteGraphJsonLd())} />
+    {!noindex && <script type="application/ld+json" is:inline set:html={JSON.stringify(siteGraphJsonLd())} />}
     <slot name="head" />
     <!-- Google Consent Mode v2 - default state must be set before gtag.js loads -->
     <script is:inline>
@@ -68,8 +75,7 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
         analytics_storage: 'denied',
         functionality_storage: 'granted',
         security_storage: 'granted',
-        wait_for_update: 500,
-        region: ['GB', 'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'CH']
+        wait_for_update: 500
       });
 
       try {
