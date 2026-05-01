@@ -1,15 +1,16 @@
 // Scans dist/ for inline <script> tags, computes their sha256 hashes,
-// and rewrites the script-src directive in netlify.toml so the CSP
-// always matches what was just built. Runs as a postbuild step.
+// and writes dist/_headers with a Content-Security-Policy that matches
+// the just-built output. Netlify reads _headers from the publish dir
+// after the build, so hashes are guaranteed to match the deployed HTML.
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, appendFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = join(root, "dist");
-const tomlPath = join(root, "netlify.toml");
+const headersPath = join(distDir, "_headers");
 
 function walk(dir) {
   const out = [];
@@ -39,18 +40,32 @@ for (const file of walk(distDir)) {
 }
 
 const sorted = [...hashes].sort();
-const toml = readFileSync(tomlPath, "utf8");
 
-const updated = toml.replace(
-  /(script-src\s+'self')([^;]*?)(\s+https:\/\/www\.googletagmanager\.com)/,
-  (_, head, _middle, tail) => `${head} ${sorted.join(" ")}${tail}`,
-);
+const csp = [
+  "default-src 'none'",
+  `script-src 'self' ${sorted.join(" ")} https://www.googletagmanager.com`,
+  "style-src 'self' 'unsafe-inline' https://use.typekit.net https://p.typekit.net",
+  "img-src 'self' https://cdn.sanity.io https://www.googletagmanager.com https://www.google-analytics.com data:",
+  "font-src 'self' https://use.typekit.net https://p.typekit.net",
+  "connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com",
+  "media-src 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "manifest-src 'self'",
+].join("; ");
 
-if (updated === toml) {
-  console.error("update-csp-hashes: failed to locate script-src directive in netlify.toml");
-  process.exit(1);
+const block = `
+/*
+  Content-Security-Policy: ${csp}
+`;
+
+// Append (don't overwrite) so any future _headers entries Astro emits survive.
+if (existsSync(headersPath)) {
+  appendFileSync(headersPath, block);
+} else {
+  writeFileSync(headersPath, block.trimStart());
 }
 
-writeFileSync(tomlPath, updated);
-console.log(`update-csp-hashes: wrote ${sorted.length} inline-script hashes to netlify.toml`);
+console.log(`update-csp-hashes: wrote dist/_headers CSP with ${sorted.length} inline-script hashes`);
 for (const h of sorted) console.log("  " + h);
