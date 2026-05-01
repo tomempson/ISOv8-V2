@@ -31,6 +31,7 @@ interface Props {
   h2?: string;
   h3?: string;
   sectionName?: string;
+  showBreadcrumbs?: boolean;
   publishedDate?: string;
   tocItems?: TocItem[];
   backHref?: string;
@@ -48,6 +49,7 @@ const {
   h2,
   h3,
   sectionName,
+  showBreadcrumbs = false,
   publishedDate,
   tocItems = [],
   backHref = "/",
@@ -123,8 +125,8 @@ const hasSidebar = Astro.slots.has("sidebar");
                 </p>
               )}
 
-              {visibleBreadcrumbs.length > 0 && (
-                <nav aria-label="Breadcrumb" class="max-w-5xl text-[1.125rem] font-[400] leading-[1.5]">
+              {showBreadcrumbs && visibleBreadcrumbs.length > 0 && (
+                <nav aria-label="Breadcrumb" class="!mt-10 max-w-5xl text-[1.125rem] font-[400] leading-[1.5] lg:!mt-12">
                   <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
                     {visibleBreadcrumbs.map((crumb, idx) => {
                       const isLast = idx === visibleBreadcrumbs.length - 1;
