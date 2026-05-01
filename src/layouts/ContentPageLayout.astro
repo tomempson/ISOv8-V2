@@ -30,6 +30,7 @@ interface Props {
   h1: string;
   h2?: string;
   h3?: string;
+  sectionName?: string;
   publishedDate?: string;
   tocItems?: TocItem[];
   backHref?: string;
@@ -46,6 +47,7 @@ const {
   h1,
   h2,
   h3,
+  sectionName,
   publishedDate,
   tocItems = [],
   backHref = "/",
@@ -64,6 +66,10 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [breadcrumbJsonLd(resolvedBreadcrumbs), ...jsonLdExtra],
 };
+
+const visibleBreadcrumbs: BreadcrumbEntry[] = resolvedBreadcrumbs.filter(
+  (crumb) => crumb.name !== "Home",
+);
 
 const hasToc = tocItems.length > 0;
 const hasSidebar = Astro.slots.has("sidebar");
@@ -94,21 +100,54 @@ const hasSidebar = Astro.slots.has("sidebar");
           />
 
           <div class="absolute inset-0 pl-[48px] pr-8 text-left text-black">
-            <div class="absolute left-[48px] top-1/2 max-w-5xl -translate-y-1/2">
-              <h1 class="max-w-4xl text-[2.625rem] font-[600] leading-[1.08]">
+            <div class="absolute left-[48px] top-1/2 max-w-5xl -translate-y-1/2 space-y-4 lg:space-y-5">
+              {h3 && (
+                <p class="max-w-4xl text-[1.3125rem] font-[400] leading-[1.5]">
+                  {h3}
+                </p>
+              )}
+
+              {sectionName && (
+                <span class="block max-w-4xl text-[1.5rem] font-[700] leading-[1.5]">
+                  ISOv8® by Containerking® - {sectionName}
+                </span>
+              )}
+
+              <h1 class="text-[2.625rem] font-[600] leading-[1.08]">
                 {h1}
               </h1>
 
               {h2 && (
-                <p class="mt-10 max-w-5xl text-[1.3125rem] font-[400] leading-[1.5] lg:mt-12">
+                <p class="max-w-5xl text-[1.3125rem] font-[400] italic leading-[1.5]">
                   {h2}
                 </p>
               )}
 
-              {h3 && (
-                <p class="mt-10 max-w-4xl text-[1.3125rem] font-[400] leading-[1.5] lg:mt-12">
-                  {h3}
-                </p>
+              {visibleBreadcrumbs.length > 0 && (
+                <nav aria-label="Breadcrumb" class="max-w-5xl text-[1.125rem] font-[400] leading-[1.5]">
+                  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    {visibleBreadcrumbs.map((crumb, idx) => {
+                      const isLast = idx === visibleBreadcrumbs.length - 1;
+                      const href = crumb.item
+                        ? crumb.item.startsWith(SITE_ORIGIN)
+                          ? crumb.item.slice(SITE_ORIGIN.length) || "/"
+                          : crumb.item
+                        : undefined;
+                      return (
+                        <li class="flex items-center gap-2">
+                          {idx > 0 && <span aria-hidden="true">/</span>}
+                          {isLast || !href ? (
+                            <span aria-current={isLast ? "page" : undefined}>{crumb.name}</span>
+                          ) : (
+                            <a href={href} class="underline-offset-4 transition-colors hover:text-brand hover:underline">
+                              {crumb.name}
+                            </a>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </nav>
               )}
             </div>
           </div>
